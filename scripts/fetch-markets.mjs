@@ -6,7 +6,8 @@ const OUT = "data/markets.json";
 const KALSHI = "https://api.elections.kalshi.com/trade-api/v2";
 const POLY = "https://gamma-api.polymarket.com";
 const prev = fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, "utf8")) : {};
-const log = (...a) => console.log(...a);
+const ERR = [];
+const log = (...a) => { console.log(...a); if (/miss/.test(a[0]) && ERR.length < 40) ERR.push(a.join(" ")); };
 
 async function getJSON(url) {
   const r = await fetch(url, { headers: { accept: "application/json", "user-agent": "hilltop-election-desk" } });
@@ -35,8 +36,15 @@ const lastName = (n) => n.split(" ").filter((w) => !/^(III|II|Jr\.?)$/.test(w)).
 async function kalshi(tickers, cands) {
   for (const t of tickers || []) {
     try {
-      const j = await getJSON(`${KALSHI}/events/${encodeURIComponent(t)}?with_nested_markets=true`);
-      const markets = j.markets || (j.event && j.event.markets) || [];
+      let markets = [];
+      try {
+        const j = await getJSON(`${KALSHI}/events/${encodeURIComponent(t)}?with_nested_markets=true`);
+        markets = j.markets || (j.event && j.event.markets) || [];
+      } catch (e) { log("kalshi miss events", t, e.message); }
+      if (!markets.length) {
+        const j2 = await getJSON(`${KALSHI}/markets?event_ticker=${encodeURIComponent(t)}&limit=50`);
+        markets = j2.markets || [];
+      }
       const out = {};
       for (const m of markets) {
         const p = kPrice(m); if (p == null) continue;
@@ -97,5 +105,5 @@ for (const [id, r] of Object.entries(MAP.races)) {
 const history = (prev.history || []).concat([{ t: now,
   sk: control.senate.kalshi?.D ?? null, sp: control.senate.polymarket?.D ?? null,
   hk: control.house.kalshi?.D ?? null, hp: control.house.polymarket?.D ?? null }]).slice(-2000);
-fs.writeFileSync(OUT, JSON.stringify({ updatedAt: now, control, races, history }, null, 1));
+fs.writeFileSync(OUT, JSON.stringify({ updatedAt: now, control, races, history, errors: ERR }, null, 1));
 log("wrote", OUT);
