@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793312105045,
+ "updatedAt": 1793312245950,
  "control": {
   "senate": {
    "kalshi": {
@@ -15,8 +15,8 @@
   },
   "house": {
    "kalshi": {
+    "R": 0.0835,
     "D": 0.9165000000000001,
-    "R": 0.08549999999999999,
     "src": "CONTROLH-2026"
    },
    "polymarket": {
@@ -35,7 +35,7 @@
    },
    "polymarket": {
     "D": 0.925,
-    "R": 0.065,
+    "R": 0.07,
     "src": "arizona-governor-winner-2026"
    }
   },
@@ -53,8 +53,8 @@
   },
   "gov-ga": {
    "kalshi": {
-    "D": 0.615,
     "R": 0.385,
+    "D": 0.615,
     "src": "GOVPARTYGA-26"
    },
    "polymarket": {
@@ -65,8 +65,8 @@
   },
   "gov-ia": {
    "kalshi": {
-    "R": 0.135,
     "D": 0.865,
+    "R": 0.14500000000000002,
     "src": "GOVPARTYIA-26"
    },
    "polymarket": {
@@ -101,7 +101,7 @@
    "kalshi": null,
    "polymarket": {
     "D": 0.072,
-    "R": 0.9295,
+    "R": 0.93,
     "src": "new-hampshire-governor-winner-2026"
    }
   },
@@ -119,8 +119,8 @@
   },
   "gov-oh": {
    "kalshi": {
-    "R": 0.195,
     "D": 0.805,
+    "R": 0.195,
     "src": "GOVPARTYOH-26"
    },
    "polymarket": {
@@ -167,8 +167,8 @@
   },
   "sen-ga": {
    "kalshi": {
+    "D": 0.9584999999999999,
     "R": 0.041,
-    "D": 0.958,
     "src": "SENATEGA-26"
    },
    "polymarket": {
@@ -192,7 +192,7 @@
   "sen-ks": {
    "kalshi": {
     "D": 0.495,
-    "R": 0.51,
+    "R": 0.515,
     "src": "SENATEKS-26"
    },
    "polymarket": {
@@ -203,8 +203,8 @@
   },
   "sen-me": {
    "kalshi": {
-    "R": 0.385,
     "D": 0.635,
+    "R": 0.385,
     "src": "SENATEME-26"
    },
    "polymarket": {
@@ -215,8 +215,8 @@
   },
   "sen-mi": {
    "kalshi": {
-    "R": 0.255,
     "D": 0.745,
+    "R": 0.255,
     "src": "SENATEMI-26"
    },
    "polymarket": {
@@ -239,8 +239,8 @@
   },
   "sen-nc": {
    "kalshi": {
-    "D": 0.9664999999999999,
     "R": 0.034,
+    "D": 0.9664999999999999,
     "src": "SENATENC-26"
    },
    "polymarket": {
@@ -251,8 +251,8 @@
   },
   "sen-ne": {
    "kalshi": {
-    "R": 0.695,
     "D": 0.0025,
+    "R": 0.695,
     "I": 0.305,
     "src": "SENATENE-26"
    },
@@ -265,7 +265,7 @@
   },
   "sen-nh": {
    "kalshi": {
-    "R": 0.091,
+    "R": 0.092,
     "D": 0.9095,
     "src": "SENATENH-26"
    },
@@ -277,8 +277,8 @@
   },
   "sen-oh": {
    "kalshi": {
-    "R": 0.305,
     "D": 0.685,
+    "R": 0.305,
     "src": "SENATEOHS-26"
    },
    "polymarket": {
@@ -315,14 +315,14 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.9605,
-    "D": 0.041,
+    "D": 0.0415,
     "src": "tx-05-house-election-winner"
    }
   },
   "tx-06": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.97,
+    "R": 0.973,
     "D": 0.021,
     "src": "tx-06-house-election-winner"
    }
@@ -339,7 +339,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.019,
-    "D": 0.967,
+    "D": 0.968,
     "src": "tx-30-house-election-winner"
    }
   },
@@ -407,7 +407,7 @@
    "kalshi": null,
    "polymarket": {
     "D": 0.545,
-    "R": 0.43,
+    "R": 0.425,
     "src": "texas-railroad-commissioner-election-winner-2026"
    }
   }
@@ -1063,8 +1063,40 @@
    "sp": 0.675,
    "hk": 0.9165000000000001,
    "hp": 0.925
+  },
+  {
+   "t": 1793312245950,
+   "sk": 0.675,
+   "sp": 0.675,
+   "hk": 0.9165000000000001,
+   "hp": 0.925
   }
  ],
+ "outside": {
+  "sen-tx": {
+   "src": "VoteHub",
+   "by": "Zachary Donnini / VoteHub",
+   "t": 1793308140566,
+   "asOf": "Oct. 29",
+   "basis": "Modeled early vote, day 10",
+   "ranges": [
+    {
+     "name": "James Talarico",
+     "lo": 45,
+     "hi": 54.6
+    },
+    {
+     "name": "Ken Paxton",
+     "lo": 43.2,
+     "hi": 52.8
+    }
+   ],
+   "rating": "Lean D",
+   "total": 5987623,
+   "turnout": 9767737,
+   "url": "https://bsky.app/profile/votehub.com/post/3mz26ffbvaa2b"
+  }
+ },
  "errors": [
   "kalshi miss events GOVPARTYKS-26 404 https://api.elections.kalshi.com/trade-api/v2/events/GOVPARTYKS-26?with_nested_markets=true",
   "kalshi miss events KXGOVPARTYKS-26 404 https://api.elections.kalshi.com/trade-api/v2/events/KXGOVPARTYKS-26?with_nested_markets=true",
