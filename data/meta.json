@@ -155,6 +155,43 @@
   {
    "title": "NBC DFW: Dallas County House races",
    "url": "https://www.nbcdfw.com/news/politics/lone-star-politics/dallas-county-races-2026-midterm-election/4093575/"
+  },
+  {
+   "title": "Texas early vote by county (TexPolls, from Texas SOS)",
+   "url": "https://texpolls.com/turnout"
+  },
+  {
+   "title": "Texas Tribune: first week of early voting",
+   "url": "https://www.texastribune.org/2026/10/27/texas-early-voting-2026-election/"
   }
- ]
+ ],
+ "turnout": {
+  "tx": {
+   "label": "Texas",
+   "ev": 5664689,
+   "inPerson": 5437603,
+   "mail": 227086,
+   "asOf": "Oct. 27",
+   "evDay": 9,
+   "evDays": 12,
+   "reg": 19041684,
+   "ev2022": 5497027,
+   "total2022": 8102908,
+   "inPersonSameDay2022": 3526753,
+   "hist": {
+    "D": 0.35,
+    "R": 0.33,
+    "asOf": "Oct. 25"
+   }
+  },
+  "dallas": {
+   "label": "Dallas County",
+   "ev": 459285,
+   "asOf": "Oct. 27",
+   "evDay": 9,
+   "evDays": 12,
+   "regPct": 0.307,
+   "regPct2022": 0.193
+  }
+ }
 }

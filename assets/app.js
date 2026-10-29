@@ -163,6 +163,7 @@
       if(m.mode==="live"&&r<0.995){const L=m.est.leader;foot+=`<div class="note">Desk estimate of final margin: ${esc(last(race.cands[L].n))} +${Math.abs(m.est.margin).toFixed(1)} points, with roughly ${fmt(Math.round((tot/r-tot)/1000)*1000)} votes left to count.</div>`}
     }else{foot=`<div class="rfoot"><span>${m.probs?"Hilltop forecast: "+(typeof race.pre==="number"?"Decision Desk HQ":race.rating?"race rating":"")+(mkP(race).some(x=>x!=null)?(race.pre!=null||race.rating?" + ":"")+"prediction markets":""):"No published forecast for this race"}</span></div>`}
     {const [k,p]=mkP(race);const c0=race.cands[0];if(k!=null||p!=null)foot+=`<div class="mline"><span class="mlbl">Markets</span>${k!=null?`<span>Kalshi: ${esc(last(c0.n))} <b>${pct(k)}</b></span>`:""}${p!=null?`<span>Polymarket: ${esc(last(c0.n))} <b>${pct(p)}</b></span>`:""}</div>`}
+    if(race.groups.includes("texas")&&race.called==null){const P=project(race);if(P.total&&P.mode!=="none"){foot+=`<div class="mline"><span class="mlbl">Projected</span><span>${esc(last(race.cands[0].n))} ≈ <b>${fmtM(P.total*P.s0/100)}</b> (${P.s0.toFixed(1)}%)</span><span>${esc(last(race.cands[1].n))} ≈ <b>${fmtM(P.total*P.s1/100)}</b> (${P.s1.toFixed(1)}%)</span></div>`}}
     if(race.note)foot+=`<div class="note">${esc(race.note)}</div>`;
     art.innerHTML=head+`<table><thead>${thead}</thead><tbody>${rows}</tbody></table>`+foot;
     return art;
@@ -210,7 +211,68 @@
     svg+=`<text x="${L}" y="${H-9}" ${font} fill="var(--muted)">${dfmt(t0)}</text><text x="${W-Rp}" y="${H-9}" text-anchor="end" ${font} fill="var(--muted)">${dfmt(t1)}</text>`;
     box.innerHTML=svg+"</svg>";
   }
-  function renderAll(){renderStatus();renderBop();renderMap();renderSections();renderChart()}
+
+  // ---------- projections ----------
+  const fmtM=n=>n==null?"—":n>=1e6?(n/1e6).toFixed(2)+"M":n>=1e3?Math.round(n/1e3)+"K":Math.round(n)+"";
+  function txTurnout(){
+    const t=meta&&meta.turnout&&meta.turnout.tx;if(!t)return null;
+    const left=Math.max(0,t.evDays-t.evDay),pace=t.ev/t.evDay;
+    const evFinal=t.ev+pace*left*1.05,evLo=t.ev+pace*left*0.85,evHi=t.ev+pace*left*1.25;
+    const share=t.ev2022/t.total2022; // 2022: share of all votes cast early
+    return{t,evFinal,total:evFinal/share,lo:evLo/Math.min(.8,share+.06),hi:evHi/Math.max(.55,share-.06),share};
+  }
+  function project(race){
+    const m=model(race);const n=race.cands.length;const tot=race.votes?race.votes.reduce((a,b)=>a+(b||0),0):0;const r=race.r||0;
+    const statewide=race.groups.includes("texas");
+    if(m.mode==="called"||(tot&&r>=0.995)){const sh=race.votes.map(v=>(v||0)/tot*100);return{mode:"final",s0:sh[0],s1:sh[1],lo:sh[0],hi:sh[0],total:tot,tlo:tot,thi:tot,m}}
+    if(m.mode==="live"){
+      const L=m.est.leader;const m0=(L===0?1:L===1?-1:0)*m.est.margin;const sd=Math.sqrt(Math.pow((1-r)*(7+6*r),2)+0.25);
+      const total=tot/r;return{mode:"live",s0:50+m0/2,s1:50-m0/2,lo:50+(m0-1.645*sd)/2,hi:50+(m0+1.645*sd)/2,total,tlo:total*(1-(1-r)*0.12),thi:total*(1+(1-r)*0.12),m}
+    }
+    const p=prior(race);if(p==null)return{mode:"none",m};
+    const m0=probit(p)*7;const tt=statewide?txTurnout():null;
+    return{mode:"pre",s0:50+m0/2,s1:50-m0/2,lo:50+(m0-1.645*7)/2,hi:50+(m0+1.645*7)/2,total:tt?tt.total:null,tlo:tt?tt.lo:null,thi:tt?tt.hi:null,m};
+  }
+  let projId="sen-tx";try{const s=localStorage.getItem("hed-proj");if(s)projId=s}catch(e){}
+  function renderProj(){
+    const sel=$("projSel");if(!races.length)return;
+    if(!sel.options.length||sel.options.length!==races.length){
+      const order=[...races].sort((a,b)=>{const g=x=>x.groups.includes("texas")?0:x.groups.includes("senate")?1:x.groups.includes("governor")?2:3;return g(a)-g(b)||(a.order||0)-(b.order||0)});
+      sel.innerHTML=order.map(r=>{const lab=r.groups.includes("texas")&&(r.id==="sen-tx"||r.id==="tx-gov")?("Texas "+(r.id==="sen-tx"?"U.S. Senate":"Governor")):r.groups.includes("texas")?"Texas "+r.title:r.groups.includes("dfw")?r.title+" (U.S. House)":r.title+" "+(r.groups.includes("senate")?"Senate":"Governor");return`<option value="${r.id}">${esc(lab)}</option>`}).join("");
+      sel.onchange=()=>{projId=sel.value;try{localStorage.setItem("hed-proj",projId)}catch(e){}renderProj()};
+    }
+    const race=races.find(r=>r.id===projId)||races.find(r=>r.id==="sen-tx")||races[0];sel.value=race.id;
+    const P=project(race);const c0=race.cands[0],c1=race.cands[1];
+    $("projTitle").textContent=sel.options[sel.selectedIndex]?sel.options[sel.selectedIndex].text:race.title;
+    $("projBasis").textContent=P.mode==="live"?"Live projection from votes counted so far":P.mode==="final"?"Final count":"Before votes are counted: Hilltop forecast and early-vote turnout";
+    if(P.mode==="none"){$("projNames").innerHTML="";$("projBar").innerHTML="";$("projStats").innerHTML="";$("projNote").textContent="No published forecast or market for this race yet. A projection appears once votes are counted.";return}
+    const v0=P.total!=null?P.total*P.s0/100:null,v1=P.total!=null?P.total*P.s1/100:null;
+    $("projNames").innerHTML=`<div class="pn"><div class="pv" style="color:${PC[c0.p]}">${P.s0.toFixed(1)}%</div><div class="pl">${esc(c0.n)} (${c0.p})</div><div class="pc">${v0!=null?"≈ "+fmtM(v0)+" votes":""}</div></div><div class="pn"><div class="pv" style="color:${PC[c1.p]}">${P.s1.toFixed(1)}%</div><div class="pl">${esc(c1.n)} (${c1.p})</div><div class="pc">${v1!=null?"≈ "+fmtM(v1)+" votes":""}</div></div>`;
+    const X=s=>Math.max(0,Math.min(100,(s-40)/20*100)); // 40–60% scale
+    const split=X(P.s0),bl=X(Math.min(P.lo,P.hi)),bh=X(Math.max(P.lo,P.hi));
+    $("projBar").innerHTML=`<div class="a" style="left:0;width:${split}%;background:${PC[c0.p]}"></div><div class="b" style="left:${split}%;right:0;background:${PC[c1.p]}"></div>${P.mode!=="final"?`<div class="band" style="left:${bl}%;width:${Math.max(.5,bh-bl)}%" title="90% range"></div>`:""}<div class="mid"></div>`;
+    const [k,pm]=mkP(race);const wp=P.m.probs?P.m.probs[0]:null;
+    const lead=P.s0>=P.s1?c0:c1,mg=Math.abs(P.s0-P.s1);
+    let st=`<div><div class="k">Projected margin</div><div class="v" style="color:${PC[lead.p]}">${esc(last(lead.n))} +${mg.toFixed(1)}</div><div class="s">90% range: ${esc(last(c0.n))} ${(Math.min(P.lo,P.hi)*2-100>=0?"+":"")}${(Math.min(P.lo,P.hi)*2-100).toFixed(1)} to ${(Math.max(P.lo,P.hi)*2-100>=0?"+":"")}${(Math.max(P.lo,P.hi)*2-100).toFixed(1)}</div></div>`;
+    st+=`<div><div class="k">Projected turnout</div><div class="v">${P.total!=null?fmtM(P.total):"—"}</div><div class="s">${P.total!=null?(P.mode==="final"?"Final count":fmtM(P.tlo)+" – "+fmtM(P.thi)):"Turnout projection is available for Texas statewide races"}</div></div>`;
+    st+=`<div><div class="k">Win chance · ${esc(last(c0.n))}</div><div class="v">${wp!=null?pct(wp):"—"}</div><div class="s">${k!=null?"Kalshi "+pct(k):""}${k!=null&&pm!=null?" · ":""}${pm!=null?"Polymarket "+pct(pm):""}</div></div>`;
+    if(P.mode==="live")st+=`<div><div class="k">Counted so far</div><div class="v">${Math.round((race.r||0)*100)}%</div><div class="s">${fmtM(P.m.est.tot)} votes of ≈ ${fmtM(P.total)}</div></div>`;
+    $("projStats").innerHTML=st;
+    $("projNote").textContent=P.mode==="pre"?"Two-way vote share. Before polls close, the share comes from the Hilltop forecast (Decision Desk HQ plus Kalshi and Polymarket) and the turnout from Texas early-vote pace. The hatched band is the 90% range.":P.mode==="live"?"Two-way vote share, updated with every results report. The hatched band is the 90% range; it narrows as more of the vote is counted.":"Final two-way vote share.";
+  }
+  function renderEV(){
+    const box=$("evCard");const T=meta&&meta.turnout;if(!T||!T.tx){box.innerHTML="";return}
+    const t=T.tx,tt=txTurnout(),d=T.dallas;
+    const pctReg=t.ev/t.reg;const projPct=tt.total/t.reg;
+    let h=`<h3>Texas early vote</h3><div class="evbig">${t.ev.toLocaleString("en-US")}</div><div class="evsub">ballots cast through ${esc(t.asOf)}, day ${t.evDay} of ${t.evDays} · ${(pctReg*100).toFixed(1)}% of ${(t.reg/1e6).toFixed(1)}M registered voters</div>`;
+    h+=`<div class="evbar" role="img" aria-label="Early vote versus projected turnout"><b style="left:0;width:${Math.min(100,projPct*100)}%"></b><i style="width:${pctReg*100}%"></i><span class="tick" style="left:${t.total2022/t.reg*100}%" title="2022 total turnout"></span></div>`;
+    h+=`<div class="evrow"><span><b style="color:var(--smu-blue)">■</b> Voted early ${(pctReg*100).toFixed(1)}%</span><span><b style="color:var(--dem-3)">■</b> Projected final ${(projPct*100).toFixed(0)}% (≈ ${fmtM(tt.total)})</span><span>| 2022 total: ${fmtM(t.total2022)}</span></div>`;
+    h+=`<div class="evblock"><div class="evrow"><span>Early vote already tops all of 2022 early voting (${fmtM(t.ev2022)}).</span></div><div class="evrow" style="margin-top:4px"><span>Projected early total: <b>${fmtM(tt.evFinal)}</b></span><span>Projected Election Day: <b>${fmtM(tt.total-tt.evFinal)}</b></span></div></div>`;
+    if(t.hist){const o=Math.max(0,1-t.hist.D-t.hist.R);h+=`<div class="evblock"><div class="mlbl">Early voters by past primary (${esc(t.hist.asOf)})</div><div class="evsplit"><div style="width:${t.hist.D*100}%;background:var(--dem)"></div><div style="width:${o*100}%;background:var(--neutral-2)"></div><div style="width:${t.hist.R*100}%;background:var(--rep)"></div></div><div class="evrow"><span>Dem. primary ${Math.round(t.hist.D*100)}%</span><span>Neither ${Math.round(o*100)}%</span><span>GOP primary ${Math.round(t.hist.R*100)}%</span></div><p class="note">Texas has no party registration. This shows which primary early voters last took part in, not how they voted.</p></div>`}
+    if(d)h+=`<div class="evblock"><div class="evrow"><span><b>${esc(d.label)}</b></span><span>${d.ev.toLocaleString("en-US")} early ballots</span></div><div class="evbar"><i style="width:${d.regPct*100}%"></i><span class="tick" style="left:${d.regPct2022*100}%"></span></div><div class="evrow"><span>${(d.regPct*100).toFixed(1)}% of registered voters</span><span>| Same point in 2022: ${(d.regPct2022*100).toFixed(1)}%</span></div></div>`;
+    box.innerHTML=h;
+  }
+  function renderAll(){renderStatus();renderBop();renderProj();renderEV();renderMap();renderSections();renderChart()}
   document.querySelectorAll("nav.sections button").forEach(t=>t.addEventListener("click",()=>{group=t.dataset.g;try{localStorage.setItem("hed-tab",group)}catch(e){}renderSections();document.getElementById("sections").scrollIntoView({behavior:"smooth",block:"start"})}));
   setInterval(renderStatus,30000);
   let rt;window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(renderChart,200)});
