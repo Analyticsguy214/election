@@ -82,11 +82,23 @@
   }
 
   // ---------- render ----------
+  let lastCheck=0;
+  function ago(t){const s=Math.max(0,Math.round((Date.now()-t)/1000));return s<60?s+" sec ago":s<3600?Math.round(s/60)+" min ago":new Date(t).toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit",timeZone:"America/Chicago"})+" CT"}
+  function renderFresh(){
+    const el=$("updated");if(!el)return;const st=(meta&&meta.status)||"pre";
+    const oddsT=Math.max((MK&&MK.livePM)||0,(MK&&MK.updatedAt)||0);
+    let h="";
+    if(oddsT)h+=`<b>Odds updated</b> ${ago(oddsT)}`;
+    h+=st==="pre"?` · <b>Results</b> begin when polls close`:(meta&&meta.updatedAt?` · <b>Results updated</b> ${ago(meta.updatedAt)}`:"");
+    if(lastCheck)h+=` · <span class="muted">checked ${ago(lastCheck)}</span>`;
+    el.innerHTML=h||"Loading…";
+  }
+  setInterval(renderFresh,5000);
   function renderStatus(){
     const st=(meta&&meta.status)||"pre";
     $("livePill").className="live"+(st==="live"?"":" off");
     $("liveText").textContent=st==="live"?"Live":st==="final"?"Results":"Pre-election";
-    $("updated").innerHTML=meta&&meta.updatedAt?"<b>Updated</b> "+new Date(meta.updatedAt).toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit",timeZone:"America/Chicago"})+" CT":"Loading results…";
+    renderFresh();
     const diff=CLOSE-Date.now();
     if(st==="pre"&&diff>0){const d=Math.floor(diff/864e5),h=Math.floor(diff%864e5/36e5),m=Math.floor(diff%36e5/6e4);$("countdown").textContent="Texas polls close in "+(d?d+" days, ":"")+h+" hr "+m+" min";}
     else $("countdown").textContent=(meta&&meta.note)||"";
@@ -339,7 +351,7 @@
       const nr=await r.json(),nm=await m.json(),nk=k.ok?await k.json():MK;
       const sig=JSON.stringify([nm.updatedAt,nk&&nk.updatedAt,nr.length,nr.map(x=>(x.snaps||[]).length+":"+x.called)]);
       if(sig!==load.sig){load.sig=sig;races=nr;meta=nm;MK=nk;renderAll()}
-      $("notice").hidden=true;
+      lastCheck=Date.now();renderFresh();$("notice").hidden=true;
     }catch(e){const n=$("notice");if(races.length){n.hidden=false;n.textContent="Having trouble reaching the results server. Retrying automatically."}}
   }
 
@@ -361,7 +373,7 @@
       const ctl=MK.control||{};let changed=false;
       for(const k of ["senate","house"]){const s=ctl[k]&&ctl[k].polymarket&&ctl[k].polymarket.src;if(!s)continue;const o=await pmEvent(s,[]);if(o){ctl[k].polymarket=o;changed=true}}
       if(pmTick++%2===0&&MK.races){const ids=Object.keys(MK.races);await Promise.all(ids.map(async id=>{const pm=MK.races[id].polymarket;if(!pm||!pm.src)return;const race=races.find(r=>r.id===id);try{const o=await pmEvent(pm.src,race?race.cands:[]);if(o){MK.races[id].polymarket=o;changed=true}}catch(x){}}))}
-      if(changed){const now=Date.now();MK.livePM=now;(MK.history=MK.history||[]).push({t:now,sk:null,sp:ctl.senate&&ctl.senate.polymarket?ctl.senate.polymarket.D:null,hk:null,hp:ctl.house&&ctl.house.polymarket?ctl.house.polymarket.D:null});renderAll()}
+      if(changed){const now=Date.now();MK.livePM=now;lastCheck=now;(MK.history=MK.history||[]).push({t:now,sk:null,sp:ctl.senate&&ctl.senate.polymarket?ctl.senate.polymarket.D:null,hk:null,hp:ctl.house&&ctl.house.polymarket?ctl.house.polymarket.D:null});renderAll()}
     }catch(x){pmOK=false}
   }
   setInterval(pmLive,30000);setTimeout(pmLive,4000);
