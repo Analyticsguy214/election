@@ -1,6 +1,7 @@
 // Pulls Kalshi + Polymarket odds for every tracked race and writes data/markets.json.
 // Runs in GitHub Actions every 5 minutes. Read-only public endpoints; no API keys.
 import fs from "node:fs";
+import { fetchVoteHub } from "./fetch-votehub.mjs";
 const MAP = JSON.parse(fs.readFileSync("scripts/market-map.json", "utf8"));
 const OUT = "data/markets.json";
 const KALSHI = "https://api.elections.kalshi.com/trade-api/v2";
@@ -105,5 +106,8 @@ for (const [id, r] of Object.entries(MAP.races)) {
 const history = (prev.history || []).concat([{ t: now,
   sk: control.senate.kalshi?.D ?? null, sp: control.senate.polymarket?.D ?? null,
   hk: control.house.kalshi?.D ?? null, hp: control.house.polymarket?.D ?? null }]).slice(-2000);
-fs.writeFileSync(OUT, JSON.stringify({ updatedAt: now, control, races, history, errors: ERR }, null, 1));
+let outside = prev.outside || {};
+try { const vh = await fetchVoteHub(); if (Object.keys(vh).length) outside = { ...outside, ...vh }; log("votehub", Object.keys(vh).join(",") || "none"); }
+catch (e) { log("votehub miss", e.message); }
+fs.writeFileSync(OUT, JSON.stringify({ updatedAt: now, control, races, history, outside, errors: ERR }, null, 1));
 log("wrote", OUT);

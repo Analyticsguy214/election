@@ -234,6 +234,12 @@
     const share=t.ev2022/t.total2022; // 2022: share of all votes cast early
     return{t,evFinal,total:evFinal/share,lo:evLo/Math.min(.8,share+.06),hi:evHi/Math.max(.55,share-.06),share};
   }
+  function outsideFor(race){
+    const auto=(MK&&MK.outside&&MK.outside[race.id])||null,man=(meta&&meta.outside&&meta.outside[race.id])||[];
+    const norm=o=>{if(!o)return null;if(o.c0)return o;const R=o.ranges||[];const f=c=>{const r=R.find(x=>x.name.toLowerCase().includes(last(c.n).toLowerCase()));return r?[r.lo,r.hi]:null};const c0=race.cands[0]?f(race.cands[0]):null,c1=race.cands[1]?f(race.cands[1]):null;return c0&&c1?{...o,c0,c1}:null};
+    if(auto){const a=norm(auto);if(a)return[a,...man.filter(m=>m.src!==a.src)]}
+    return man;
+  }
   function project(race){
     const m=model(race);const n=race.cands.length;const tot=race.votes?race.votes.reduce((a,b)=>a+(b||0),0):0;const r=race.r||0;
     const statewide=race.groups.includes("texas");
@@ -244,7 +250,7 @@
     }
     const p=prior(race);if(p==null)return{mode:"none",m};
     let m0=probit(p)*7;const tt=statewide?txTurnout():null;
-    const outs=(meta&&meta.outside&&meta.outside[race.id])||[];
+    const outs=outsideFor(race);
     const sh=outs.filter(o=>o.c0&&o.c1).map(o=>{const a=(o.c0[0]+o.c0[1])/2,b=(o.c1[0]+o.c1[1])/2;return (a-b)/(a+b)*100});
     if(sh.length)m0=(m0+sh.reduce((x,y)=>x+y,0))/(1+sh.length);
     let total=tt?tt.total:null,tlo=tt?tt.lo:null,thi=tt?tt.hi:null;
@@ -276,7 +282,7 @@
     st+=`<div><div class="k">Projected turnout</div><div class="v">${P.total!=null?fmtM(P.total):"—"}</div><div class="s">${P.total!=null?(P.mode==="final"?"Final count":fmtM(P.tlo)+" – "+fmtM(P.thi)):"Turnout projection is available for Texas statewide races"}</div></div>`;
     st+=`<div><div class="k">Win chance · ${esc(last(c0.n))}</div><div class="v">${wp!=null?pct(wp):"—"}</div><div class="s">${k!=null?"Kalshi "+pct(k):""}${k!=null&&pm!=null?" · ":""}${pm!=null?"Polymarket "+pct(pm):""}</div></div>`;
     if(P.mode==="live")st+=`<div><div class="k">Counted so far</div><div class="v">${Math.round((race.r||0)*100)}%</div><div class="s">${fmtM(P.m.est.tot)} votes of ≈ ${fmtM(P.total)}</div></div>`;
-    const outs=(meta&&meta.outside&&meta.outside[race.id])||[];
+    const outs=outsideFor(race);
     outs.forEach(o=>{st+=`<div style="grid-column:1/-1"><div class="k">${esc(o.src)} · ${esc(o.basis||"forecast")} (${esc(o.asOf)})</div><div class="v" style="font-size:15px">${o.c0?`<span style="color:${PC[c0.p]}">${esc(last(c0.n))} ${o.c0[0]}–${o.c0[1]}%</span> · <span style="color:${PC[c1.p]}">${esc(last(c1.n))} ${o.c1[0]}–${o.c1[1]}%</span>`:""}${o.rating?` · ${esc(o.rating)}`:""}</div><div class="s">${o.turnout?"Projected turnout ≈ "+fmtM(o.turnout)+" · ":""}<a href="${esc(o.url)}" target="_blank" rel="noopener">${esc(o.by||o.src)}</a></div></div>`});
     $("projStats").innerHTML=st;
     $("projNote").textContent=P.mode==="pre"?"Two-way vote share. Before polls close, the share averages the Hilltop forecast (Decision Desk HQ plus Kalshi and Polymarket)"+(outs.length?" with "+outs.map(o=>o.src).join(", ")+"\u2019s modeled early vote":"")+", and turnout comes from Texas early-vote pace"+(outs.some(o=>o.turnout)?" averaged with outside turnout projections":"")+". The hatched band is the 90% range.":P.mode==="live"?"Two-way vote share, updated with every results report. The hatched band is the 90% range; it narrows as more of the vote is counted.":"Final two-way vote share.";
