@@ -163,6 +163,10 @@
   {
    "title": "Texas Tribune: first week of early voting",
    "url": "https://www.texastribune.org/2026/10/27/texas-early-voting-2026-election/"
+  },
+  {
+   "title": "VoteHub Texas early-vote tracking (Zachary Donnini)",
+   "url": "https://x.com/VoteHub/status/2114508478668472436"
   }
  ],
  "turnout": {
@@ -193,5 +197,26 @@
    "regPct": 0.307,
    "regPct2022": 0.193
   }
+ },
+ "outside": {
+  "sen-tx": [
+   {
+    "src": "VoteHub",
+    "by": "Zachary Donnini / VoteHub",
+    "asOf": "Oct. 24",
+    "basis": "Modeled early vote, day 5",
+    "c0": [
+     45.4,
+     54.9
+    ],
+    "c1": [
+     42.9,
+     52.4
+    ],
+    "rating": "Tilt D",
+    "turnout": 9684738,
+    "url": "https://x.com/VoteHub/status/2114508478668472436"
+   }
+  ]
  }
 }

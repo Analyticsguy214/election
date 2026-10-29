@@ -230,8 +230,14 @@
       const total=tot/r;return{mode:"live",s0:50+m0/2,s1:50-m0/2,lo:50+(m0-1.645*sd)/2,hi:50+(m0+1.645*sd)/2,total,tlo:total*(1-(1-r)*0.12),thi:total*(1+(1-r)*0.12),m}
     }
     const p=prior(race);if(p==null)return{mode:"none",m};
-    const m0=probit(p)*7;const tt=statewide?txTurnout():null;
-    return{mode:"pre",s0:50+m0/2,s1:50-m0/2,lo:50+(m0-1.645*7)/2,hi:50+(m0+1.645*7)/2,total:tt?tt.total:null,tlo:tt?tt.lo:null,thi:tt?tt.hi:null,m};
+    let m0=probit(p)*7;const tt=statewide?txTurnout():null;
+    const outs=(meta&&meta.outside&&meta.outside[race.id])||[];
+    const sh=outs.filter(o=>o.c0&&o.c1).map(o=>{const a=(o.c0[0]+o.c0[1])/2,b=(o.c1[0]+o.c1[1])/2;return (a-b)/(a+b)*100});
+    if(sh.length)m0=(m0+sh.reduce((x,y)=>x+y,0))/(1+sh.length);
+    let total=tt?tt.total:null,tlo=tt?tt.lo:null,thi=tt?tt.hi:null;
+    const ot=outs.map(o=>o.turnout).filter(Boolean);
+    if(ot.length){const all=(total?[total]:[]).concat(ot);total=all.reduce((x,y)=>x+y,0)/all.length;tlo=Math.min(tlo||Infinity,...ot);thi=Math.max(thi||0,...ot)}
+    return{mode:"pre",s0:50+m0/2,s1:50-m0/2,lo:50+(m0-1.645*7)/2,hi:50+(m0+1.645*7)/2,total,tlo,thi,m,outs};
   }
   let projId="sen-tx";try{const s=localStorage.getItem("hed-proj");if(s)projId=s}catch(e){}
   function renderProj(){
@@ -257,8 +263,10 @@
     st+=`<div><div class="k">Projected turnout</div><div class="v">${P.total!=null?fmtM(P.total):"—"}</div><div class="s">${P.total!=null?(P.mode==="final"?"Final count":fmtM(P.tlo)+" – "+fmtM(P.thi)):"Turnout projection is available for Texas statewide races"}</div></div>`;
     st+=`<div><div class="k">Win chance · ${esc(last(c0.n))}</div><div class="v">${wp!=null?pct(wp):"—"}</div><div class="s">${k!=null?"Kalshi "+pct(k):""}${k!=null&&pm!=null?" · ":""}${pm!=null?"Polymarket "+pct(pm):""}</div></div>`;
     if(P.mode==="live")st+=`<div><div class="k">Counted so far</div><div class="v">${Math.round((race.r||0)*100)}%</div><div class="s">${fmtM(P.m.est.tot)} votes of ≈ ${fmtM(P.total)}</div></div>`;
+    const outs=(meta&&meta.outside&&meta.outside[race.id])||[];
+    outs.forEach(o=>{st+=`<div style="grid-column:1/-1"><div class="k">${esc(o.src)} · ${esc(o.basis||"forecast")} (${esc(o.asOf)})</div><div class="v" style="font-size:15px">${o.c0?`<span style="color:${PC[c0.p]}">${esc(last(c0.n))} ${o.c0[0]}–${o.c0[1]}%</span> · <span style="color:${PC[c1.p]}">${esc(last(c1.n))} ${o.c1[0]}–${o.c1[1]}%</span>`:""}${o.rating?` · ${esc(o.rating)}`:""}</div><div class="s">${o.turnout?"Projected turnout ≈ "+fmtM(o.turnout)+" · ":""}<a href="${esc(o.url)}" target="_blank" rel="noopener">${esc(o.by||o.src)}</a></div></div>`});
     $("projStats").innerHTML=st;
-    $("projNote").textContent=P.mode==="pre"?"Two-way vote share. Before polls close, the share comes from the Hilltop forecast (Decision Desk HQ plus Kalshi and Polymarket) and the turnout from Texas early-vote pace. The hatched band is the 90% range.":P.mode==="live"?"Two-way vote share, updated with every results report. The hatched band is the 90% range; it narrows as more of the vote is counted.":"Final two-way vote share.";
+    $("projNote").textContent=P.mode==="pre"?"Two-way vote share. Before polls close, the share averages the Hilltop forecast (Decision Desk HQ plus Kalshi and Polymarket)"+(outs.length?" with "+outs.map(o=>o.src).join(", ")+"\u2019s modeled early vote":"")+", and turnout comes from Texas early-vote pace"+(outs.some(o=>o.turnout)?" averaged with outside turnout projections":"")+". The hatched band is the 90% range.":P.mode==="live"?"Two-way vote share, updated with every results report. The hatched band is the 90% range; it narrows as more of the vote is counted.":"Final two-way vote share.";
   }
   function renderEV(){
     const box=$("evCard");const T=meta&&meta.turnout;if(!T||!T.tx){box.innerHTML="";return}
@@ -277,6 +285,9 @@
   setInterval(renderStatus,30000);
   let rt;window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(renderChart,200)});
   renderAll();
+  const BUILD=(document.querySelector('meta[name="build"]')||{}).content||"";
+  async function checkBuild(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.json()).v;if(BUILD&&v&&v!==BUILD)location.reload()}catch(e){}}
+  setInterval(checkBuild,60000);
   const BASE="data/";
   async function load(){
     try{
