@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Hilltop Election Desk · 2026 Midterm Results</title>
+<meta name="description" content="Live 2026 midterm results, win probabilities and prediction-market odds for Congress, governors, Texas and Dallas County.">
+<meta property="og:title" content="Hilltop Election Desk">
+<meta property="og:description" content="Live 2026 midterm results, forecasts and prediction-market odds.">
+<meta name="theme-color" content="#354CA1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23354CA1'/%3E%3Crect y='26' width='32' height='6' fill='%23CC0035'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-weight='700' font-size='20' fill='white' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
+<link rel="stylesheet" href="assets/styles.css">
+<style>body{margin:0}</style>
+</head>
+<body>
+<div class="util"><div class="wrap"><span>General Election · <b>Tuesday, Nov. 3, 2026</b></span><span id="utilRight">Times are Central</span></div></div>
+<header class="mast">
+  <div class="wrap">
+    <a class="brand" href="#overview" aria-label="Hilltop Election Desk home"><span class="mark">H</span><span class="name"><small>Dallas · University Park</small>Hilltop Election Desk</span></a>
+    <nav class="sections" role="tablist" aria-label="Sections">
+      <button role="tab" data-g="all" id="tab-all">Overview</button>
+      <button role="tab" data-g="senate" id="tab-senate">Senate</button>
+      <button role="tab" data-g="governor" id="tab-governor">Governor</button>
+      <button role="tab" data-g="texas" id="tab-texas">Texas</button>
+      <button role="tab" data-g="dfw" id="tab-dfw">Dallas County</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap" style="padding-block:0">
+    <div class="hed">
+      <div class="kicker"><span class="live off" id="livePill"><i></i><span id="liveText">Pre-election</span></span><span>2026 Midterm Elections</span></div>
+      <h1>2026 Midterm Election Results and Forecast</h1>
+      <p class="dek">Live results for control of Congress, key governor races, every Texas statewide office and the Dallas County congressional races, with win probabilities updated as votes are counted.</p>
+      <div class="byline"><span id="updated">Loading results…</span><span id="countdown"></span></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="notice" id="notice" hidden></div>
+
+    <section aria-labelledby="bop-h">
+      <h2 class="slabel" id="bop-h">Balance of power <span id="bopNote">Pre-election forecast · results begin Nov. 3</span></h2>
+      <div class="bop">
+        <div class="chamber">
+          <h2>Senate <span>51 seats for Democratic control</span></h2>
+          <div class="tallies"><div class="tally d"><div class="n num" id="senDn">—</div><div class="l">Democrats*</div></div><div class="tally r"><div class="n num" id="senRn">—</div><div class="l">Republicans</div></div></div>
+          <div class="seats" id="senSeats" role="img" aria-label="Senate seats"></div>
+          <div class="legend" id="senLegend"></div>
+          <div class="prob"><span class="d-lbl">Dem <b id="senPD">—</b></span><div class="bar"><div id="senBD" style="background:var(--dem);width:50%"></div><div id="senBR" style="background:var(--rep);width:50%"></div></div><span>GOP <b id="senPR">—</b></span></div>
+          <div class="mkts" id="senMk"></div>
+        </div>
+        <div class="chamber">
+          <h2>House <span>218 seats for a majority</span></h2>
+          <div class="tallies"><div class="tally d"><div class="n num" id="houDn">—</div><div class="l">Democrats won</div></div><div class="tally r"><div class="n num" id="houRn">—</div><div class="l">Republicans won</div></div></div>
+          <div class="seats" id="houSeats" role="img" aria-label="House seats"></div>
+          <div class="legend" id="houLegend"></div>
+          <div class="prob"><span>Dem <b id="houPD">—</b></span><div class="bar"><div id="houBD" style="background:var(--dem);width:50%"></div><div id="houBR" style="background:var(--rep);width:50%"></div></div><span>GOP <b id="houPR">—</b></span></div>
+          <div class="mkts" id="houMk"></div>
+        </div>
+      </div>
+      <p class="note">*Includes independents Angus King and Bernie Sanders, who caucus with Democrats. The vice president breaks ties for Republicans. The bar shows the Hilltop forecast, which blends Decision Desk HQ with Kalshi and Polymarket and then updates with the vote count. It is an estimate, not a race call.</p>
+    </section>
+
+    <section aria-labelledby="map-h">
+      <h2 class="slabel" id="map-h">Senate map <span>35 seats on the ballot · select a state for results</span></h2>
+      <div class="mapgrid">
+        <div>
+          <div class="tilemap" id="tilemap"></div>
+          <div class="maplegend">
+            <span><i style="background:var(--dem)"></i>Dem won</span><span><i style="background:var(--dem-2)"></i>Dem favored</span>
+            <span><i style="background:var(--neutral-2)"></i>Toss-up</span><span><i style="background:var(--rep-2)"></i>GOP favored</span><span><i style="background:var(--rep)"></i>GOP won</span>
+            <span><i style="background:var(--neutral)"></i>No race</span>
+          </div>
+        </div>
+        <div class="chart">
+          <h3>Chance Democrats control each chamber</h3>
+          <p id="chartNote">Prediction-market prices over time, with the Hilltop forecast once results arrive. Solid lines are Kalshi, dashed are Polymarket.</p>
+          <div class="svgwrap" id="oddsChart"></div>
+        </div>
+      </div>
+    </section>
+
+    <div id="sections"></div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <h4>About these results</h4>
+      <p>Vote counts come from Associated Press tabulations as reported by news outlets, and from the Texas Secretary of State. A candidate is shown as the winner only after the AP declares the race.</p>
+      <p id="cadence">Prediction-market odds update about every five minutes. On election night, results update about every five to ten minutes from the first poll closings at 5 p.m. Central. This page checks for new data every 30 seconds, so there is no need to reload.</p>
+    </div>
+    <div>
+      <h4>How win chances work</h4>
+      <p>Before votes are counted, the Hilltop forecast averages the Decision Desk HQ forecast (or the race rating) with Kalshi and Polymarket prices. As votes come in, the counted margin is blended with that forecast, weighted by how much of the expected vote is in. Control of each chamber is estimated from 4,000 simulated outcomes that share a national swing.</p>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul id="sources"><li>Loading…</li></ul>
+    </div>
+  </div>
+</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

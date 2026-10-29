@@ -1,0 +1,775 @@
+{
+ "control": {
+  "senate": {
+   "kalshi": [
+    "CONTROLS-2026",
+    "KXCONTROLS-2026"
+   ],
+   "poly": [
+    "Which party will win the Senate in 2026",
+    "Senate control 2026"
+   ]
+  },
+  "house": {
+   "kalshi": [
+    "CONTROLH-2026",
+    "KXCONTROLH-2026"
+   ],
+   "poly": [
+    "Which party will win the House in 2026",
+    "House control 2026"
+   ]
+  }
+ },
+ "races": {
+  "gov-az": {
+   "kalshi": [
+    "GOVPARTYAZ-26",
+    "KXGOVPARTYAZ-26",
+    "KXGOVAZ-26"
+   ],
+   "poly": [
+    "Arizona Governor Election Winner",
+    "Arizona Governor 2026"
+   ],
+   "cands": [
+    {
+     "n": "Katie Hobbs",
+     "p": "D",
+     "inc": true
+    },
+    {
+     "n": "Andy Biggs",
+     "p": "R"
+    }
+   ]
+  },
+  "gov-fl": {
+   "kalshi": [
+    "GOVPARTYFL-26",
+    "KXGOVPARTYFL-26",
+    "KXGOVFL-26"
+   ],
+   "poly": [
+    "Florida Governor Election Winner",
+    "Florida Governor 2026"
+   ],
+   "cands": [
+    {
+     "n": "David Jolly",
+     "p": "D"
+    },
+    {
+     "n": "Byron Donalds",
+     "p": "R"
+    }
+   ]
+  },
+  "gov-ga": {
+   "kalshi": [
+    "GOVPARTYGA-26",
+    "KXGOVPARTYGA-26",
+    "KXGOVGA-26"
+   ],
+   "poly": [
+    "Georgia Governor Election Winner",
+    "Georgia Governor 2026"
+   ],
+   "cands": [
+    {
+     "n": "Keisha Lance Bottoms",
+     "p": "D"
+    },
+    {
+     "n": "Rick Jackson",
+     "p": "R"
+    }
+   ]
+  },
+  "gov-ia": {
+   "kalshi": [
+    "GOVPARTYIA-26",
+    "KXGOVPARTYIA-26",
+    "KXGOVIA-26"
+   ],
+   "poly": [
+    "Iowa Governor Election Winner",
+    "Iowa Governor 2026"
+   ],
+   "cands": [
+    {
+     "n": "Rob Sand",
+     "p": "D"
+    },
+    {
+     "n": "Zach Lahn",
+     "p": "R"
+    }
+   ]
+  },
+  "gov-ks": {
+   "kalshi": [
+    "GOVPARTYKS-26",
+    "KXGOVPARTYKS-26",
+    "KXGOVKS-26"
+   ],
+   "poly": [
+    "Kansas Governor Election Winner",
+    "Kansas Governor 2026"
+   ],
+   "cands": [
+    {
+     "n": "Cindy Holscher",
+     "p": "D"
+    },
+    {
+     "n": "Ty Masterson",
+     "p": "R"
+    }
+   ]
+  },
+  "gov-mi": {
+   "kalshi": [
+    "GOVPARTYMI-26",
+    "KXGOVPARTYMI-26",
+    "KXGOVMI-26"
+   ],
+   "poly": [
+    "Michigan Governor Election Winner",
+    "Michigan Governor 2026"
+   ],
+   "cands": [
+    {
+     "n": "Jocelyn Benson",
+     "p": "D"
+    },
+    {
+     "n": "John James",
+     "p": "R"
+    },
+    {
+     "n": "Mike Duggan",
+     "p": "I"
+    }
+   ]
+  },
+  "gov-nh": {
+   "kalshi": [
+    "GOVPARTYNH-26",
+    "KXGOVPARTYNH-26",
+    "KXGOVNH-26"
+   ],
+   "poly": [
+    "New Hampshire Governor Election Winner",
+    "New Hampshire Governor 2026"
+   ],
+   "cands": [
+    {
+     "n": "Cinde Warmington",
+     "p": "D"
+    },
+    {
+     "n": "Kelly Ayotte",
+     "p": "R",
+     "inc": true
+    }
+   ]
+  },
+  "gov-nv": {
+   "kalshi": [
+    "GOVPARTYNV-26",
+    "KXGOVPARTYNV-26",
+    "KXGOVNV-26"
+   ],
+   "poly": [
+    "Nevada Governor Election Winner",
+    "Nevada Governor 2026"
+   ],
+   "cands": [
+    {
+     "n": "Aaron Ford",
+     "p": "D"
+    },
+    {
+     "n": "Joe Lombardo",
+     "p": "R",
+     "inc": true
+    }
+   ]
+  },
+  "gov-oh": {
+   "kalshi": [
+    "GOVPARTYOH-26",
+    "KXGOVPARTYOH-26",
+    "KXGOVOH-26"
+   ],
+   "poly": [
+    "Ohio Governor Election Winner",
+    "Ohio Governor 2026"
+   ],
+   "cands": [
+    {
+     "n": "Amy Acton",
+     "p": "D"
+    },
+    {
+     "n": "Vivek Ramaswamy",
+     "p": "R"
+    }
+   ]
+  },
+  "gov-wi": {
+   "kalshi": [
+    "GOVPARTYWI-26",
+    "KXGOVPARTYWI-26",
+    "KXGOVWI-26"
+   ],
+   "poly": [
+    "Wisconsin Governor Election Winner",
+    "Wisconsin Governor 2026"
+   ],
+   "cands": [
+    {
+     "n": "David Crowley",
+     "p": "D"
+    },
+    {
+     "n": "Tom Tiffany",
+     "p": "R"
+    }
+   ]
+  },
+  "sen-ak": {
+   "kalshi": [
+    "SENATEAK-26",
+    "KXSENATEAK-26"
+   ],
+   "poly": [
+    "Alaska Senate Election Winner",
+    "Alaska Senate 2026"
+   ],
+   "cands": [
+    {
+     "n": "Mary Peltola",
+     "p": "D"
+    },
+    {
+     "n": "Dan Sullivan",
+     "p": "R",
+     "inc": true
+    }
+   ]
+  },
+  "sen-fl": {
+   "kalshi": [
+    "SENATEFL-26",
+    "KXSENATEFL-26"
+   ],
+   "poly": [
+    "Florida Senate Election Winner",
+    "Florida Senate 2026"
+   ],
+   "cands": [
+    {
+     "n": "Angie Nixon",
+     "p": "D"
+    },
+    {
+     "n": "Ashley Moody",
+     "p": "R",
+     "inc": true
+    }
+   ]
+  },
+  "sen-ga": {
+   "kalshi": [
+    "SENATEGA-26",
+    "KXSENATEGA-26"
+   ],
+   "poly": [
+    "Georgia Senate Election Winner",
+    "Georgia Senate 2026"
+   ],
+   "cands": [
+    {
+     "n": "Jon Ossoff",
+     "p": "D",
+     "inc": true
+    },
+    {
+     "n": "Mike Collins",
+     "p": "R"
+    }
+   ]
+  },
+  "sen-ia": {
+   "kalshi": [
+    "SENATEIA-26",
+    "KXSENATEIA-26"
+   ],
+   "poly": [
+    "Iowa Senate Election Winner",
+    "Iowa Senate 2026"
+   ],
+   "cands": [
+    {
+     "n": "Josh Turek",
+     "p": "D"
+    },
+    {
+     "n": "Ashley Hinson",
+     "p": "R"
+    }
+   ]
+  },
+  "sen-ks": {
+   "kalshi": [
+    "SENATEKS-26",
+    "KXSENATEKS-26"
+   ],
+   "poly": [
+    "Kansas Senate Election Winner",
+    "Kansas Senate 2026"
+   ],
+   "cands": [
+    {
+     "n": "Adam Hamilton",
+     "p": "D"
+    },
+    {
+     "n": "Roger Marshall",
+     "p": "R",
+     "inc": true
+    }
+   ]
+  },
+  "sen-me": {
+   "kalshi": [
+    "SENATEME-26",
+    "KXSENATEME-26"
+   ],
+   "poly": [
+    "Maine Senate Election Winner",
+    "Maine Senate 2026"
+   ],
+   "cands": [
+    {
+     "n": "Troy Jackson",
+     "p": "D"
+    },
+    {
+     "n": "Susan Collins",
+     "p": "R",
+     "inc": true
+    }
+   ]
+  },
+  "sen-mi": {
+   "kalshi": [
+    "SENATEMI-26",
+    "KXSENATEMI-26"
+   ],
+   "poly": [
+    "Michigan Senate Election Winner",
+    "Michigan Senate 2026"
+   ],
+   "cands": [
+    {
+     "n": "Abdul El-Sayed",
+     "p": "D"
+    },
+    {
+     "n": "Mike Rogers",
+     "p": "R"
+    }
+   ]
+  },
+  "sen-mn": {
+   "kalshi": [
+    "SENATEMN-26",
+    "KXSENATEMN-26"
+   ],
+   "poly": [
+    "Minnesota Senate Election Winner",
+    "Minnesota Senate 2026"
+   ],
+   "cands": [
+    {
+     "n": "Peggy Flanagan",
+     "p": "D"
+    },
+    {
+     "n": "Michele Tafoya",
+     "p": "R"
+    }
+   ]
+  },
+  "sen-nc": {
+   "kalshi": [
+    "SENATENC-26",
+    "KXSENATENC-26"
+   ],
+   "poly": [
+    "North Carolina Senate Election Winner",
+    "North Carolina Senate 2026"
+   ],
+   "cands": [
+    {
+     "n": "Roy Cooper",
+     "p": "D"
+    },
+    {
+     "n": "Michael Whatley",
+     "p": "R"
+    }
+   ]
+  },
+  "sen-ne": {
+   "kalshi": [
+    "SENATENE-26",
+    "KXSENATENE-26"
+   ],
+   "poly": [
+    "Nebraska Senate Election Winner",
+    "Nebraska Senate 2026"
+   ],
+   "cands": [
+    {
+     "n": "Dan Osborn",
+     "p": "I"
+    },
+    {
+     "n": "Pete Ricketts",
+     "p": "R",
+     "inc": true
+    }
+   ]
+  },
+  "sen-nh": {
+   "kalshi": [
+    "SENATENH-26",
+    "KXSENATENH-26"
+   ],
+   "poly": [
+    "New Hampshire Senate Election Winner",
+    "New Hampshire Senate 2026"
+   ],
+   "cands": [
+    {
+     "n": "Chris Pappas",
+     "p": "D"
+    },
+    {
+     "n": "John E. Sununu",
+     "p": "R"
+    }
+   ]
+  },
+  "sen-oh": {
+   "kalshi": [
+    "SENATEOH-26",
+    "KXSENATEOH-26"
+   ],
+   "poly": [
+    "Ohio Senate Election Winner",
+    "Ohio Senate 2026"
+   ],
+   "cands": [
+    {
+     "n": "Sherrod Brown",
+     "p": "D"
+    },
+    {
+     "n": "Jon Husted",
+     "p": "R",
+     "inc": true
+    }
+   ]
+  },
+  "sen-sc": {
+   "kalshi": [
+    "SENATESC-26",
+    "KXSENATESC-26"
+   ],
+   "poly": [
+    "South Carolina Senate Election Winner",
+    "South Carolina Senate 2026"
+   ],
+   "cands": [
+    {
+     "n": "Annie Andrews",
+     "p": "D"
+    },
+    {
+     "n": "Darline Graham",
+     "p": "R",
+     "inc": true
+    }
+   ]
+  },
+  "sen-tx": {
+   "kalshi": [
+    "SENATETX-26",
+    "KXSENATETX-26"
+   ],
+   "poly": [
+    "Texas Senate Election Winner",
+    "Texas Senate 2026"
+   ],
+   "cands": [
+    {
+     "n": "James Talarico",
+     "p": "D"
+    },
+    {
+     "n": "Ken Paxton",
+     "p": "R"
+    }
+   ]
+  },
+  "tx-05": {
+   "kalshi": [
+    "HOUSETX5-26",
+    "KXHOUSETX5-26"
+   ],
+   "poly": [
+    "TX-05 House Election Winner",
+    "Texas 5 congressional district 2026"
+   ],
+   "cands": [
+    {
+     "n": "Chelsey Hockett",
+     "p": "D"
+    },
+    {
+     "n": "Lance Gooden",
+     "p": "R",
+     "inc": true
+    }
+   ]
+  },
+  "tx-06": {
+   "kalshi": [
+    "HOUSETX6-26",
+    "KXHOUSETX6-26"
+   ],
+   "poly": [
+    "TX-06 House Election Winner",
+    "Texas 6 congressional district 2026"
+   ],
+   "cands": [
+    {
+     "n": "Danny Minton",
+     "p": "D"
+    },
+    {
+     "n": "Jake Ellzey",
+     "p": "R",
+     "inc": true
+    }
+   ]
+  },
+  "tx-24": {
+   "kalshi": [
+    "HOUSETX24-26",
+    "KXHOUSETX24-26"
+   ],
+   "poly": [
+    "TX-24 House Election Winner",
+    "Texas 24 congressional district 2026"
+   ],
+   "cands": [
+    {
+     "n": "Kevin Burge",
+     "p": "D"
+    },
+    {
+     "n": "Beth Van Duyne",
+     "p": "R",
+     "inc": true
+    }
+   ]
+  },
+  "tx-30": {
+   "kalshi": [
+    "HOUSETX30-26",
+    "KXHOUSETX30-26"
+   ],
+   "poly": [
+    "TX-30 House Election Winner",
+    "Texas 30 congressional district 2026"
+   ],
+   "cands": [
+    {
+     "n": "Frederick D. Haynes III",
+     "p": "D"
+    },
+    {
+     "n": "Everett Jackson",
+     "p": "R"
+    }
+   ]
+  },
+  "tx-32": {
+   "kalshi": [
+    "HOUSETX32-26",
+    "KXHOUSETX32-26"
+   ],
+   "poly": [
+    "TX-32 House Election Winner",
+    "Texas 32 congressional district 2026"
+   ],
+   "cands": [
+    {
+     "n": "Dan Barrios",
+     "p": "D"
+    },
+    {
+     "n": "Jace Yarbrough",
+     "p": "R"
+    }
+   ]
+  },
+  "tx-33": {
+   "kalshi": [
+    "HOUSETX33-26",
+    "KXHOUSETX33-26"
+   ],
+   "poly": [
+    "TX-33 House Election Winner",
+    "Texas 33 congressional district 2026"
+   ],
+   "cands": [
+    {
+     "n": "Colin Allred",
+     "p": "D"
+    },
+    {
+     "n": "Patrick David Gillespie",
+     "p": "R"
+    }
+   ]
+  },
+  "tx-ag": {
+   "kalshi": [],
+   "poly": [
+    "Texas Attorney General 2026"
+   ],
+   "cands": [
+    {
+     "n": "Nathan Johnson",
+     "p": "D"
+    },
+    {
+     "n": "Mayes Middleton",
+     "p": "R"
+    }
+   ]
+  },
+  "tx-agri": {
+   "kalshi": [],
+   "poly": [
+    "Texas Agriculture Commissioner 2026"
+   ],
+   "cands": [
+    {
+     "n": "Clayton Tucker",
+     "p": "D"
+    },
+    {
+     "n": "Nate Sheets",
+     "p": "R"
+    }
+   ]
+  },
+  "tx-comp": {
+   "kalshi": [],
+   "poly": [
+    "Texas Comptroller 2026"
+   ],
+   "cands": [
+    {
+     "n": "Sarah Eckhardt",
+     "p": "D"
+    },
+    {
+     "n": "Don Huffines",
+     "p": "R",
+     "inc": true
+    }
+   ]
+  },
+  "tx-gov": {
+   "kalshi": [
+    "GOVPARTYTX-26",
+    "KXGOVPARTYTX-26",
+    "KXGOVTX-26"
+   ],
+   "poly": [
+    "Texas Governor Election Winner",
+    "Texas Governor 2026"
+   ],
+   "cands": [
+    {
+     "n": "Gina Hinojosa",
+     "p": "D"
+    },
+    {
+     "n": "Greg Abbott",
+     "p": "R",
+     "inc": true
+    }
+   ]
+  },
+  "tx-land": {
+   "kalshi": [],
+   "poly": [
+    "Texas Land Commissioner 2026"
+   ],
+   "cands": [
+    {
+     "n": "Benjamin Flores",
+     "p": "D"
+    },
+    {
+     "n": "Dawn Buckingham",
+     "p": "R",
+     "inc": true
+    }
+   ]
+  },
+  "tx-ltgov": {
+   "kalshi": [],
+   "poly": [
+    "Texas Lieutenant Governor 2026"
+   ],
+   "cands": [
+    {
+     "n": "Vikki Goodwin",
+     "p": "D"
+    },
+    {
+     "n": "Dan Patrick",
+     "p": "R",
+     "inc": true
+    }
+   ]
+  },
+  "tx-rrc": {
+   "kalshi": [],
+   "poly": [
+    "Texas Railroad Commissioner 2026"
+   ],
+   "cands": [
+    {
+     "n": "Jon Rosenthal",
+     "p": "D"
+    },
+    {
+     "n": "Bo French",
+     "p": "R"
+    }
+   ]
+  }
+ }
+}
