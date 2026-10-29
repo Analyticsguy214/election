@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793302032620,
+ "updatedAt": 1793302171714,
  "control": {
   "senate": {
    "kalshi": {
@@ -16,7 +16,7 @@
   "house": {
    "kalshi": {
     "D": 0.9145000000000001,
-    "R": 0.08549999999999999,
+    "R": 0.0845,
     "src": "CONTROLH-2026"
    },
    "polymarket": {
@@ -101,14 +101,14 @@
    "kalshi": null,
    "polymarket": {
     "D": 0.0685,
-    "R": 0.9305,
+    "R": 0.93,
     "src": "new-hampshire-governor-winner-2026"
    }
   },
   "gov-nv": {
    "kalshi": {
-    "R": 0.225,
     "D": 0.775,
+    "R": 0.225,
     "src": "GOVPARTYNV-26"
    },
    "polymarket": {
@@ -191,8 +191,8 @@
   },
   "sen-ks": {
    "kalshi": {
-    "R": 0.505,
     "D": 0.495,
+    "R": 0.505,
     "src": "SENATEKS-26"
    },
    "polymarket": {
@@ -203,8 +203,8 @@
   },
   "sen-me": {
    "kalshi": {
-    "D": 0.625,
     "R": 0.385,
+    "D": 0.625,
     "src": "SENATEME-26"
    },
    "polymarket": {
@@ -215,8 +215,8 @@
   },
   "sen-mi": {
    "kalshi": {
-    "D": 0.735,
     "R": 0.265,
+    "D": 0.735,
     "src": "SENATEMI-26"
    },
    "polymarket": {
@@ -244,8 +244,8 @@
     "src": "SENATENC-26"
    },
    "polymarket": {
-    "D": 0.974,
-    "R": 0.0255,
+    "D": 0.975,
+    "R": 0.023,
     "src": "north-carolina-senate-election-winner"
    }
   },
@@ -270,7 +270,7 @@
     "src": "SENATENH-26"
    },
    "polymarket": {
-    "D": 0.905,
+    "D": 0.915,
     "R": 0.09,
     "src": "new-hampshire-senate-election-winner"
    }
@@ -301,8 +301,8 @@
   },
   "sen-tx": {
    "kalshi": {
-    "R": 0.315,
     "D": 0.685,
+    "R": 0.315,
     "src": "SENATETX-26"
    },
    "polymarket": {
@@ -315,7 +315,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.956,
-    "D": 0.042,
+    "D": 0.0415,
     "src": "tx-05-house-election-winner"
    }
   },
@@ -339,7 +339,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0195,
-    "D": 0.9745,
+    "D": 0.9705,
     "src": "tx-30-house-election-winner"
    }
   },
@@ -398,7 +398,7 @@
   "tx-ltgov": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.24,
+    "D": 0.245,
     "R": 0.765,
     "src": "texas-lieutenant-governor-election-winner-2026"
    }
@@ -555,6 +555,13 @@
   },
   {
    "t": 1793302032620,
+   "sk": 0.675,
+   "sp": 0.675,
+   "hk": 0.9145000000000001,
+   "hp": 0.925
+  },
+  {
+   "t": 1793302171714,
    "sk": 0.675,
    "sp": 0.675,
    "hk": 0.9145000000000001,
