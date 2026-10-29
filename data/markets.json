@@ -1,22 +1,324 @@
 {
- "updatedAt": null,
+ "updatedAt": 1793290688073,
  "control": {
   "senate": {
    "kalshi": {
     "D": 0.64,
     "R": 0.37
    },
-   "polymarket": null
+   "polymarket": {
+    "D": 0.685,
+    "R": 0.325,
+    "src": "which-party-will-win-the-senate-in-2026"
+   }
   },
   "house": {
    "kalshi": {
     "D": 0.906,
     "R": 0.096
    },
-   "polymarket": null
+   "polymarket": {
+    "D": 0.925,
+    "R": 0.075,
+    "src": "which-party-will-win-the-house-in-2026"
+   }
   }
  },
- "races": {},
- "history": [],
- "note": "Seeded from Kalshi's Oct 26 published figures; replaced automatically once the market updater runs."
+ "races": {
+  "gov-az": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.915,
+    "R": 0.085,
+    "src": "arizona-governor-winner-2026"
+   }
+  },
+  "gov-fl": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.295,
+    "R": 0.705,
+    "src": "florida-governor-winner-2026"
+   }
+  },
+  "gov-ga": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.61,
+    "R": 0.385,
+    "src": "georgia-governor-winner-2026"
+   }
+  },
+  "gov-ia": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.84,
+    "R": 0.16,
+    "src": "iowa-governor-winner-2026"
+   }
+  },
+  "gov-ks": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.295,
+    "R": 0.7,
+    "src": "kansas-governor-winner-2026"
+   }
+  },
+  "gov-mi": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.936,
+    "R": 0.0625,
+    "I": 0.0005,
+    "src": "michigan-governor-winner-2026"
+   }
+  },
+  "gov-nh": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.0705,
+    "R": 0.93,
+    "src": "new-hampshire-governor-winner-2026"
+   }
+  },
+  "gov-nv": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.805,
+    "R": 0.195,
+    "src": "nevada-governor-winner-2026"
+   }
+  },
+  "gov-oh": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.835,
+    "R": 0.165,
+    "src": "ohio-governor-winner-2026"
+   }
+  },
+  "gov-wi": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.855,
+    "R": 0.145,
+    "src": "wisconsin-governor-winner-2026"
+   }
+  },
+  "sen-ak": {
+   "kalshi": null,
+   "polymarket": {
+    "R": 0.0005,
+    "D": 0.705,
+    "src": "alaska-senate-election-winner"
+   }
+  },
+  "sen-fl": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.095,
+    "R": 0.905,
+    "src": "florida-senate-election-winner"
+   }
+  },
+  "sen-ga": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.9635,
+    "R": 0.032,
+    "src": "georgia-senate-election-winner"
+   }
+  },
+  "sen-ia": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.47,
+    "R": 0.53,
+    "src": "iowa-senate-election-winner"
+   }
+  },
+  "sen-ks": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.475,
+    "R": 0.505,
+    "src": "kansas-senate-election-winner"
+   }
+  },
+  "sen-me": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.645,
+    "R": 0.355,
+    "src": "maine-senate-election-winner"
+   }
+  },
+  "sen-mi": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.73,
+    "R": 0.275,
+    "src": "michigan-senate-election-winner"
+   }
+  },
+  "sen-mn": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.915,
+    "R": 0.085,
+    "src": "minnesota-senate-election-winner"
+   }
+  },
+  "sen-nc": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.977,
+    "R": 0.024,
+    "src": "north-carolina-senate-election-winner"
+   }
+  },
+  "sen-ne": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.0005,
+    "R": 0.705,
+    "I": 0.295,
+    "src": "nebraska-senate-election-winner"
+   }
+  },
+  "sen-nh": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.915,
+    "R": 0.09,
+    "src": "new-hampshire-senate-election-winner"
+   }
+  },
+  "sen-oh": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.69,
+    "R": 0.315,
+    "src": "ohio-senate-election-winner"
+   }
+  },
+  "sen-sc": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.275,
+    "R": 0.715,
+    "src": "south-carolina-senate-election-winner"
+   }
+  },
+  "sen-tx": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.695,
+    "R": 0.305,
+    "src": "texas-senate-election-winner"
+   }
+  },
+  "tx-05": {
+   "kalshi": null,
+   "polymarket": {
+    "R": 0.958,
+    "D": 0.038,
+    "src": "tx-05-house-election-winner"
+   }
+  },
+  "tx-06": {
+   "kalshi": null,
+   "polymarket": {
+    "R": 0.974,
+    "D": 0.0225,
+    "src": "tx-06-house-election-winner"
+   }
+  },
+  "tx-24": {
+   "kalshi": null,
+   "polymarket": {
+    "R": 0.945,
+    "D": 0.055,
+    "src": "tx-24-house-election-winner"
+   }
+  },
+  "tx-30": {
+   "kalshi": null,
+   "polymarket": {
+    "R": 0.019,
+    "D": 0.971,
+    "src": "tx-30-house-election-winner"
+   }
+  },
+  "tx-32": {
+   "kalshi": null,
+   "polymarket": {
+    "R": 0.875,
+    "D": 0.1255,
+    "src": "tx-32-house-election-winner"
+   }
+  },
+  "tx-33": {
+   "kalshi": null,
+   "polymarket": {
+    "R": 0.025,
+    "D": 0.973,
+    "src": "tx-33-house-election-winner"
+   }
+  },
+  "tx-ag": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.255,
+    "R": 0.745,
+    "src": "texas-attorney-general-election-winner-2026"
+   }
+  },
+  "tx-agri": {
+   "kalshi": null,
+   "polymarket": null
+  },
+  "tx-comp": {
+   "kalshi": null,
+   "polymarket": null
+  },
+  "tx-gov": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.355,
+    "R": 0.646,
+    "src": "texas-governor-winner-2026"
+   }
+  },
+  "tx-land": {
+   "kalshi": null,
+   "polymarket": null
+  },
+  "tx-ltgov": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.22,
+    "R": 0.77,
+    "src": "texas-lieutenant-governor-election-winner-2026"
+   }
+  },
+  "tx-rrc": {
+   "kalshi": null,
+   "polymarket": {
+    "D": 0.545,
+    "R": 0.44,
+    "src": "texas-railroad-commissioner-election-winner-2026"
+   }
+  }
+ },
+ "history": [
+  {
+   "t": 1793290688073,
+   "sk": 0.64,
+   "sp": 0.685,
+   "hk": 0.906,
+   "hp": 0.925
+  }
+ ]
 }
