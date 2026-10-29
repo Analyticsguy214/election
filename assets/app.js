@@ -120,7 +120,7 @@
   function mkRow(id,k){
     const c=MK&&MK.control&&MK.control[k];const el=$(id);if(!el)return;
     const part=(nm,o)=>o&&o.D!=null?`<span>${nm} <b>${pct(o.D/((o.D||0)+(o.R!=null?o.R:1-o.D)))}</b> Dem</span>`:`<span>${nm} <b>—</b></span>`;
-    el.innerHTML=`<span class="mlbl">Markets</span>`+part("Kalshi",c&&c.kalshi)+part("Polymarket",c&&c.polymarket)+(MK&&MK.updatedAt?`<span class="muted">as of ${ct(MK.updatedAt)}</span>`:"");
+    el.innerHTML=`<span class="mlbl">Markets</span>`+part("Kalshi",c&&c.kalshi)+part("Polymarket",c&&c.polymarket)+(MK&&(MK.livePM||MK.updatedAt)?`<span class="muted">as of ${ct(Math.max(MK.livePM||0,MK.updatedAt||0))}</span>`:"");
   }
   function renderMap(){
     const items=senateItems(r=>model(r));const by={};items.forEach(it=>by[it.st]=it);
@@ -227,6 +227,29 @@
       $("notice").hidden=true;
     }catch(e){const n=$("notice");if(races.length){n.hidden=false;n.textContent="Having trouble reaching the results server. Retrying automatically."}}
   }
+
+  // ---- direct Polymarket polling (every 30s) on top of the 5-minute GitHub feed ----
+  const PM="https://gamma-api.polymarket.com/events?slug=";
+  const pParty=s=>{s=(s||"").toLowerCase();if(/\bdem|democrat/.test(s))return"D";if(/\brep|republican|gop/.test(s))return"R";if(/independent|\bind\b/.test(s))return"I";return null};
+  const pLast=n=>n.split(" ").filter(w=>!/^(III|II|Jr\.?)$/.test(w)).slice(-1)[0].toLowerCase();
+  async function pmEvent(slug,cands){
+    const r=await fetch(PM+encodeURIComponent(slug),{cache:"no-store"});if(!r.ok)throw 0;
+    const arr=await r.json();const e=Array.isArray(arr)?arr[0]:arr;if(!e)return null;const out={src:slug};
+    (e.markets||[]).forEach(m=>{if(m.closed)return;let pr;try{pr=JSON.parse(m.outcomePrices||"[]").map(Number)}catch(x){return}const y=pr[0];if(y==null||isNaN(y))return;
+      const lab=m.groupItemTitle||m.question||"";const pt=pParty(lab);if(pt)out[pt]=y;(cands||[]).forEach(c=>{if(lab.toLowerCase().includes(pLast(c.n)))out[c.p]=y})});
+    return Object.keys(out).length>1?out:null;
+  }
+  let pmOK=true,pmTick=0;
+  async function pmLive(){
+    if(!MK||!pmOK||document.hidden)return;
+    try{
+      const ctl=MK.control||{};let changed=false;
+      for(const k of ["senate","house"]){const s=ctl[k]&&ctl[k].polymarket&&ctl[k].polymarket.src;if(!s)continue;const o=await pmEvent(s,[]);if(o){ctl[k].polymarket=o;changed=true}}
+      if(pmTick++%2===0&&MK.races){const ids=Object.keys(MK.races);await Promise.all(ids.map(async id=>{const pm=MK.races[id].polymarket;if(!pm||!pm.src)return;const race=races.find(r=>r.id===id);try{const o=await pmEvent(pm.src,race?race.cands:[]);if(o){MK.races[id].polymarket=o;changed=true}}catch(x){}}))}
+      if(changed){const now=Date.now();MK.livePM=now;(MK.history=MK.history||[]).push({t:now,sk:null,sp:ctl.senate&&ctl.senate.polymarket?ctl.senate.polymarket.D:null,hk:null,hp:ctl.house&&ctl.house.polymarket?ctl.house.polymarket.D:null});renderAll()}
+    }catch(x){pmOK=false}
+  }
+  setInterval(pmLive,30000);setTimeout(pmLive,4000);
   load();setInterval(load,30000);
   document.addEventListener("visibilitychange",()=>{if(!document.hidden)load()});
 })();
