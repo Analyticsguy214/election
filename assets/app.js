@@ -56,10 +56,11 @@
   }
   function senateControl(get){
     const notUpD=(meta&&meta.senate&&meta.senate.notUpD)||34,need=(meta&&meta.senate&&meta.senate.need)||51;
-    const items=senateItems(get).map(it=>({...it,z:probit(it.pD)}));
-    const R=rng(20261103),N=4000;let win=0,sum=0;
-    for(let k=0;k<N;k++){const nat=gauss(R)*0.45;let d=notUpD;for(const it of items){const p=(it.locked||it.pD<=0||it.pD>=1)?it.pD:Phi(it.z+nat*it.shift);if(R()<p)d++}sum+=d;if(d>=need)win++}
-    return{p:win/N,seats:sum/N};
+    const items=senateItems(get).map(it=>({...it,z:probit(it.pD),pI:Math.max(0,1-it.pD-it.pR)}));
+    const R=rng(20261103),N=4000;let win=0,sum=0,sumR=0;const dist={};
+    for(let k=0;k<N;k++){const nat=gauss(R)*0.45;let d=notUpD,i=0;for(const it of items){const p=(it.locked||it.pD<=0||it.pD>=1)?it.pD:Phi(it.z+nat*it.shift);const u=R();if(u<p)d++;else if(it.pI>0&&R()<it.pI/Math.max(1e-6,1-it.pD))i++}
+      const key=d+"|"+i;dist[key]=(dist[key]||0)+1;sum+=d;sumR+=100-d-i;if(d>=need)win++}
+    return{p:win/N,seats:sum/N,seatsR:sumR/N,dist,N,need};
   }
   function houseControl(h){
     if(!h)return null;const cD=h.cD||0,cR=h.cR||0,rem=435-cD-cR,proj=h.projD||218;
@@ -106,14 +107,14 @@
     const s=senateControl(r=>model(r));
     $("senDn").textContent=notUpD+wD;$("senRn").textContent=notUpR+wR;
     bar($("senSeats"),[["var(--dem-3)",notUpD,"Dem not up"],["var(--dem)",wD,"Dem won"],["var(--dem-2)",lD,"Dem favored"],["var(--ind)",wI,"Independent won"],["var(--neutral-2)",tu,"Toss-up"],["var(--rep-2)",lR,"GOP favored"],["var(--rep)",wR,"GOP won"],["var(--rep-3)",notUpR,"GOP not up"]],100,50,"50");
-    $("senLegend").innerHTML=`<span><i style="background:var(--dem)"></i>Won ${wD}</span><span><i style="background:var(--dem-2)"></i>Favored ${Math.max(0,lD)}</span><span><i style="background:var(--dem-3)"></i>Not up ${notUpD}</span><span><i style="background:var(--neutral-2)"></i>Toss-up ${tu}</span><span><i style="background:var(--rep-3)"></i>Not up ${notUpR}</span><span><i style="background:var(--rep-2)"></i>Favored ${Math.max(0,lR)}</span><span><i style="background:var(--rep)"></i>Won ${wR}</span><span>Expected Dem seats: <b class="num">${s.seats.toFixed(1)}</b></span>`;
+    $("senLegend").innerHTML=`<span><i style="background:var(--dem)"></i>Won ${wD}</span><span><i style="background:var(--dem-2)"></i>Favored ${Math.max(0,lD)}</span><span><i style="background:var(--dem-3)"></i>Not up ${notUpD}</span><span><i style="background:var(--neutral-2)"></i>Toss-up ${tu}</span><span><i style="background:var(--rep-3)"></i>Not up ${notUpR}</span><span><i style="background:var(--rep-2)"></i>Favored ${Math.max(0,lR)}</span><span><i style="background:var(--rep)"></i>Won ${wR}</span><span>Average outcome: <b class="num" style="color:var(--dem)">D ${s.seats.toFixed(1)}</b> · <b class="num" style="color:var(--rep)">R ${s.seatsR.toFixed(1)}</b></span>`;
     $("senPD").textContent=pct(s.p);$("senPR").textContent=pct(1-s.p);$("senBD").style.width=s.p*100+"%";$("senBR").style.width=(1-s.p)*100+"%";
     const h=(meta&&meta.house)||{cD:0,cR:0,projD:218};const hc=houseControl(h)||{p:0.5,exp:218};
     if(!(h.cD||h.cR)){const xs=[hc.p];const c=MK&&MK.control&&MK.control.house;[c&&c.kalshi,c&&c.polymarket].forEach(o=>{if(o&&o.D!=null)xs.push(o.D/((o.D||0)+(o.R!=null?o.R:1-o.D)))});hc.p=xs.reduce((a,b)=>a+b,0)/xs.length}
     const cD=h.cD||0,cR=h.cR||0;
     $("houDn").textContent=cD;$("houRn").textContent=cR;
     bar($("houSeats"),[["var(--dem)",cD,"Dem won"],["var(--neutral)",435-cD-cR,"Not yet called"],["var(--rep)",cR,"GOP won"]],435,217.5,"218");
-    $("houLegend").innerHTML=`<span><i style="background:var(--dem)"></i>Dem won ${cD}</span><span><i style="background:var(--neutral)"></i>Not yet called ${435-cD-cR}</span><span><i style="background:var(--rep)"></i>GOP won ${cR}</span><span>Expected Dem seats: <b class="num">${Math.round(hc.exp)}</b></span>`;
+    $("houLegend").innerHTML=`<span><i style="background:var(--dem)"></i>Dem won ${cD}</span><span><i style="background:var(--neutral)"></i>Not yet called ${435-cD-cR}</span><span><i style="background:var(--rep)"></i>GOP won ${cR}</span><span>Average outcome: <b class="num" style="color:var(--dem)">D ${Math.round(hc.exp)}</b> · <b class="num" style="color:var(--rep)">R ${435-Math.round(hc.exp)}</b></span>`;
     mkRow("senMk","senate");mkRow("houMk","house");
     $("houPD").textContent=pct(hc.p);$("houPR").textContent=pct(1-hc.p);$("houBD").style.width=hc.p*100+"%";$("houBR").style.width=(1-hc.p)*100+"%";
   }
@@ -196,11 +197,11 @@
     if(ts.length){const pre={v:null,r:0,called:null};const pts=ts.map(t=>{const at=r=>{const ss=(r.snaps||[]).filter(s=>s.t<=t);return model(r,ss.length?ss.reduce((a,b)=>a.t>b.t?a:b):pre)};return[t,senateControl(at).p]});series.push({name:"Senate · Hilltop",color:"var(--fg)",dash:false,pts,thick:true})}
     if(!series.length){box.innerHTML=`<p class="note">Market history will appear after the first automatic update.</p>`;return}
     let t0=Infinity,t1=-Infinity;series.forEach(s=>s.pts.forEach(([t])=>{t0=Math.min(t0,t);t1=Math.max(t1,t)}));if(t1-t0<36e5){t0=t1-36e5}
-    const W=Math.max(480,box.clientWidth||480),H=240,L=40,Rp=130,T=12,B=30;
+    const W=Math.max(480,box.clientWidth||480),H=240,L=50,Rp=130,T=12,B=30;
     const x=t=>L+(t-t0)/(t1-t0)*(W-L-Rp),y=p=>T+(1-p)*(H-T-B);
     const font='font-family="Libre Franklin,Arial,sans-serif" font-size="11"';
     let svg=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Chance Democrats control each chamber over time">`;
-    [0,0.25,0.5,0.75,1].forEach(g=>{svg+=`<line x1="${L}" x2="${W-Rp}" y1="${y(g)}" y2="${y(g)}" stroke="${g===0.5?"var(--neutral-2)":"var(--rule)"}" ${g===0.5?'stroke-width="1.5"':""}/><text x="${L-6}" y="${y(g)+4}" text-anchor="end" ${font} fill="var(--muted)">${g*100}%</text>`});
+    [0,0.25,0.5,0.75,1].forEach(g=>{const lab=g===0.5?"Even":g>0.5?"D "+g*100+"%":"R "+(100-g*100)+"%";const col=g===0.5?"var(--muted)":g>0.5?"var(--dem)":"var(--rep)";svg+=`<line x1="${L}" x2="${W-Rp}" y1="${y(g)}" y2="${y(g)}" stroke="${g===0.5?"var(--neutral-2)":"var(--rule)"}" ${g===0.5?'stroke-width="1.5"':""}/><text x="${L-6}" y="${y(g)+4}" text-anchor="end" ${font} fill="${col}">${lab}</text>`});
     const labels=[];
     series.forEach(s=>{const d=s.pts.map(([t,p],i)=>(i?"L":"M")+x(t).toFixed(1)+" "+y(p).toFixed(1)).join("");
       svg+=`<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${s.thick?3:2}" ${s.dash?'stroke-dasharray="5 4"':""} stroke-linejoin="round"/>`;
@@ -280,7 +281,48 @@
     if(d)h+=`<div class="evblock"><div class="evrow"><span><b>${esc(d.label)}</b></span><span>${d.ev.toLocaleString("en-US")} early ballots</span></div><div class="evbar"><i style="width:${d.regPct*100}%"></i><span class="tick" style="left:${d.regPct2022*100}%"></span></div><div class="evrow"><span>${(d.regPct*100).toFixed(1)}% of registered voters</span><span>| Same point in 2022: ${(d.regPct2022*100).toFixed(1)}%</span></div></div>`;
     box.innerHTML=h;
   }
-  function renderAll(){renderStatus();renderBop();renderProj();renderEV();renderMap();renderSections();renderChart()}
+
+  // ---------- range of outcomes (both parties treated the same) ----------
+  function outcomeBlock(title,rows,svg,foot){return`<h2>${title}</h2>${rows}<div class="svgwrap">${svg}</div><p class="note">${foot}</p>`}
+  function partyRow(party,p,most,lo,hi,word){const c=party==="D"?"var(--dem)":"var(--rep)";return`<div class="orow"><span class="oname" style="color:${c}">${party==="D"?"Democrats":"Republicans"}</span><span class="opct num" style="color:${c}">${pct(p)}</span><span class="odesc">${word} · typical result <b class="num">${most}</b> seats · 80% range <b class="num">${lo}–${hi}</b></span></div>`}
+  function quant(arr,q){ // arr: [[value,weight]] sorted by value
+    const tot=arr.reduce((a,b)=>a+b[1],0);let acc=0;for(const [v,w] of arr){acc+=w;if(acc>=q*tot)return v}return arr.length?arr[arr.length-1][0]:0}
+  function histSVG(bins,labelFn,markIdx){
+    const W=Math.max(420,($("outSen").clientWidth||520)),H=150,L=8,Rr=8,T=10,B=34;const n=bins.length;const bw=(W-L-Rr)/n;const mx=Math.max(...bins.map(b=>b.p),0.001);
+    let s=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Probability of each seat outcome">`;
+    bins.forEach((b,i)=>{const h=(H-T-B)*b.p/mx;const x=L+i*bw;s+=`<rect x="${(x+1).toFixed(1)}" y="${(H-B-h).toFixed(1)}" width="${Math.max(1,bw-2).toFixed(1)}" height="${h.toFixed(1)}" fill="${b.ctrl==="D"?"var(--dem)":"var(--rep)"}" opacity="${b.p<0.002?0.35:1}"><title>${labelFn(b)}: ${(b.p*100).toFixed(1)}%</title></rect>`});
+    s+=`<line x1="${L}" x2="${W-Rr}" y1="${H-B}" y2="${H-B}" stroke="var(--rule-strong)"/>`;
+    if(markIdx!=null){const x=L+markIdx*bw;s+=`<line x1="${x}" x2="${x}" y1="${T}" y2="${H-B+4}" stroke="var(--rule-strong)" stroke-dasharray="3 3"/>`}
+    const step=Math.max(1,Math.ceil(n/8));bins.forEach((b,i)=>{if(i%step)return;const x=L+i*bw+bw/2;s+=`<text x="${x}" y="${H-B+14}" text-anchor="middle" font-family="Libre Franklin,Arial,sans-serif" font-size="10.5" fill="var(--dem)">${b.dl}</text><text x="${x}" y="${H-B+27}" text-anchor="middle" font-family="Libre Franklin,Arial,sans-serif" font-size="10.5" fill="var(--rep)">${b.rl}</text>`});
+    return s+"</svg>";
+  }
+  function renderOutcomes(){
+    if(!$("outSen"))return;
+    // Senate
+    const s=senateControl(r=>model(r));const need=s.need;
+    const outs=Object.entries(s.dist).map(([k,c])=>{const [d,i]=k.split("|").map(Number);return{d,i,r:100-d-i,p:c/s.N}});
+    const dWin=outs.filter(o=>o.d>=need),rWin=outs.filter(o=>o.d<need);
+    const agg=(arr,key)=>{const m={};arr.forEach(o=>m[o[key]]=(m[o[key]]||0)+o.p);return Object.entries(m).map(([v,p])=>[+v,p]).sort((a,b)=>a[0]-b[0])};
+    const dA=agg(dWin,"d"),rA=agg(rWin,"r");
+    const mode=a=>a.length?quant(a,.5):"—";
+    let rows=partyRow("D",s.p,mode(dA),dA.length?quant(dA,.1):"—",dA.length?quant(dA,.9):"—","win control")+partyRow("R",1-s.p,mode(rA),rA.length?quant(rA,.1):"—",rA.length?quant(rA,.9):"—",need===51?"keep control (incl. 50–50 with the VP)":"win control");
+    const byD={};outs.forEach(o=>{byD[o.d]=(byD[o.d]||0)+o.p});const ds=Object.keys(byD).map(Number);const lo=Math.min(...ds,need-5),hi=Math.max(...ds,need+5);
+    const bins=[];for(let d=lo;d<=hi;d++)bins.push({d,p:byD[d]||0,ctrl:d>=need?"D":"R",dl:"D "+d,rl:"R "+(100-d)});
+    $("outSen").innerHTML=outcomeBlock("Senate",rows,histSVG(bins,b=>"Democrats "+b.d+", Republicans and others "+(100-b.d),bins.findIndex(b=>b.d===need)),"Each bar is the chance of that exact seat split, from 4,000 simulations. Democratic counts include independents who caucus with them; Republicans hold the chamber at 50–50 through the vice president's tiebreak. Seats won by other independents are counted with neither party.");
+    // House
+    const h=(meta&&meta.house)||{cD:0,cR:0,projD:218};const hc=houseControl(h)||{p:.5,exp:218};
+    let pH=hc.p;if(!(h.cD||h.cR)){const xs=[hc.p];const c=MK&&MK.control&&MK.control.house;[c&&c.kalshi,c&&c.polymarket].forEach(o=>{if(o&&o.D!=null)xs.push(o.D/((o.D||0)+(o.R!=null?o.R:1-o.D)))});pH=xs.reduce((a,b)=>a+b,0)/xs.length}
+    const cD=h.cD||0,cR=h.cR||0,rem=435-cD-cR;const sd=Math.max(1,(h.sd0||24.4)*Math.sqrt(rem/435)+0.5);
+    const mean=(pH>0.001&&pH<0.999)?217.5+sd*probit(pH):hc.exp;
+    const pD=d=>Phi((d+0.5-mean)/sd)-Phi((d-0.5-mean)/sd);
+    const dRange=[];for(let d=Math.max(cD,Math.floor(mean-3*sd));d<=Math.min(435-cR,Math.ceil(mean+3*sd));d++)dRange.push(d);
+    const dW=dRange.filter(d=>d>=218).map(d=>[d,pD(d)]),rW=dRange.filter(d=>d<218).map(d=>[435-d,pD(d)]).sort((a,b)=>a[0]-b[0]);
+    rows=partyRow("D",pH,mode(dW),dW.length?quant(dW,.1):"—",dW.length?quant(dW,.9):"—","win control")+partyRow("R",1-pH,mode(rW),rW.length?quant(rW,.1):"—",rW.length?quant(rW,.9):"—","keep control");
+    const bw=5,b0=Math.floor(Math.min(...dRange,198)/bw)*bw,b1=Math.ceil(Math.max(...dRange,238)/bw)*bw;const hb=[];
+    for(let a=b0;a<b1;a+=bw){let p=0;for(let d=a;d<a+bw;d++)p+=pD(d);hb.push({a,p,ctrl:a+bw/2>=218?"D":"R",dl:"D "+(a+2),rl:"R "+(435-a-2)})}
+    $("outHou").innerHTML=outcomeBlock("House",rows,histSVG(hb,b=>"Democrats "+b.a+"–"+(b.a+bw-1),hb.findIndex(b=>b.a<=218&&218<b.a+bw)),"Bars group outcomes in five-seat ranges. Before results, the spread comes from the Decision Desk HQ seat forecast and the Kalshi and Polymarket odds; on election night it narrows as the AP calls seats.");
+  }
+  function renderAll(){renderStatus();renderBop();renderOutcomes();renderProj();renderEV();renderMap();renderSections();renderChart()}
   document.querySelectorAll("nav.sections button").forEach(t=>t.addEventListener("click",()=>{group=t.dataset.g;try{localStorage.setItem("hed-tab",group)}catch(e){}renderSections();document.getElementById("sections").scrollIntoView({behavior:"smooth",block:"start"})}));
   setInterval(renderStatus,30000);
   let rt;window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(renderChart,200)});

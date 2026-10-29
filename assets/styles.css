@@ -180,3 +180,10 @@ footer ul{margin:0;padding-left:16px}
 .evsplit{display:flex;height:12px;margin:6px 0 4px}
 .evsplit div{height:100%}
 .evblock{border-top:1px solid var(--rule);padding-top:12px;margin-top:14px}
+
+.outc h2{font-family:var(--f-serif);font-size:24px;margin:0 0 8px}
+.orow{display:grid;grid-template-columns:110px 64px 1fr;gap:4px 12px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--rule)}
+.oname{font-weight:700}
+.opct{font-weight:800;font-size:24px;line-height:1}
+.odesc{font-size:13px;color:var(--fg-2)}
+@media (max-width:480px){.orow{grid-template-columns:auto auto}.odesc{grid-column:1/-1}}
