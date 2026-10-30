@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793318969142,
+ "updatedAt": 1793319110150,
  "control": {
   "senate": {
    "kalshi": {
@@ -15,8 +15,8 @@
   },
   "house": {
    "kalshi": {
+    "R": 0.0825,
     "D": 0.9185000000000001,
-    "R": 0.082,
     "src": "CONTROLH-2026"
    },
    "polymarket": {
@@ -29,7 +29,7 @@
  "races": {
   "gov-az": {
    "kalshi": {
-    "D": 0.9105000000000001,
+    "D": 0.91,
     "R": 0.0915,
     "src": "GOVPARTYAZ-26"
    },
@@ -107,8 +107,8 @@
   },
   "gov-nv": {
    "kalshi": {
-    "D": 0.775,
     "R": 0.225,
+    "D": 0.775,
     "src": "GOVPARTYNV-26"
    },
    "polymarket": {
@@ -131,13 +131,13 @@
   },
   "gov-wi": {
    "kalshi": {
-    "D": 0.835,
     "R": 0.165,
+    "D": 0.835,
     "src": "GOVPARTYWI-26"
    },
    "polymarket": {
     "D": 0.855,
-    "R": 0.145,
+    "R": 0.14,
     "src": "wisconsin-governor-winner-2026"
    }
   },
@@ -203,8 +203,8 @@
   },
   "sen-me": {
    "kalshi": {
-    "D": 0.635,
     "R": 0.365,
+    "D": 0.635,
     "src": "SENATEME-26"
    },
    "polymarket": {
@@ -215,8 +215,8 @@
   },
   "sen-mi": {
    "kalshi": {
-    "D": 0.745,
     "R": 0.255,
+    "D": 0.745,
     "src": "SENATEMI-26"
    },
    "polymarket": {
@@ -227,8 +227,8 @@
   },
   "sen-mn": {
    "kalshi": {
-    "R": 0.10500000000000001,
     "D": 0.9005000000000001,
+    "R": 0.10500000000000001,
     "src": "SENATEMN-26"
    },
    "polymarket": {
@@ -252,8 +252,8 @@
   "sen-ne": {
    "kalshi": {
     "D": 0.003,
-    "I": 0.335,
     "R": 0.675,
+    "I": 0.335,
     "src": "SENATENE-26"
    },
    "polymarket": {
@@ -265,8 +265,8 @@
   },
   "sen-nh": {
    "kalshi": {
-    "D": 0.912,
     "R": 0.091,
+    "D": 0.912,
     "src": "SENATENH-26"
    },
    "polymarket": {
@@ -322,7 +322,7 @@
   "tx-06": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.974,
+    "R": 0.975,
     "D": 0.019,
     "src": "tx-06-house-election-winner"
    }
@@ -339,7 +339,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0185,
-    "D": 0.963,
+    "D": 0.9605,
     "src": "tx-30-house-election-winner"
    }
   },
@@ -381,8 +381,8 @@
   },
   "tx-gov": {
    "kalshi": {
-    "D": 0.365,
     "R": 0.635,
+    "D": 0.365,
     "src": "GOVPARTYTX-26"
    },
    "polymarket": {
@@ -1402,6 +1402,13 @@
   },
   {
    "t": 1793318969142,
+   "sk": 0.675,
+   "sp": 0.685,
+   "hk": 0.9185000000000001,
+   "hp": 0.925
+  },
+  {
+   "t": 1793319110150,
    "sk": 0.675,
    "sp": 0.685,
    "hk": 0.9185000000000001,
