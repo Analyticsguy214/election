@@ -342,8 +342,8 @@
   }
 
   // ---------- Texas counties ----------
-  let GEO=null,ctyMode="proj",ctySel=null;
-  try{const s=localStorage.getItem("hed-cmode");if(s)ctyMode=s}catch(e){}
+  let GEO=null,CR=null,ctyMode="proj",ctySel=null,ctyAuto=true;
+  
   async function loadGeo(){if(GEO)return GEO;try{const r=await fetch("data/tx-counties.json?v="+((document.querySelector('meta[name="build"]')||{}).content||""));GEO=await r.json()}catch(e){GEO=null}return GEO}
   const lgt=p=>Math.log(p/(1-p)),sig=x=>1/(1+Math.exp(-x));
   function ctyModel(){
@@ -360,10 +360,13 @@
     const tt=txTurnout();const T26=P&&P.total?P.total:(tt?tt.total:v);
     return{m24,m26,shift:m26-m24,dl,scale:T26/v,T26,live:P&&P.mode==="live"};
   }
+  function actual(id){const x=CR&&CR.counties&&CR.counties[id];if(!x||!(x.d+x.r))return null;return{m:Math.round((x.r-x.d)/(x.d+x.r)*1000)/10,d:x.d,r:x.r,pct:x.pct==null?null:x.pct}}
+  function hasResults(){return!!(CR&&CR.counties&&Object.keys(CR.counties).length)}
   function proj26(c,M){const p=Math.min(.995,Math.max(.005,(50+c.m/2)/100));return Math.round((2*sig(lgt(p)+M.dl)-1)*1000)/10}
   const mfmt=m=>m===0?"Even":(m>0?"R+":"D+")+Math.abs(m).toFixed(1);
   const mcol=m=>m>0?"var(--rep)":"var(--dem)";
   function fillFor(c,M,evMap){
+    if(ctyMode==="res"){const a=actual(c.id);if(!a)return["var(--neutral)",1];return[mcol(a.m),.12+.88*Math.min(Math.abs(a.m),60)/60]}
     if(ctyMode==="ev"){const e=evMap[c.id];if(!e)return["var(--neutral)",1];const g=(e.regPct-e.regPct2022)*100;return["var(--smu-blue)",Math.max(.15,Math.min(1,g/14))]}
     const m=ctyMode==="y24"?c.m:proj26(c,M);
     return[mcol(m),.12+.88*Math.min(Math.abs(m),60)/60];
@@ -371,6 +374,7 @@
   async function renderCounties(){
     const svg=$("txMap");if(!svg)return;await loadGeo();if(!GEO){svg.outerHTML='<p class="note">County map could not load.</p>';return}
     const M=ctyModel();const T=meta&&meta.turnout&&meta.turnout.counties;const evMap={};(T&&T.list||[]).forEach(x=>evMap[x.fips]=x);
+    const RES=hasResults();$("mode-res").hidden=!RES;if(RES&&ctyAuto)ctyMode="res";if(!RES&&ctyMode==="res")ctyMode="proj";
     document.querySelectorAll(".seg-ctl button").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.mode===ctyMode)));
     svg.setAttribute("viewBox",`0 0 ${GEO.w} ${GEO.h}`);
     let s="";
@@ -380,7 +384,7 @@
     svg.innerHTML=s;
     const tip=$("mapTip");
     const show=(e,id)=>{const c=GEO.counties[id];if(!c)return;const ev=evMap[id];const m26=proj26(c,M);const T26=c.v*M.scale;const rv=T26*(50+m26/2)/100,dv=T26-rv;
-      tip.innerHTML=`<b>${esc(c.n)} County</b><br>2024: <span class="mg" style="color:${mcol(c.m)}">${mfmt(c.m)}</span><br>Projected 2026: <span class="mg" style="color:${mcol(m26)}">${mfmt(m26)}</span><br>≈ ${fmtM(dv)} D · ${fmtM(rv)} R votes`+(ev?`<br>Early ballots: <b>${ev.ev.toLocaleString("en-US")}</b><br>${(ev.regPct*100).toFixed(1)}% of registered (2022: ${(ev.regPct2022*100).toFixed(1)}%)`:"");
+      tip.innerHTML=(()=>{const a=actual(id);return a?`<b>${esc(c.n)} County</b><br>Result: <span class="mg" style="color:${mcol(a.m)}">${mfmt(a.m)}</span>${a.pct!=null?` · ${Math.round(a.pct*100)}% counted`:""}<br>${a.d.toLocaleString("en-US")} D · ${a.r.toLocaleString("en-US")} R<br>`:`<b>${esc(c.n)} County</b><br>`})()+`2024: <span class="mg" style="color:${mcol(c.m)}">${mfmt(c.m)}</span><br>Projected 2026: <span class="mg" style="color:${mcol(m26)}">${mfmt(m26)}</span><br>≈ ${fmtM(dv)} D · ${fmtM(rv)} R votes`+(ev?`<br>Early ballots: <b>${ev.ev.toLocaleString("en-US")}</b><br>${(ev.regPct*100).toFixed(1)}% of registered (2022: ${(ev.regPct2022*100).toFixed(1)}%)`:"");
       tip.hidden=false;const box=svg.parentElement.getBoundingClientRect();let x=e.clientX-box.left+12,y=e.clientY-box.top+12;if(x+190>box.width)x=Math.max(0,x-200);tip.style.left=x+"px";tip.style.top=y+"px"};
     svg.onmousemove=e=>{const id=e.target.dataset&&e.target.dataset.id;if(id)show(e,id);else tip.hidden=true};
     svg.onmouseleave=()=>{tip.hidden=true};
@@ -389,13 +393,13 @@
     const L=$("ctyLegend");
     if(ctyMode==="ev")L.innerHTML=`<span>Turnout gain vs. 2022</span><span class="ramp">${[.15,.35,.55,.75,1].map(o=>`<i style="background:var(--smu-blue);opacity:${o}"></i>`).join("")}</span><span>+14 pts or more</span><span><i style="display:inline-block;width:10px;height:10px;background:var(--neutral);vertical-align:-1px"></i> Not in sample</span>`;
     else L.innerHTML=`<span style="color:var(--dem);font-weight:700">D+60</span><span class="ramp">${[60,40,20,5].map(m=>`<i style="background:var(--dem);opacity:${(.12+.88*m/60).toFixed(2)}"></i>`).join("")}${[5,20,40,60].map(m=>`<i style="background:var(--rep);opacity:${(.12+.88*m/60).toFixed(2)}"></i>`).join("")}</span><span style="color:var(--rep);font-weight:700">R+60</span>`;
-    $("ctyNote").textContent=ctyMode==="proj"?`Projected U.S. Senate margin. Each county's 2024 presidential result (statewide R+${M.m24.toFixed(1)}) is swung proportionally toward the ${M.live?"live":"Hilltop"} statewide projection (${mfmt(M.m26)}), a ${Math.abs(M.shift).toFixed(1)}-point statewide swing toward ${M.shift<0?"Democrats":"Republicans"}. Swing counties move the most; real swings will vary. Tap a county for details.`:ctyMode==="y24"?"2024 presidential margin by county (Trump vs. Harris). Tap a county for details.":`How much higher early-vote turnout is than at the same point in 2022, for the ${(T&&T.list||[]).length} largest counties.`;
+    $("ctyNote").textContent=ctyMode==="res"?`Actual U.S. Senate results by county${CR&&CR.updatedAt?", updated "+ct(CR.updatedAt).replace(/\.$/,""):""}. Gray counties have no votes reported yet. Shading shows the margin among votes counted so far.`:ctyMode==="proj"?`Projected U.S. Senate margin. Each county's 2024 presidential result (statewide R+${M.m24.toFixed(1)}) is swung proportionally toward the ${M.live?"live":"Hilltop"} statewide projection (${mfmt(M.m26)}), a ${Math.abs(M.shift).toFixed(1)}-point statewide swing toward ${M.shift<0?"Democrats":"Republicans"}. Swing counties move the most; real swings will vary. Tap a county for details.`:ctyMode==="y24"?"2024 presidential margin by county (Trump vs. Harris). Tap a county for details.":`How much higher early-vote turnout is than at the same point in 2022, for the ${(T&&T.list||[]).length} largest counties.`;
     $("ctyAsOf").textContent=T?`Early vote through ${T.asOf} (day ${T.evDay} of 12) · projected U.S. Senate margin`:"";
     // table
     if(T){
-      let rows=`<thead><tr><th>County</th><th>Early ballots</th><th>% registered</th><th>vs. 2022</th><th>2024</th><th>Proj. 2026</th><th>Est. early vote D / R</th></tr></thead><tbody>`;
+      let rows=`<thead><tr><th>County</th><th>Early ballots</th><th>% registered</th><th>vs. 2022</th><th>2024</th><th>Proj. 2026</th>${hasResults()?"<th>Result</th>":""}<th>Est. early vote D / R</th></tr></thead><tbody>`;
       T.list.forEach(x=>{const c=GEO.counties[x.fips];if(!c)return;const m26=proj26(c,M);const r=x.ev*(50+m26/2)/100,d=x.ev-r;
-        rows+=`<tr data-id="${x.fips}"><td><b>${esc(x.n)}</b></td><td class="num">${x.ev.toLocaleString("en-US")}</td><td class="num">${(x.regPct*100).toFixed(1)}%</td><td class="num" style="color:var(--fg-2)">+${((x.regPct-x.regPct2022)*100).toFixed(1)}</td><td class="mg" style="color:${mcol(c.m)}">${mfmt(c.m)}</td><td class="mg" style="color:${mcol(m26)}">${mfmt(m26)}</td><td class="num">${fmtM(d)} / ${fmtM(r)}<div class="splitbar"><div style="width:${d/x.ev*100}%;background:var(--dem)"></div><div style="flex:1;background:var(--rep)"></div></div></td></tr>`});
+        rows+=`<tr data-id="${x.fips}"><td><b>${esc(x.n)}</b></td><td class="num">${x.ev.toLocaleString("en-US")}</td><td class="num">${(x.regPct*100).toFixed(1)}%</td><td class="num" style="color:var(--fg-2)">+${((x.regPct-x.regPct2022)*100).toFixed(1)}</td><td class="mg" style="color:${mcol(c.m)}">${mfmt(c.m)}</td><td class="mg" style="color:${mcol(m26)}">${mfmt(m26)}</td>${hasResults()?(()=>{const a=actual(x.fips);return a?`<td class="mg" style="color:${mcol(a.m)}">${mfmt(a.m)}<div class="s" style="font-weight:400;font-size:11px;color:var(--muted)">${a.pct!=null?Math.round(a.pct*100)+"% in":""}</div></td>`:`<td class="num" style="color:var(--muted)">—</td>`})():""}<td class="num">${fmtM(d)} / ${fmtM(r)}<div class="splitbar"><div style="width:${d/x.ev*100}%;background:var(--dem)"></div><div style="flex:1;background:var(--rep)"></div></div></td></tr>`});
       $("ctyTable").innerHTML=rows+"</tbody>";
       $("ctyTable").onclick=e=>{const tr=e.target.closest("tr[data-id]");if(!tr)return;ctySel=tr.dataset.id;renderCounties();$("txMap").scrollIntoView({behavior:"smooth",block:"center"})};
       $("ctyTblNote").textContent=`Early ballots are in-person votes plus mail ballots received, through ${T.asOf}. Texas has no party registration, so the D/R split is an estimate: it applies each county's projected 2026 margin to its early ballots. Early voters this year lean more Democratic than Election Day voters, so treat it as a rough guide.`;
@@ -414,7 +418,7 @@
       const lab=x.d.split(" ");s+=`<text x="${L+i*gw+gw/2}" y="${H-B+13}" text-anchor="middle" font-family="Libre Franklin,Arial,sans-serif" font-size="10" fill="var(--fg-2)">${lab[0]}</text><text x="${L+i*gw+gw/2}" y="${H-B+25}" text-anchor="middle" font-family="Libre Franklin,Arial,sans-serif" font-size="10" fill="var(--muted)">${lab[2]||""}</text>`});
     box.innerHTML=s+"</svg>";
   }
-  document.addEventListener("click",e=>{const b=e.target.closest(".seg-ctl button");if(!b)return;ctyMode=b.dataset.mode;try{localStorage.setItem("hed-cmode",ctyMode)}catch(x){}renderCounties()});
+  document.addEventListener("click",e=>{const b=e.target.closest(".seg-ctl button");if(!b)return;ctyMode=b.dataset.mode;ctyAuto=false;renderCounties()});
   function renderAll(){renderStatus();renderBop();renderOutcomes();renderProj();renderEV();renderCounties();renderMap();renderSections();renderChart()}
   document.querySelectorAll("nav.sections button").forEach(t=>t.addEventListener("click",()=>{group=t.dataset.g;try{localStorage.setItem("hed-tab",group)}catch(e){}renderSections();document.getElementById("sections").scrollIntoView({behavior:"smooth",block:"start"})}));
   setInterval(renderStatus,30000);
@@ -427,11 +431,11 @@
   async function load(){
     try{
       const q="?t="+Date.now();
-      const [r,m,k]=await Promise.all([fetch(BASE+"races.json"+q,{cache:"no-store"}),fetch(BASE+"meta.json"+q,{cache:"no-store"}),fetch(BASE+"markets.json"+q,{cache:"no-store"})]);
+      const [r,m,k,cr]=await Promise.all([fetch(BASE+"races.json"+q,{cache:"no-store"}),fetch(BASE+"meta.json"+q,{cache:"no-store"}),fetch(BASE+"markets.json"+q,{cache:"no-store"}),fetch(BASE+"county-results.json"+q,{cache:"no-store"}).catch(()=>null)]);
       if(!r.ok||!m.ok)throw new Error("HTTP");
-      const nr=await r.json(),nm=await m.json(),nk=k.ok?await k.json():MK;
-      const sig=JSON.stringify([nm.updatedAt,nk&&nk.updatedAt,nr.length,nr.map(x=>(x.snaps||[]).length+":"+x.called)]);
-      if(sig!==load.sig){load.sig=sig;races=nr;meta=nm;MK=nk;renderAll()}
+      const nr=await r.json(),nm=await m.json(),nk=k.ok?await k.json():MK;const ncr=cr&&cr.ok?await cr.json():CR;
+      const sig=JSON.stringify([ncr&&ncr.updatedAt,nm.updatedAt,nk&&nk.updatedAt,nr.length,nr.map(x=>(x.snaps||[]).length+":"+x.called)]);
+      if(sig!==load.sig){load.sig=sig;races=nr;meta=nm;MK=nk;CR=ncr;renderAll()}
       lastCheck=Date.now();renderFresh();$("notice").hidden=true;
     }catch(e){const n=$("notice");if(races.length){n.hidden=false;n.textContent="Having trouble reaching the results server. Retrying automatically."}}
   }
