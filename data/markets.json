@@ -1,22 +1,22 @@
 {
- "updatedAt": 1793360492848,
+ "updatedAt": 1793360632786,
  "control": {
   "senate": {
    "kalshi": {
-    "D": 0.685,
     "R": 0.325,
+    "D": 0.685,
     "src": "CONTROLS-2026"
    },
    "polymarket": {
-    "D": 0.69,
+    "D": 0.685,
     "R": 0.315,
     "src": "which-party-will-win-the-senate-in-2026"
    }
   },
   "house": {
    "kalshi": {
-    "D": 0.9195,
     "R": 0.0815,
+    "D": 0.9195,
     "src": "CONTROLH-2026"
    },
    "polymarket": {
@@ -29,8 +29,8 @@
  "races": {
   "gov-az": {
    "kalshi": {
-    "R": 0.0815,
     "D": 0.9225000000000001,
+    "R": 0.082,
     "src": "GOVPARTYAZ-26"
    },
    "polymarket": {
@@ -107,8 +107,8 @@
   },
   "gov-nv": {
    "kalshi": {
-    "R": 0.225,
     "D": 0.775,
+    "R": 0.225,
     "src": "GOVPARTYNV-26"
    },
    "polymarket": {
@@ -191,8 +191,8 @@
   },
   "sen-ks": {
    "kalshi": {
-    "D": 0.485,
     "R": 0.525,
+    "D": 0.485,
     "src": "SENATEKS-26"
    },
    "polymarket": {
@@ -220,15 +220,15 @@
     "src": "SENATEMI-26"
    },
    "polymarket": {
-    "D": 0.785,
-    "R": 0.22,
+    "D": 0.78,
+    "R": 0.225,
     "src": "michigan-senate-election-winner"
    }
   },
   "sen-mn": {
    "kalshi": {
     "D": 0.9005000000000001,
-    "R": 0.0975,
+    "R": 0.097,
     "src": "SENATEMN-26"
    },
    "polymarket": {
@@ -277,8 +277,8 @@
   },
   "sen-oh": {
    "kalshi": {
-    "D": 0.695,
     "R": 0.305,
+    "D": 0.695,
     "src": "SENATEOHS-26"
    },
    "polymarket": {
@@ -314,8 +314,8 @@
   "tx-05": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.9605,
-    "D": 0.039,
+    "R": 0.96,
+    "D": 0.0395,
     "src": "tx-05-house-election-winner"
    }
   },
@@ -339,19 +339,19 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0195,
-    "D": 0.971,
+    "D": 0.9715,
     "src": "tx-30-house-election-winner"
    }
   },
   "tx-32": {
    "kalshi": {
-    "D": 0.14,
     "R": 0.87,
+    "D": 0.135,
     "src": "KXHOUSETX32-26"
    },
    "polymarket": {
     "R": 0.87,
-    "D": 0.129,
+    "D": 0.1295,
     "src": "tx-32-house-election-winner"
    }
   },
@@ -407,7 +407,7 @@
    "kalshi": null,
    "polymarket": {
     "D": 0.525,
-    "R": 0.47,
+    "R": 0.475,
     "src": "texas-railroad-commissioner-election-winner-2026"
    }
   }
@@ -3469,6 +3469,13 @@
    "t": 1793360492848,
    "sk": 0.685,
    "sp": 0.69,
+   "hk": 0.9195,
+   "hp": 0.935
+  },
+  {
+   "t": 1793360632786,
+   "sk": 0.685,
+   "sp": 0.685,
    "hk": 0.9195,
    "hp": 0.935
   }
