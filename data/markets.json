@@ -1,10 +1,10 @@
 {
- "updatedAt": 1793326772083,
+ "updatedAt": 1793326913547,
  "control": {
   "senate": {
    "kalshi": {
-    "D": 0.675,
     "R": 0.325,
+    "D": 0.675,
     "src": "CONTROLS-2026"
    },
    "polymarket": {
@@ -16,7 +16,7 @@
   "house": {
    "kalshi": {
     "D": 0.9165000000000001,
-    "R": 0.0865,
+    "R": 0.08549999999999999,
     "src": "CONTROLH-2026"
    },
    "polymarket": {
@@ -47,7 +47,7 @@
    },
    "polymarket": {
     "D": 0.295,
-    "R": 0.69,
+    "R": 0.7,
     "src": "florida-governor-winner-2026"
    }
   },
@@ -65,8 +65,8 @@
   },
   "gov-ia": {
    "kalshi": {
-    "R": 0.155,
     "D": 0.845,
+    "R": 0.155,
     "src": "GOVPARTYIA-26"
    },
    "polymarket": {
@@ -221,7 +221,7 @@
    },
    "polymarket": {
     "D": 0.755,
-    "R": 0.235,
+    "R": 0.245,
     "src": "michigan-senate-election-winner"
    }
   },
@@ -289,20 +289,20 @@
   },
   "sen-sc": {
    "kalshi": {
-    "D": 0.275,
     "R": 0.725,
+    "D": 0.275,
     "src": "SENATESC-26"
    },
    "polymarket": {
     "D": 0.265,
-    "R": 0.73,
+    "R": 0.725,
     "src": "south-carolina-senate-election-winner"
    }
   },
   "sen-tx": {
    "kalshi": {
-    "D": 0.695,
     "R": 0.305,
+    "D": 0.695,
     "src": "SENATETX-26"
    },
    "polymarket": {
@@ -322,8 +322,8 @@
   "tx-06": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.9715,
-    "D": 0.019,
+    "R": 0.9735,
+    "D": 0.02,
     "src": "tx-06-house-election-winner"
    }
   },
@@ -339,7 +339,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0185,
-    "D": 0.972,
+    "D": 0.9635,
     "src": "tx-30-house-election-winner"
    }
   },
@@ -381,13 +381,13 @@
   },
   "tx-gov": {
    "kalshi": {
-    "R": 0.635,
     "D": 0.365,
+    "R": 0.635,
     "src": "GOVPARTYTX-26"
    },
    "polymarket": {
     "D": 0.375,
-    "R": 0.611,
+    "R": 0.61,
     "src": "texas-governor-winner-2026"
    }
   },
@@ -406,7 +406,7 @@
   "tx-rrc": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.52,
+    "D": 0.525,
     "R": 0.46,
     "src": "texas-railroad-commissioner-election-winner-2026"
    }
@@ -1787,6 +1787,13 @@
   },
   {
    "t": 1793326772083,
+   "sk": 0.675,
+   "sp": 0.685,
+   "hk": 0.9165000000000001,
+   "hp": 0.935
+  },
+  {
+   "t": 1793326913547,
    "sk": 0.675,
    "sp": 0.685,
    "hk": 0.9165000000000001,
