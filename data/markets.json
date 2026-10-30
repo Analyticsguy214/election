@@ -1,10 +1,10 @@
 {
- "updatedAt": 1793330020882,
+ "updatedAt": 1793330161783,
  "control": {
   "senate": {
    "kalshi": {
-    "R": 0.325,
     "D": 0.675,
+    "R": 0.325,
     "src": "CONTROLS-2026"
    },
    "polymarket": {
@@ -21,7 +21,7 @@
    },
    "polymarket": {
     "D": 0.935,
-    "R": 0.07,
+    "R": 0.075,
     "src": "which-party-will-win-the-house-in-2026"
    }
   }
@@ -41,8 +41,8 @@
   },
   "gov-fl": {
    "kalshi": {
-    "R": 0.695,
     "D": 0.305,
+    "R": 0.695,
     "src": "GOVPARTYFL-26"
    },
    "polymarket": {
@@ -119,8 +119,8 @@
   },
   "gov-oh": {
    "kalshi": {
-    "D": 0.805,
     "R": 0.195,
+    "D": 0.805,
     "src": "GOVPARTYOH-26"
    },
    "polymarket": {
@@ -131,8 +131,8 @@
   },
   "gov-wi": {
    "kalshi": {
-    "D": 0.835,
     "R": 0.165,
+    "D": 0.835,
     "src": "GOVPARTYWI-26"
    },
    "polymarket": {
@@ -167,12 +167,12 @@
   },
   "sen-ga": {
    "kalshi": {
-    "D": 0.9644999999999999,
     "R": 0.0365,
+    "D": 0.9644999999999999,
     "src": "SENATEGA-26"
    },
    "polymarket": {
-    "D": 0.965,
+    "D": 0.9665,
     "R": 0.0335,
     "src": "georgia-senate-election-winner"
    }
@@ -215,8 +215,8 @@
   },
   "sen-mi": {
    "kalshi": {
-    "R": 0.245,
     "D": 0.745,
+    "R": 0.245,
     "src": "SENATEMI-26"
    },
    "polymarket": {
@@ -245,7 +245,7 @@
    },
    "polymarket": {
     "D": 0.976,
-    "R": 0.024,
+    "R": 0.0235,
     "src": "north-carolina-senate-election-winner"
    }
   },
@@ -322,7 +322,7 @@
   "tx-06": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.9765,
+    "R": 0.979,
     "D": 0.0115,
     "src": "tx-06-house-election-winner"
    }
@@ -381,8 +381,8 @@
   },
   "tx-gov": {
    "kalshi": {
-    "D": 0.375,
     "R": 0.625,
+    "D": 0.375,
     "src": "GOVPARTYTX-26"
    },
    "polymarket": {
@@ -1948,6 +1948,13 @@
   },
   {
    "t": 1793330020882,
+   "sk": 0.675,
+   "sp": 0.675,
+   "hk": 0.9155,
+   "hp": 0.935
+  },
+  {
+   "t": 1793330161783,
    "sk": 0.675,
    "sp": 0.675,
    "hk": 0.9155,
