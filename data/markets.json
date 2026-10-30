@@ -1,10 +1,10 @@
 {
- "updatedAt": 1793349722373,
+ "updatedAt": 1793349861431,
  "control": {
   "senate": {
    "kalshi": {
-    "D": 0.675,
     "R": 0.315,
+    "D": 0.675,
     "src": "CONTROLS-2026"
    },
    "polymarket": {
@@ -15,8 +15,8 @@
   },
   "house": {
    "kalshi": {
-    "D": 0.9205000000000001,
     "R": 0.081,
+    "D": 0.9205000000000001,
     "src": "CONTROLH-2026"
    },
    "polymarket": {
@@ -41,8 +41,8 @@
   },
   "gov-fl": {
    "kalshi": {
-    "R": 0.695,
     "D": 0.305,
+    "R": 0.695,
     "src": "GOVPARTYFL-26"
    },
    "polymarket": {
@@ -143,8 +143,8 @@
   },
   "sen-ak": {
    "kalshi": {
-    "D": 0.675,
     "R": 0.315,
+    "D": 0.675,
     "src": "SENATEAK-26"
    },
    "polymarket": {
@@ -191,8 +191,8 @@
   },
   "sen-ks": {
    "kalshi": {
-    "D": 0.485,
     "R": 0.525,
+    "D": 0.485,
     "src": "SENATEKS-26"
    },
    "polymarket": {
@@ -215,13 +215,13 @@
   },
   "sen-mi": {
    "kalshi": {
-    "R": 0.255,
     "D": 0.755,
+    "R": 0.255,
     "src": "SENATEMI-26"
    },
    "polymarket": {
-    "D": 0.765,
-    "R": 0.235,
+    "D": 0.77,
+    "R": 0.225,
     "src": "michigan-senate-election-winner"
    }
   },
@@ -251,8 +251,8 @@
   },
   "sen-ne": {
    "kalshi": {
-    "R": 0.675,
     "I": 0.335,
+    "R": 0.675,
     "D": 0.0025,
     "src": "SENATENE-26"
    },
@@ -277,13 +277,13 @@
   },
   "sen-oh": {
    "kalshi": {
-    "D": 0.695,
     "R": 0.305,
+    "D": 0.695,
     "src": "SENATEOHS-26"
    },
    "polymarket": {
     "D": 0.705,
-    "R": 0.295,
+    "R": 0.29,
     "src": "ohio-senate-election-winner"
    }
   },
@@ -358,8 +358,8 @@
   "tx-33": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.029,
-    "D": 0.974,
+    "R": 0.032,
+    "D": 0.973,
     "src": "tx-33-house-election-winner"
    }
   },
@@ -2928,6 +2928,13 @@
   },
   {
    "t": 1793349722373,
+   "sk": 0.675,
+   "sp": 0.685,
+   "hk": 0.9205000000000001,
+   "hp": 0.935
+  },
+  {
+   "t": 1793349861431,
    "sk": 0.675,
    "sp": 0.685,
    "hk": 0.9205000000000001,
