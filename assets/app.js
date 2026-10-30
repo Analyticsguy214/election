@@ -142,12 +142,25 @@
     TILES.forEach(([st,c,r])=>{
       const it=by[st];const b=document.createElement(it&&!it.safe?"button":"div");b.className="tile"+(it&&!it.safe?" up":"");b.style.gridColumn=(c+1);b.style.gridRow=(r+1);
       if(it){const bg=tint(it.pD,it.pR,it.locked);b.style.background=bg;b.style.color=(bg==="var(--dem)"||bg==="var(--rep)"||bg==="var(--ind)")?"#fff":"var(--fg)";
-        const fp=it.locked?"✓":pct(Math.max(it.pD,it.pR));b.innerHTML=`${st}<small>${it.safe?"":fp}</small>`;
+        const hcT=it.race?hilltopCall(it.race):null;const fp=it.locked?"✓":hcT!=null?"◆":pct(Math.max(it.pD,it.pR));b.innerHTML=`${st}<small>${it.safe?"":fp}</small>`;
         if(!it.safe){b.setAttribute("aria-label",st+" Senate race");b.addEventListener("click",()=>{group=group==="all"||group==="senate"?group:"senate";renderSections();const t=document.getElementById("race-"+it.race.id);if(t)t.scrollIntoView({behavior:"smooth",block:"start"})})}
         b.title=st+(it.safe?" · Safe "+it.fav:"");
       }else{b.textContent=st;}
       host.appendChild(b);
     });
+  }
+  // Hilltop's own projection: separate from AP calls, conservative, and must hold across the last two counts.
+  const HC={p:0.99,r:0.8,mk:0.9};
+  function hcCheck(race,snap){
+    const m=model(race,snap);if(m.mode!=="live")return null;const L=m.est.leader;if(m.probs[L]<HC.p||(snap?snap.r:race.r)<HC.r)return null;return L}
+  function hilltopCall(race){
+    if(race.called!=null)return null;
+    const now=hcCheck(race);if(now==null)return null;
+    const sn=(race.snaps||[]).slice().sort((a,b)=>a.t-b.t);
+    if(sn.length>=2){const prev=hcCheck(race,sn[sn.length-2]);if(prev!==now)return null}
+    const [k,pm]=mkP(race);const lp=x=>x==null?null:(now===0?x:1-x);
+    for(const x of [lp(k),lp(pm)])if(x!=null&&x<HC.mk)return null;
+    return now;
   }
   function raceTable(race,sec){
     const m=model(race);const tot=race.votes?race.votes.reduce((a,b)=>a+(b||0),0):0;const r=race.r||0;
@@ -155,7 +168,10 @@
     const art=document.createElement("article");art.className="rt";art.id="race-"+race.id;
     const stKey=STATE[race.id]||GOVST[race.id]||(race.groups.includes("texas")||race.groups.includes("dfw")?"TX":null);
     let status;
-    if(race.called!=null)status=`<span class="status won-${wp}">${esc(last(race.cands[race.called].n))} wins ✓</span>`;
+    const hc=hilltopCall(race);
+    if(race.called!=null)status=`<span class="status won-${wp}">${esc(last(race.cands[race.called].n))} wins ✓ <small>AP</small></span>`;
+    else if(hc!=null)status=`<span class="status hcall" style="color:${PC[race.cands[hc].p]}">◆ Hilltop projects ${esc(last(race.cands[hc].n))}</span>`;
+    else if(false){}
     else if(m.mode==="live"){const L=m.est.leader,lp=m.probs[L];status=lp>=0.7?`<span class="status lean" style="color:${PC[race.cands[L].p]}">${lp>=0.9?"Likely":"Leaning"} ${esc(last(race.cands[L].n))}</span>`:`<span class="status">Too close to call</span>`}
     else status=`<span class="status">${stKey&&CLOSES[stKey]?"Polls close "+CLOSES[stKey]:"Awaiting results"}</span>`;
     const ttl=(sec==="texas"&&race.id==="sen-tx")?"U.S. Senate":(sec==="texas"&&race.id==="tx-gov")?"Governor":race.title;const sb=(sec==="texas"&&(race.id==="sen-tx"||race.id==="tx-gov"))?"Texas statewide":(race.sub||"");
@@ -191,7 +207,8 @@
       if(!list.length)return;
       const sec=document.createElement("section");
       const called=list.filter(x=>x.called!=null).length;
-      sec.innerHTML=`<div class="sechead"><h2>${s.t}</h2><span>${called} of ${list.length} races called</span></div><p class="secdek">${s.p}</p>`;
+      const proj=list.filter(x=>hilltopCall(x)!=null).length;
+      sec.innerHTML=`<div class="sechead"><h2>${s.t}</h2><span>${called} of ${list.length} called by AP${proj?` · ${proj} projected by Hilltop`:""}</span></div><p class="secdek">${s.p}</p>`;
       const g=document.createElement("div");g.className="results";list.forEach(x=>g.appendChild(raceTable(x,s.g)));sec.appendChild(g);host.appendChild(sec);
     });
   }
@@ -269,7 +286,7 @@
     const race=races.find(r=>r.id===projId)||races.find(r=>r.id==="sen-tx")||races[0];sel.value=race.id;
     const P=project(race);const c0=race.cands[0],c1=race.cands[1];
     $("projTitle").textContent=sel.options[sel.selectedIndex]?sel.options[sel.selectedIndex].text:race.title;
-    $("projBasis").textContent=P.mode==="live"?"Live projection from votes counted so far":P.mode==="final"?"Final count":"Before votes are counted: Hilltop forecast and early-vote turnout";
+    {const h=hilltopCall(race);if(h!=null&&P.mode==="live")$("projBasis").textContent="◆ Hilltop projects "+race.cands[h].n+" · AP has not called this race";else $("projBasis").textContent=P.mode==="live"?"Live projection from votes counted so far":P.mode==="final"?"Final count":"Before votes are counted: Hilltop forecast and early-vote turnout";}
     if(P.mode==="none"){$("projNames").innerHTML="";$("projBar").innerHTML="";$("projStats").innerHTML="";$("projNote").textContent="No published forecast or market for this race yet. A projection appears once votes are counted.";return}
     const v0=P.total!=null?P.total*P.s0/100:null,v1=P.total!=null?P.total*P.s1/100:null;
     $("projNames").innerHTML=`<div class="pn"><div class="pv" style="color:${PC[c0.p]}">${P.s0.toFixed(1)}%</div><div class="pl">${esc(c0.n)} (${c0.p})</div><div class="pc">${v0!=null?"≈ "+fmtM(v0)+" votes":""}</div></div><div class="pn"><div class="pv" style="color:${PC[c1.p]}">${P.s1.toFixed(1)}%</div><div class="pl">${esc(c1.n)} (${c1.p})</div><div class="pc">${v1!=null?"≈ "+fmtM(v1)+" votes":""}</div></div>`;
