@@ -1,10 +1,10 @@
 {
- "updatedAt": 1793327054593,
+ "updatedAt": 1793327195838,
  "control": {
   "senate": {
    "kalshi": {
-    "R": 0.325,
     "D": 0.675,
+    "R": 0.325,
     "src": "CONTROLS-2026"
    },
    "polymarket": {
@@ -30,7 +30,7 @@
   "gov-az": {
    "kalshi": {
     "R": 0.092,
-    "D": 0.9105000000000001,
+    "D": 0.9095,
     "src": "GOVPARTYAZ-26"
    },
    "polymarket": {
@@ -41,12 +41,12 @@
   },
   "gov-fl": {
    "kalshi": {
-    "R": 0.695,
     "D": 0.305,
+    "R": 0.695,
     "src": "GOVPARTYFL-26"
    },
    "polymarket": {
-    "D": 0.295,
+    "D": 0.29,
     "R": 0.7,
     "src": "florida-governor-winner-2026"
    }
@@ -91,7 +91,7 @@
     "src": "GOVPARTYMI-26"
    },
    "polymarket": {
-    "D": 0.9405,
+    "D": 0.94,
     "R": 0.058,
     "I": 0.0005,
     "src": "michigan-governor-winner-2026"
@@ -101,7 +101,7 @@
    "kalshi": null,
    "polymarket": {
     "D": 0.0695,
-    "R": 0.9295,
+    "R": 0.931,
     "src": "new-hampshire-governor-winner-2026"
    }
   },
@@ -119,8 +119,8 @@
   },
   "gov-oh": {
    "kalshi": {
-    "R": 0.20500000000000002,
     "D": 0.805,
+    "R": 0.20500000000000002,
     "src": "GOVPARTYOH-26"
    },
    "polymarket": {
@@ -137,7 +137,7 @@
    },
    "polymarket": {
     "D": 0.855,
-    "R": 0.145,
+    "R": 0.14,
     "src": "wisconsin-governor-winner-2026"
    }
   },
@@ -265,8 +265,8 @@
   },
   "sen-nh": {
    "kalshi": {
-    "R": 0.088,
-    "D": 0.911,
+    "D": 0.9105000000000001,
+    "R": 0.0885,
     "src": "SENATENH-26"
    },
    "polymarket": {
@@ -339,7 +339,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0185,
-    "D": 0.9635,
+    "D": 0.9665,
     "src": "tx-30-house-election-winner"
    }
   },
@@ -381,8 +381,8 @@
   },
   "tx-gov": {
    "kalshi": {
-    "R": 0.635,
     "D": 0.365,
+    "R": 0.635,
     "src": "GOVPARTYTX-26"
    },
    "polymarket": {
@@ -1801,6 +1801,13 @@
   },
   {
    "t": 1793327054593,
+   "sk": 0.675,
+   "sp": 0.685,
+   "hk": 0.9165000000000001,
+   "hp": 0.935
+  },
+  {
+   "t": 1793327195838,
    "sk": 0.675,
    "sp": 0.685,
    "hk": 0.9165000000000001,
