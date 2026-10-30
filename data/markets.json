@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793353219212,
+ "updatedAt": 1793353359303,
  "control": {
   "senate": {
    "kalshi": {
@@ -29,8 +29,8 @@
  "races": {
   "gov-az": {
    "kalshi": {
-    "D": 0.919,
-    "R": 0.0785,
+    "D": 0.9205000000000001,
+    "R": 0.078,
     "src": "GOVPARTYAZ-26"
    },
    "polymarket": {
@@ -53,8 +53,8 @@
   },
   "gov-ga": {
    "kalshi": {
-    "R": 0.375,
     "D": 0.625,
+    "R": 0.375,
     "src": "GOVPARTYGA-26"
    },
    "polymarket": {
@@ -85,9 +85,9 @@
   },
   "gov-mi": {
    "kalshi": {
-    "I": 0.0005,
-    "R": 0.063,
+    "R": 0.0635,
     "D": 0.9355,
+    "I": 0.0005,
     "src": "GOVPARTYMI-26"
    },
    "polymarket": {
@@ -155,8 +155,8 @@
   },
   "sen-fl": {
    "kalshi": {
-    "D": 0.10500000000000001,
     "R": 0.895,
+    "D": 0.10500000000000001,
     "src": "SENATEFLS-26"
    },
    "polymarket": {
@@ -167,20 +167,20 @@
   },
   "sen-ga": {
    "kalshi": {
-    "D": 0.964,
     "R": 0.0365,
+    "D": 0.964,
     "src": "SENATEGA-26"
    },
    "polymarket": {
-    "D": 0.9645,
+    "D": 0.9655,
     "R": 0.0335,
     "src": "georgia-senate-election-winner"
    }
   },
   "sen-ia": {
    "kalshi": {
-    "D": 0.46499999999999997,
     "R": 0.535,
+    "D": 0.46499999999999997,
     "src": "SENATEIA-26"
    },
    "polymarket": {
@@ -203,8 +203,8 @@
   },
   "sen-me": {
    "kalshi": {
-    "D": 0.635,
     "R": 0.365,
+    "D": 0.635,
     "src": "SENATEME-26"
    },
    "polymarket": {
@@ -215,8 +215,8 @@
   },
   "sen-mi": {
    "kalshi": {
-    "D": 0.755,
     "R": 0.255,
+    "D": 0.755,
     "src": "SENATEMI-26"
    },
    "polymarket": {
@@ -289,8 +289,8 @@
   },
   "sen-sc": {
    "kalshi": {
-    "D": 0.275,
     "R": 0.725,
+    "D": 0.275,
     "src": "SENATESC-26"
    },
    "polymarket": {
@@ -358,7 +358,7 @@
   "tx-33": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.0255,
+    "R": 0.0245,
     "D": 0.974,
     "src": "tx-33-house-election-winner"
    }
@@ -398,7 +398,7 @@
   "tx-ltgov": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.28,
+    "D": 0.275,
     "R": 0.725,
     "src": "texas-lieutenant-governor-election-winner-2026"
    }
@@ -3103,6 +3103,13 @@
   },
   {
    "t": 1793353219212,
+   "sk": 0.685,
+   "sp": 0.685,
+   "hk": 0.9205000000000001,
+   "hp": 0.935
+  },
+  {
+   "t": 1793353359303,
    "sk": 0.685,
    "sp": 0.685,
    "hk": 0.9205000000000001,
