@@ -1,10 +1,10 @@
 {
- "updatedAt": 1793327901033,
+ "updatedAt": 1793328042105,
  "control": {
   "senate": {
    "kalshi": {
-    "D": 0.675,
     "R": 0.325,
+    "D": 0.675,
     "src": "CONTROLS-2026"
    },
    "polymarket": {
@@ -46,7 +46,7 @@
     "src": "GOVPARTYFL-26"
    },
    "polymarket": {
-    "D": 0.29,
+    "D": 0.285,
     "R": 0.7,
     "src": "florida-governor-winner-2026"
    }
@@ -215,8 +215,8 @@
   },
   "sen-mi": {
    "kalshi": {
-    "R": 0.245,
     "D": 0.745,
+    "R": 0.245,
     "src": "SENATEMI-26"
    },
    "polymarket": {
@@ -244,16 +244,16 @@
     "src": "SENATENC-26"
    },
    "polymarket": {
-    "D": 0.9755,
+    "D": 0.974,
     "R": 0.024,
     "src": "north-carolina-senate-election-winner"
    }
   },
   "sen-ne": {
    "kalshi": {
+    "I": 0.335,
     "D": 0.003,
     "R": 0.675,
-    "I": 0.335,
     "src": "SENATENE-26"
    },
    "polymarket": {
@@ -265,8 +265,8 @@
   },
   "sen-nh": {
    "kalshi": {
-    "R": 0.0885,
-    "D": 0.911,
+    "D": 0.912,
+    "R": 0.0895,
     "src": "SENATENH-26"
    },
    "polymarket": {
@@ -295,7 +295,7 @@
    },
    "polymarket": {
     "D": 0.265,
-    "R": 0.73,
+    "R": 0.725,
     "src": "south-carolina-senate-election-winner"
    }
   },
@@ -322,7 +322,7 @@
   "tx-06": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.9765,
+    "R": 0.977,
     "D": 0.0125,
     "src": "tx-06-house-election-winner"
    }
@@ -381,8 +381,8 @@
   },
   "tx-gov": {
    "kalshi": {
-    "R": 0.635,
     "D": 0.365,
+    "R": 0.635,
     "src": "GOVPARTYTX-26"
    },
    "polymarket": {
@@ -1843,6 +1843,13 @@
   },
   {
    "t": 1793327901033,
+   "sk": 0.675,
+   "sp": 0.685,
+   "hk": 0.9165000000000001,
+   "hp": 0.935
+  },
+  {
+   "t": 1793328042105,
    "sk": 0.675,
    "sp": 0.685,
    "hk": 0.9165000000000001,
