@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793355319014,
+ "updatedAt": 1793355459526,
  "control": {
   "senate": {
    "kalshi": {
@@ -15,8 +15,8 @@
   },
   "house": {
    "kalshi": {
-    "R": 0.0805,
     "D": 0.9205000000000001,
+    "R": 0.0805,
     "src": "CONTROLH-2026"
    },
    "polymarket": {
@@ -30,7 +30,7 @@
   "gov-az": {
    "kalshi": {
     "D": 0.9205000000000001,
-    "R": 0.078,
+    "R": 0.0785,
     "src": "GOVPARTYAZ-26"
    },
    "polymarket": {
@@ -86,13 +86,13 @@
   "gov-mi": {
    "kalshi": {
     "D": 0.9355,
-    "I": 0.0005,
     "R": 0.0635,
+    "I": 0.0005,
     "src": "GOVPARTYMI-26"
    },
    "polymarket": {
     "D": 0.9435,
-    "R": 0.0575,
+    "R": 0.0565,
     "I": 0.0005,
     "src": "michigan-governor-winner-2026"
    }
@@ -107,8 +107,8 @@
   },
   "gov-nv": {
    "kalshi": {
-    "R": 0.225,
     "D": 0.775,
+    "R": 0.225,
     "src": "GOVPARTYNV-26"
    },
    "polymarket": {
@@ -184,15 +184,15 @@
     "src": "SENATEIA-26"
    },
    "polymarket": {
-    "D": 0.45,
+    "D": 0.445,
     "R": 0.555,
     "src": "iowa-senate-election-winner"
    }
   },
   "sen-ks": {
    "kalshi": {
-    "R": 0.525,
     "D": 0.485,
+    "R": 0.525,
     "src": "SENATEKS-26"
    },
    "polymarket": {
@@ -245,14 +245,14 @@
    },
    "polymarket": {
     "D": 0.977,
-    "R": 0.0225,
+    "R": 0.0205,
     "src": "north-carolina-senate-election-winner"
    }
   },
   "sen-ne": {
    "kalshi": {
-    "I": 0.335,
     "R": 0.675,
+    "I": 0.335,
     "D": 0.0025,
     "src": "SENATENE-26"
    },
@@ -277,20 +277,20 @@
   },
   "sen-oh": {
    "kalshi": {
-    "R": 0.305,
     "D": 0.695,
+    "R": 0.305,
     "src": "SENATEOHS-26"
    },
    "polymarket": {
     "D": 0.705,
-    "R": 0.29,
+    "R": 0.285,
     "src": "ohio-senate-election-winner"
    }
   },
   "sen-sc": {
    "kalshi": {
-    "R": 0.725,
     "D": 0.275,
+    "R": 0.725,
     "src": "SENATESC-26"
    },
    "polymarket": {
@@ -338,7 +338,7 @@
   "tx-30": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.019,
+    "R": 0.0195,
     "D": 0.979,
     "src": "tx-30-house-election-winner"
    }
@@ -3208,6 +3208,13 @@
   },
   {
    "t": 1793355319014,
+   "sk": 0.685,
+   "sp": 0.685,
+   "hk": 0.9205000000000001,
+   "hp": 0.935
+  },
+  {
+   "t": 1793355459526,
    "sk": 0.685,
    "sp": 0.685,
    "hk": 0.9205000000000001,
