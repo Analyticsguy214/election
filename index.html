@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="build" content="1793312142">
+<meta name="build" content="1793335778">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Hilltop Election Desk · 2026 Midterm Results</title>
 <meta name="description" content="Live 2026 midterm results, win probabilities and prediction-market odds for Congress, governors, Texas and Dallas County.">
@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
-<link rel="stylesheet" href="assets/styles.css?v=1793312142">
+<link rel="stylesheet" href="assets/styles.css?v=1793335778">
 <style>body{margin:0}</style>
 </head>
 <body>
@@ -87,6 +87,33 @@
       </div>
     </section>
 
+    <section aria-labelledby="cty-h" id="counties">
+      <h2 class="slabel" id="cty-h">Texas counties <span id="ctyAsOf">Early vote and projected U.S. Senate margin by county</span></h2>
+      <div class="ctygrid">
+        <div class="ctymap">
+          <div class="seg-ctl" role="tablist" aria-label="Map view">
+            <button role="tab" data-mode="proj" id="mode-proj" aria-selected="true">Projected 2026</button>
+            <button role="tab" data-mode="y24" id="mode-y24" aria-selected="false">2024 result</button>
+            <button role="tab" data-mode="ev" id="mode-ev" aria-selected="false">Early-vote surge</button>
+          </div>
+          <div class="mapbox"><svg id="txMap" role="img" aria-label="Map of Texas counties"></svg><div class="maptip" id="mapTip" hidden></div></div>
+          <div class="ctylegend" id="ctyLegend"></div>
+          <p class="note" id="ctyNote"></p>
+        </div>
+        <div class="ctyside">
+          <h3>Dallas County early vote by day</h3>
+          <p class="evsub" id="dalSum"></p>
+          <div class="svgwrap" id="dalChart"></div>
+          <div class="dlegend"><span><i style="background:var(--smu-blue)"></i>2026</span><span><i style="background:var(--neutral-2)"></i>2024</span><span><i style="background:var(--rule)"></i>2022</span></div>
+        </div>
+      </div>
+      <div class="ctytable">
+        <h3>Largest counties</h3>
+        <div class="tblwrap"><table id="ctyTable"></table></div>
+        <p class="note" id="ctyTblNote"></p>
+      </div>
+    </section>
+
     <section aria-labelledby="map-h">
       <h2 class="slabel" id="map-h">Senate map <span>35 seats on the ballot · select a state for results</span></h2>
       <div class="mapgrid">
@@ -127,6 +154,6 @@
     </div>
   </div>
 </footer>
-<script src="assets/app.js?v=1793312142"></script>
+<script src="assets/app.js?v=1793335778"></script>
 </body>
 </html>

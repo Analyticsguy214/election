@@ -187,3 +187,33 @@ footer ul{margin:0;padding-left:16px}
 .opct{font-weight:800;font-size:24px;line-height:1}
 .odesc{font-size:13px;color:var(--fg-2)}
 @media (max-width:480px){.orow{grid-template-columns:auto auto}.odesc{grid-column:1/-1}}
+
+.ctygrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:28px 40px;align-items:start}
+@media (max-width:820px){.ctygrid{grid-template-columns:1fr}}
+.ctymap,.ctyside,.ctytable{min-width:0}
+.seg-ctl{display:inline-flex;border:1px solid var(--rule);margin-bottom:10px;flex-wrap:wrap}
+.seg-ctl button{background:var(--bg);color:var(--fg-2);border:0;border-right:1px solid var(--rule);font:600 12.5px var(--f-sans);padding:7px 12px;cursor:pointer}
+.seg-ctl button:last-child{border-right:0}
+.seg-ctl button[aria-selected="true"]{background:var(--fg);color:var(--bg)}
+.mapbox{position:relative;max-width:600px}
+#txMap{width:100%;height:auto;display:block}
+#txMap path{stroke:var(--bg);stroke-width:.4;cursor:pointer}
+#txMap path:hover,#txMap path.sel{stroke:var(--rule-strong);stroke-width:1.4}
+#txMap .lbl{font:700 9px var(--f-sans);fill:var(--fg);pointer-events:none;paint-order:stroke;stroke:var(--bg);stroke-width:2.5px}
+.maptip{position:absolute;z-index:3;background:var(--bg);border:1px solid var(--rule-strong);padding:8px 10px;font-size:12.5px;line-height:1.4;min-width:170px;max-width:240px;pointer-events:none;box-shadow:0 4px 14px rgba(0,0,0,.15)}
+.maptip b{font-size:13.5px}
+.ctylegend{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--fg-2);margin-top:8px;flex-wrap:wrap}
+.ctylegend .ramp{display:flex;height:10px;width:220px;max-width:60vw}
+.ctylegend .ramp i{flex:1}
+.ctyside h3,.ctytable h3{font-family:var(--f-serif);font-size:20px;margin:0 0 6px}
+.dlegend{display:flex;gap:14px;font-size:12px;color:var(--fg-2);margin-top:6px}
+.dlegend i{display:inline-block;width:11px;height:11px;vertical-align:-1px;margin-right:5px}
+.ctytable{margin-top:22px}
+.tblwrap{overflow-x:auto}
+#ctyTable{min-width:640px}
+#ctyTable td,#ctyTable th{padding:7px 8px}
+#ctyTable th:first-child,#ctyTable td:first-child{padding-left:0}
+#ctyTable tr{cursor:pointer}
+#ctyTable tr:hover td{background:var(--panel)}
+.mg{font-weight:700;font-variant-numeric:tabular-nums}
+.splitbar{display:flex;height:6px;width:90px;margin-left:auto;margin-top:3px}

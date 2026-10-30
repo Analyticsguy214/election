@@ -340,10 +340,85 @@
     for(let a=b0;a<b1;a+=bw){let p=0;for(let d=a;d<a+bw;d++)p+=pD(d);hb.push({a,p,ctrl:a+bw/2>=218?"D":"R",dl:"D "+(a+2),rl:"R "+(435-a-2)})}
     $("outHou").innerHTML=outcomeBlock("House",rows,histSVG(hb,b=>"Democrats "+b.a+"–"+(b.a+bw-1),hb.findIndex(b=>b.a<=218&&218<b.a+bw)),"Bars group outcomes in five-seat ranges. Before results, the spread comes from the Decision Desk HQ seat forecast and the Kalshi and Polymarket odds; on election night it narrows as the AP calls seats.");
   }
-  function renderAll(){renderStatus();renderBop();renderOutcomes();renderProj();renderEV();renderMap();renderSections();renderChart()}
+
+  // ---------- Texas counties ----------
+  let GEO=null,ctyMode="proj",ctySel=null;
+  try{const s=localStorage.getItem("hed-cmode");if(s)ctyMode=s}catch(e){}
+  async function loadGeo(){if(GEO)return GEO;try{const r=await fetch("data/tx-counties.json?v="+((document.querySelector('meta[name="build"]')||{}).content||""));GEO=await r.json()}catch(e){GEO=null}return GEO}
+  const lgt=p=>Math.log(p/(1-p)),sig=x=>1/(1+Math.exp(-x));
+  function ctyModel(){
+    if(!GEO)return null;const cs=Object.values(GEO.counties);let v=0,g=0;
+    cs.forEach(c=>{const pr=(50+c.m/2)/100;g+=c.v*pr;v+=c.v});
+    const m24=(2*g/v-1)*100;
+    const race=races.find(r=>r.id==="sen-tx");const P=race?project(race):null;
+    const m26=P&&P.mode!=="none"?(P.s1-P.s0)*(race.cands[1].p==="R"?1:-1):m24; // R minus D
+    const target=(50+m26/2)/100;
+    // proportional (logit) swing: one shift on the log-odds scale so counties' weighted total hits the statewide target
+    const at=dl=>cs.reduce((a,c)=>a+c.v*sig(lgt(Math.min(.995,Math.max(.005,(50+c.m/2)/100)))+dl),0)/v;
+    let lo=-4,hi=4;for(let i=0;i<50;i++){const mid=(lo+hi)/2;if(at(mid)<target)lo=mid;else hi=mid}
+    const dl=(lo+hi)/2;
+    const tt=txTurnout();const T26=P&&P.total?P.total:(tt?tt.total:v);
+    return{m24,m26,shift:m26-m24,dl,scale:T26/v,T26,live:P&&P.mode==="live"};
+  }
+  function proj26(c,M){const p=Math.min(.995,Math.max(.005,(50+c.m/2)/100));return Math.round((2*sig(lgt(p)+M.dl)-1)*1000)/10}
+  const mfmt=m=>m===0?"Even":(m>0?"R+":"D+")+Math.abs(m).toFixed(1);
+  const mcol=m=>m>0?"var(--rep)":"var(--dem)";
+  function fillFor(c,M,evMap){
+    if(ctyMode==="ev"){const e=evMap[c.id];if(!e)return["var(--neutral)",1];const g=(e.regPct-e.regPct2022)*100;return["var(--smu-blue)",Math.max(.15,Math.min(1,g/14))]}
+    const m=ctyMode==="y24"?c.m:proj26(c,M);
+    return[mcol(m),.12+.88*Math.min(Math.abs(m),60)/60];
+  }
+  async function renderCounties(){
+    const svg=$("txMap");if(!svg)return;await loadGeo();if(!GEO){svg.outerHTML='<p class="note">County map could not load.</p>';return}
+    const M=ctyModel();const T=meta&&meta.turnout&&meta.turnout.counties;const evMap={};(T&&T.list||[]).forEach(x=>evMap[x.fips]=x);
+    document.querySelectorAll(".seg-ctl button").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.mode===ctyMode)));
+    svg.setAttribute("viewBox",`0 0 ${GEO.w} ${GEO.h}`);
+    let s="";
+    for(const [id,c] of Object.entries(GEO.counties)){const [col,op]=fillFor({...c,id},M,evMap);s+=`<path d="${c.d}" data-id="${id}" fill="${col}" fill-opacity="${op.toFixed(2)}" class="${id===ctySel?"sel":""}"/>`}
+    const LB=[["48201","Harris",0,0],["48029","Bexar",0,0],["48453","Travis",0,0],["48141","El Paso",14,-14],["48215","Hidalgo",0,0],["48303","Lubbock",0,0],["48113","Dallas",30,-18],["48439","Tarrant",-34,-18]];
+    for(const [id,nm,dx,dy] of LB){const c=GEO.counties[id];if(!c)continue;const x=c.c[0]+dx,y=c.c[1]+dy;if(dx||dy)s+=`<line x1="${c.c[0]}" y1="${c.c[1]}" x2="${x}" y2="${y+3}" stroke="var(--fg)" stroke-width=".8"/>`;s+=`<text class="lbl" x="${x}" y="${y}" text-anchor="middle">${nm}</text>`}
+    svg.innerHTML=s;
+    const tip=$("mapTip");
+    const show=(e,id)=>{const c=GEO.counties[id];if(!c)return;const ev=evMap[id];const m26=proj26(c,M);const T26=c.v*M.scale;const rv=T26*(50+m26/2)/100,dv=T26-rv;
+      tip.innerHTML=`<b>${esc(c.n)} County</b><br>2024: <span class="mg" style="color:${mcol(c.m)}">${mfmt(c.m)}</span><br>Projected 2026: <span class="mg" style="color:${mcol(m26)}">${mfmt(m26)}</span><br>≈ ${fmtM(dv)} D · ${fmtM(rv)} R votes`+(ev?`<br>Early ballots: <b>${ev.ev.toLocaleString("en-US")}</b><br>${(ev.regPct*100).toFixed(1)}% of registered (2022: ${(ev.regPct2022*100).toFixed(1)}%)`:"");
+      tip.hidden=false;const box=svg.parentElement.getBoundingClientRect();let x=e.clientX-box.left+12,y=e.clientY-box.top+12;if(x+190>box.width)x=Math.max(0,x-200);tip.style.left=x+"px";tip.style.top=y+"px"};
+    svg.onmousemove=e=>{const id=e.target.dataset&&e.target.dataset.id;if(id)show(e,id);else tip.hidden=true};
+    svg.onmouseleave=()=>{tip.hidden=true};
+    svg.onclick=e=>{const id=e.target.dataset&&e.target.dataset.id;if(!id)return;ctySel=ctySel===id?null:id;show(e,id);svg.querySelectorAll("path.sel").forEach(p=>p.classList.remove("sel"));if(ctySel)e.target.classList.add("sel")};
+    // legend + notes
+    const L=$("ctyLegend");
+    if(ctyMode==="ev")L.innerHTML=`<span>Turnout gain vs. 2022</span><span class="ramp">${[.15,.35,.55,.75,1].map(o=>`<i style="background:var(--smu-blue);opacity:${o}"></i>`).join("")}</span><span>+14 pts or more</span><span><i style="display:inline-block;width:10px;height:10px;background:var(--neutral);vertical-align:-1px"></i> Not in sample</span>`;
+    else L.innerHTML=`<span style="color:var(--dem);font-weight:700">D+60</span><span class="ramp">${[60,40,20,5].map(m=>`<i style="background:var(--dem);opacity:${(.12+.88*m/60).toFixed(2)}"></i>`).join("")}${[5,20,40,60].map(m=>`<i style="background:var(--rep);opacity:${(.12+.88*m/60).toFixed(2)}"></i>`).join("")}</span><span style="color:var(--rep);font-weight:700">R+60</span>`;
+    $("ctyNote").textContent=ctyMode==="proj"?`Projected U.S. Senate margin. Each county's 2024 presidential result (statewide R+${M.m24.toFixed(1)}) is swung proportionally toward the ${M.live?"live":"Hilltop"} statewide projection (${mfmt(M.m26)}), a ${Math.abs(M.shift).toFixed(1)}-point statewide swing toward ${M.shift<0?"Democrats":"Republicans"}. Swing counties move the most; real swings will vary. Tap a county for details.`:ctyMode==="y24"?"2024 presidential margin by county (Trump vs. Harris). Tap a county for details.":`How much higher early-vote turnout is than at the same point in 2022, for the ${(T&&T.list||[]).length} largest counties.`;
+    $("ctyAsOf").textContent=T?`Early vote through ${T.asOf} (day ${T.evDay} of 12) · projected U.S. Senate margin`:"";
+    // table
+    if(T){
+      let rows=`<thead><tr><th>County</th><th>Early ballots</th><th>% registered</th><th>vs. 2022</th><th>2024</th><th>Proj. 2026</th><th>Est. early vote D / R</th></tr></thead><tbody>`;
+      T.list.forEach(x=>{const c=GEO.counties[x.fips];if(!c)return;const m26=proj26(c,M);const r=x.ev*(50+m26/2)/100,d=x.ev-r;
+        rows+=`<tr data-id="${x.fips}"><td><b>${esc(x.n)}</b></td><td class="num">${x.ev.toLocaleString("en-US")}</td><td class="num">${(x.regPct*100).toFixed(1)}%</td><td class="num" style="color:var(--fg-2)">+${((x.regPct-x.regPct2022)*100).toFixed(1)}</td><td class="mg" style="color:${mcol(c.m)}">${mfmt(c.m)}</td><td class="mg" style="color:${mcol(m26)}">${mfmt(m26)}</td><td class="num">${fmtM(d)} / ${fmtM(r)}<div class="splitbar"><div style="width:${d/x.ev*100}%;background:var(--dem)"></div><div style="flex:1;background:var(--rep)"></div></div></td></tr>`});
+      $("ctyTable").innerHTML=rows+"</tbody>";
+      $("ctyTable").onclick=e=>{const tr=e.target.closest("tr[data-id]");if(!tr)return;ctySel=tr.dataset.id;renderCounties();$("txMap").scrollIntoView({behavior:"smooth",block:"center"})};
+      $("ctyTblNote").textContent=`Early ballots are in-person votes plus mail ballots received, through ${T.asOf}. Texas has no party registration, so the D/R split is an estimate: it applies each county's projected 2026 margin to its early ballots. Early voters this year lean more Democratic than Election Day voters, so treat it as a rough guide.`;
+    }
+    renderDallasDaily();
+  }
+  function renderDallasDaily(){
+    const D=meta&&meta.turnout&&meta.turnout.dallasDaily;const box=$("dalChart");if(!D||!box)return;
+    const days=D.days;const c26=days.reduce((a,x)=>a+x.y26,0),c24=days.reduce((a,x)=>a+x.y24,0),c22=days.reduce((a,x)=>a+x.y22,0);
+    $("dalSum").innerHTML=`<b>${c26.toLocaleString("en-US")}</b> in person through ${esc(D.asOf)} (day ${days.length}), plus ${D.mail.toLocaleString("en-US")} mail ballots. That's ${Math.round(c26/c24*100)}% of 2024's pace and ${Math.round(c26/c22*100)}% of 2022's.`;
+    const W=Math.max(320,box.clientWidth||420),H=210,L=38,R=6,T=10,B=30;const mx=Math.max(...days.map(x=>Math.max(x.y26,x.y24,x.y22)))*1.08;
+    const gw=(W-L-R)/days.length,bw=Math.min(14,(gw-4)/3);const y=v=>T+(1-v/mx)*(H-T-B);
+    let s=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Dallas County early votes by day, 2026 vs 2024 and 2022">`;
+    const step=mx>60000?20000:10000;for(let v=0;v<=mx;v+=step)s+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--rule)"/><text x="${L-5}" y="${y(v)+4}" text-anchor="end" font-family="Libre Franklin,Arial,sans-serif" font-size="10.5" fill="var(--muted)">${v/1000}K</text>`;
+    days.forEach((x,i)=>{const gx=L+i*gw+(gw-bw*3-2)/2;[["y22","var(--rule)"],["y24","var(--neutral-2)"],["y26","var(--smu-blue)"]].forEach(([k,col],j)=>{const v=x[k];s+=`<rect x="${(gx+j*(bw+1)).toFixed(1)}" y="${y(v).toFixed(1)}" width="${bw.toFixed(1)}" height="${(H-B-y(v)).toFixed(1)}" fill="${col}"><title>${x.d} ${k==="y26"?"2026":k==="y24"?"2024":"2022"}: ${v.toLocaleString("en-US")}</title></rect>`});
+      const lab=x.d.split(" ");s+=`<text x="${L+i*gw+gw/2}" y="${H-B+13}" text-anchor="middle" font-family="Libre Franklin,Arial,sans-serif" font-size="10" fill="var(--fg-2)">${lab[0]}</text><text x="${L+i*gw+gw/2}" y="${H-B+25}" text-anchor="middle" font-family="Libre Franklin,Arial,sans-serif" font-size="10" fill="var(--muted)">${lab[2]||""}</text>`});
+    box.innerHTML=s+"</svg>";
+  }
+  document.addEventListener("click",e=>{const b=e.target.closest(".seg-ctl button");if(!b)return;ctyMode=b.dataset.mode;try{localStorage.setItem("hed-cmode",ctyMode)}catch(x){}renderCounties()});
+  function renderAll(){renderStatus();renderBop();renderOutcomes();renderProj();renderEV();renderCounties();renderMap();renderSections();renderChart()}
   document.querySelectorAll("nav.sections button").forEach(t=>t.addEventListener("click",()=>{group=t.dataset.g;try{localStorage.setItem("hed-tab",group)}catch(e){}renderSections();document.getElementById("sections").scrollIntoView({behavior:"smooth",block:"start"})}));
   setInterval(renderStatus,30000);
-  let rt;window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(renderChart,200)});
+  let rt;window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{renderChart();renderDallasDaily()},200)});
   renderAll();
   const BUILD=(document.querySelector('meta[name="build"]')||{}).content||"";
   async function checkBuild(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.json()).v;if(BUILD&&v&&v!==BUILD)location.reload()}catch(e){}}

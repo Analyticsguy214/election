@@ -167,16 +167,22 @@
   {
    "title": "VoteHub Texas early-vote tracking (Zachary Donnini)",
    "url": "https://x.com/VoteHub/status/2114508478668472436"
+  },
+  {
+   "title": "Dallas County early vote by day (dallasearlyvote.com, from county reports)",
+   "url": "https://dallasearlyvote.com/"
+  },
+  {
+   "title": "2024 county presidential results (tonmcg/US_County_Level_Election_Results)",
+   "url": "https://github.com/tonmcg/US_County_Level_Election_Results_08-24"
   }
  ],
  "turnout": {
   "tx": {
    "label": "Texas",
-   "ev": 5664689,
-   "inPerson": 5437603,
-   "mail": 227086,
-   "asOf": "Oct. 27",
-   "evDay": 9,
+   "ev": 6218876,
+   "asOf": "Oct. 28",
+   "evDay": 10,
    "evDays": 12,
    "reg": 19041684,
    "ev2022": 5497027,
@@ -190,12 +196,227 @@
   },
   "dallas": {
    "label": "Dallas County",
-   "ev": 459285,
-   "asOf": "Oct. 27",
-   "evDay": 9,
+   "ev": 506414,
+   "asOf": "Oct. 28",
+   "evDay": 10,
    "evDays": 12,
-   "regPct": 0.307,
-   "regPct2022": 0.193
+   "regPct": 0.337,
+   "regPct2022": 0.217
+  },
+  "counties": {
+   "asOf": "Oct. 28",
+   "evDay": 10,
+   "statewide": 6218876,
+   "list": [
+    {
+     "fips": "48201",
+     "n": "Harris",
+     "ev": 831034,
+     "regPct": 0.303,
+     "regPct2022": 0.22
+    },
+    {
+     "fips": "48113",
+     "n": "Dallas",
+     "ev": 502969,
+     "regPct": 0.337,
+     "regPct2022": 0.217
+    },
+    {
+     "fips": "48439",
+     "n": "Tarrant",
+     "ev": 477629,
+     "regPct": 0.389,
+     "regPct2022": 0.251
+    },
+    {
+     "fips": "48029",
+     "n": "Bexar",
+     "ev": 431944,
+     "regPct": 0.326,
+     "regPct2022": 0.244
+    },
+    {
+     "fips": "48453",
+     "n": "Travis",
+     "ev": 357423,
+     "regPct": 0.37799999999999995,
+     "regPct2022": 0.27399999999999997
+    },
+    {
+     "fips": "48085",
+     "n": "Collin",
+     "ev": 305734,
+     "regPct": 0.38799999999999996,
+     "regPct2022": 0.295
+    },
+    {
+     "fips": "48121",
+     "n": "Denton",
+     "ev": 265378,
+     "regPct": 0.386,
+     "regPct2022": 0.293
+    },
+    {
+     "fips": "48157",
+     "n": "Fort Bend",
+     "ev": 220723,
+     "regPct": 0.379,
+     "regPct2022": 0.273
+    },
+    {
+     "fips": "48491",
+     "n": "Williamson",
+     "ev": 191170,
+     "regPct": 0.405,
+     "regPct2022": 0.303
+    },
+    {
+     "fips": "48339",
+     "n": "Montgomery",
+     "ev": 152847,
+     "regPct": 0.314,
+     "regPct2022": 0.26899999999999996
+    },
+    {
+     "fips": "48215",
+     "n": "Hidalgo",
+     "ev": 135915,
+     "regPct": 0.292,
+     "regPct2022": 0.191
+    },
+    {
+     "fips": "48141",
+     "n": "El Paso",
+     "ev": 131505,
+     "regPct": 0.248,
+     "regPct2022": 0.147
+    },
+    {
+     "fips": "48039",
+     "n": "Brazoria",
+     "ev": 96005,
+     "regPct": 0.36700000000000005,
+     "regPct2022": 0.263
+    },
+    {
+     "fips": "48167",
+     "n": "Galveston",
+     "ev": 90291,
+     "regPct": 0.36,
+     "regPct2022": 0.271
+    },
+    {
+     "fips": "48209",
+     "n": "Hays",
+     "ev": 80606,
+     "regPct": 0.396,
+     "regPct2022": 0.299
+    },
+    {
+     "fips": "48027",
+     "n": "Bell",
+     "ev": 68317,
+     "regPct": 0.27699999999999997,
+     "regPct2022": 0.201
+    },
+    {
+     "fips": "48303",
+     "n": "Lubbock",
+     "ev": 67474,
+     "regPct": 0.33,
+     "regPct2022": 0.252
+    },
+    {
+     "fips": "48061",
+     "n": "Cameron",
+     "ev": 65204,
+     "regPct": 0.267,
+     "regPct2022": 0.188
+    },
+    {
+     "fips": "48091",
+     "n": "Comal",
+     "ev": 57773,
+     "regPct": 0.38,
+     "regPct2022": 0.33
+    },
+    {
+     "fips": "48355",
+     "n": "Nueces",
+     "ev": 57566,
+     "regPct": 0.264,
+     "regPct2022": 0.222
+    }
+   ]
+  },
+  "dallasDaily": {
+   "asOf": "Oct. 28",
+   "mail": 18395,
+   "total": 506414,
+   "days": [
+    {
+     "d": "Mon Oct 19",
+     "y26": 78062,
+     "y24": 56341,
+     "y22": 32596
+    },
+    {
+     "d": "Tue Oct 20",
+     "y26": 65121,
+     "y24": 56694,
+     "y22": 37245
+    },
+    {
+     "d": "Wed Oct 21",
+     "y26": 56093,
+     "y24": 54131,
+     "y22": 34414
+    },
+    {
+     "d": "Thu Oct 22",
+     "y26": 49470,
+     "y24": 50877,
+     "y22": 32516
+    },
+    {
+     "d": "Fri Oct 23",
+     "y26": 54384,
+     "y24": 57247,
+     "y22": 25808
+    },
+    {
+     "d": "Sat Oct 24",
+     "y26": 36687,
+     "y24": 53471,
+     "y22": 24277
+    },
+    {
+     "d": "Sun Oct 25",
+     "y26": 19183,
+     "y24": 24922,
+     "y22": 11485
+    },
+    {
+     "d": "Mon Oct 26",
+     "y26": 44231,
+     "y24": 53899,
+     "y22": 31000
+    },
+    {
+     "d": "Tue Oct 27",
+     "y26": 42079,
+     "y24": 50680,
+     "y22": 30717
+    },
+    {
+     "d": "Wed Oct 28",
+     "y26": 42709,
+     "y24": 51042,
+     "y22": 33244
+    }
+   ],
+   "note": "In-person votes by day; 2024 and 2022 are the same day of early voting."
   }
  },
  "outside": {
