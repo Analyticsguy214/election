@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793439113602,
+ "updatedAt": 1793439252938,
  "control": {
   "senate": {
    "kalshi": {
@@ -15,7 +15,7 @@
   },
   "house": {
    "kalshi": {
-    "D": 0.9375,
+    "D": 0.938,
     "R": 0.0625,
     "src": "CONTROLH-2026"
    },
@@ -244,8 +244,8 @@
     "src": "SENATENC-26"
    },
    "polymarket": {
-    "D": 0.975,
-    "R": 0.0235,
+    "D": 0.9745,
+    "R": 0.0245,
     "src": "north-carolina-senate-election-winner"
    }
   },
@@ -258,14 +258,14 @@
    },
    "polymarket": {
     "D": 0.0005,
-    "R": 0.765,
-    "I": 0.235,
+    "R": 0.77,
+    "I": 0.225,
     "src": "nebraska-senate-election-winner"
    }
   },
   "sen-nh": {
    "kalshi": {
-    "R": 0.0775,
+    "R": 0.077,
     "D": 0.923,
     "src": "SENATENH-26"
    },
@@ -315,7 +315,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.9615,
-    "D": 0.038,
+    "D": 0.0385,
     "src": "tx-05-house-election-winner"
    }
   },
@@ -7530,6 +7530,13 @@
    "sk": 0.705,
    "sp": 0.705,
    "hk": 0.9375,
+   "hp": 0.945
+  },
+  {
+   "t": 1793439252938,
+   "sk": 0.705,
+   "sp": 0.705,
+   "hk": 0.938,
    "hp": 0.945
   }
  ],
