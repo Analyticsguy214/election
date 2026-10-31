@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793478600311,
+ "updatedAt": 1793478740586,
  "control": {
   "senate": {
    "kalshi": {
@@ -107,8 +107,8 @@
   },
   "gov-nv": {
    "kalshi": {
-    "R": 0.245,
     "D": 0.755,
+    "R": 0.245,
     "src": "GOVPARTYNV-26"
    },
    "polymarket": {
@@ -143,8 +143,8 @@
   },
   "sen-ak": {
    "kalshi": {
-    "D": 0.695,
     "R": 0.315,
+    "D": 0.695,
     "src": "SENATEAK-26"
    },
    "polymarket": {
@@ -191,8 +191,8 @@
   },
   "sen-ks": {
    "kalshi": {
-    "R": 0.495,
     "D": 0.505,
+    "R": 0.495,
     "src": "SENATEKS-26"
    },
    "polymarket": {
@@ -215,8 +215,8 @@
   },
   "sen-mi": {
    "kalshi": {
-    "D": 0.765,
     "R": 0.245,
+    "D": 0.765,
     "src": "SENATEMI-26"
    },
    "polymarket": {
@@ -245,15 +245,15 @@
    },
    "polymarket": {
     "D": 0.973,
-    "R": 0.0235,
+    "R": 0.024,
     "src": "north-carolina-senate-election-winner"
    }
   },
   "sen-ne": {
    "kalshi": {
-    "R": 0.755,
     "D": 0.0015,
     "I": 0.255,
+    "R": 0.755,
     "src": "SENATENE-26"
    },
    "polymarket": {
@@ -306,7 +306,7 @@
     "src": "SENATETX-26"
    },
    "polymarket": {
-    "D": 0.715,
+    "D": 0.71,
     "R": 0.295,
     "src": "texas-senate-election-winner"
    }
@@ -322,7 +322,7 @@
   "tx-06": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.973,
+    "R": 0.971,
     "D": 0.0175,
     "src": "tx-06-house-election-winner"
    }
@@ -358,7 +358,7 @@
   "tx-33": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.0255,
+    "R": 0.0235,
     "D": 0.973,
     "src": "tx-33-house-election-winner"
    }
@@ -381,13 +381,13 @@
   },
   "tx-gov": {
    "kalshi": {
-    "D": 0.345,
     "R": 0.655,
+    "D": 0.345,
     "src": "GOVPARTYTX-26"
    },
    "polymarket": {
     "D": 0.315,
-    "R": 0.678,
+    "R": 0.6745,
     "src": "texas-governor-winner-2026"
    }
   },
@@ -398,8 +398,8 @@
   "tx-ltgov": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.21,
-    "R": 0.785,
+    "D": 0.22,
+    "R": 0.79,
     "src": "texas-lieutenant-governor-election-winner-2026"
    }
   },
@@ -9557,6 +9557,13 @@
   },
   {
    "t": 1793478600311,
+   "sk": 0.715,
+   "sp": 0.715,
+   "hk": 0.9384999999999999,
+   "hp": 0.945
+  },
+  {
+   "t": 1793478740586,
    "sk": 0.715,
    "sp": 0.715,
    "hk": 0.9384999999999999,
