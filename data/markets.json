@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793465740318,
+ "updatedAt": 1793465883924,
  "control": {
   "senate": {
    "kalshi": {
@@ -41,12 +41,12 @@
   },
   "gov-fl": {
    "kalshi": {
-    "R": 0.635,
     "D": 0.355,
+    "R": 0.635,
     "src": "GOVPARTYFL-26"
    },
    "polymarket": {
-    "D": 0.36,
+    "D": 0.355,
     "R": 0.645,
     "src": "florida-governor-winner-2026"
    }
@@ -119,13 +119,13 @@
   },
   "gov-oh": {
    "kalshi": {
-    "D": 0.795,
     "R": 0.20500000000000002,
+    "D": 0.795,
     "src": "GOVPARTYOH-26"
    },
    "polymarket": {
-    "D": 0.815,
-    "R": 0.175,
+    "D": 0.81,
+    "R": 0.195,
     "src": "ohio-governor-winner-2026"
    }
   },
@@ -161,7 +161,7 @@
    },
    "polymarket": {
     "D": 0.09,
-    "R": 0.905,
+    "R": 0.91,
     "src": "florida-senate-election-winner"
    }
   },
@@ -322,7 +322,7 @@
   "tx-06": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.9735,
+    "R": 0.9725,
     "D": 0.0175,
     "src": "tx-06-house-election-winner"
    }
@@ -351,7 +351,7 @@
    },
    "polymarket": {
     "R": 0.865,
-    "D": 0.134,
+    "D": 0.1345,
     "src": "tx-32-house-election-winner"
    }
   },
@@ -406,7 +406,7 @@
   "tx-rrc": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.585,
+    "D": 0.58,
     "R": 0.4,
     "src": "texas-railroad-commissioner-election-winner-2026"
    }
@@ -8913,6 +8913,13 @@
   },
   {
    "t": 1793465740318,
+   "sk": 0.715,
+   "sp": 0.705,
+   "hk": 0.9384999999999999,
+   "hp": 0.945
+  },
+  {
+   "t": 1793465883924,
    "sk": 0.715,
    "sp": 0.705,
    "hk": 0.9384999999999999,
