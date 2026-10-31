@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793425442375,
+ "updatedAt": 1793425582290,
  "control": {
   "senate": {
    "kalshi": {
@@ -42,7 +42,7 @@
   "gov-fl": {
    "kalshi": {
     "D": 0.355,
-    "R": 0.645,
+    "R": 0.635,
     "src": "GOVPARTYFL-26"
    },
    "polymarket": {
@@ -112,8 +112,8 @@
     "src": "GOVPARTYNV-26"
    },
    "polymarket": {
-    "D": 0.765,
-    "R": 0.235,
+    "D": 0.775,
+    "R": 0.225,
     "src": "nevada-governor-winner-2026"
    }
   },
@@ -168,12 +168,12 @@
   "sen-ga": {
    "kalshi": {
     "R": 0.0275,
-    "D": 0.9704999999999999,
+    "D": 0.971,
     "src": "SENATEGA-26"
    },
    "polymarket": {
     "D": 0.971,
-    "R": 0.0285,
+    "R": 0.029,
     "src": "georgia-senate-election-winner"
    }
   },
@@ -314,7 +314,7 @@
   "tx-05": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.9595,
+    "R": 0.96,
     "D": 0.0415,
     "src": "tx-05-house-election-winner"
    }
@@ -323,7 +323,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.978,
-    "D": 0.0175,
+    "D": 0.017,
     "src": "tx-06-house-election-winner"
    }
   },
@@ -381,8 +381,8 @@
   },
   "tx-gov": {
    "kalshi": {
-    "D": 0.365,
     "R": 0.635,
+    "D": 0.365,
     "src": "GOVPARTYTX-26"
    },
    "polymarket": {
@@ -398,7 +398,7 @@
   "tx-ltgov": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.295,
+    "D": 0.285,
     "R": 0.705,
     "src": "texas-lieutenant-governor-election-winner-2026"
    }
@@ -6841,6 +6841,13 @@
   },
   {
    "t": 1793425442375,
+   "sk": 0.705,
+   "sp": 0.705,
+   "hk": 0.9355,
+   "hp": 0.945
+  },
+  {
+   "t": 1793425582290,
    "sk": 0.705,
    "sp": 0.705,
    "hk": 0.9355,
