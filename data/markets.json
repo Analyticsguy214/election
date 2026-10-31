@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793432138835,
+ "updatedAt": 1793432278757,
  "control": {
   "senate": {
    "kalshi": {
@@ -29,8 +29,8 @@
  "races": {
   "gov-az": {
    "kalshi": {
+    "R": 0.0875,
     "D": 0.9105000000000001,
-    "R": 0.088,
     "src": "GOVPARTYAZ-26"
    },
    "polymarket": {
@@ -119,8 +119,8 @@
   },
   "gov-oh": {
    "kalshi": {
-    "D": 0.795,
     "R": 0.20500000000000002,
+    "D": 0.795,
     "src": "GOVPARTYOH-26"
    },
    "polymarket": {
@@ -203,8 +203,8 @@
   },
   "sen-me": {
    "kalshi": {
-    "R": 0.325,
     "D": 0.685,
+    "R": 0.325,
     "src": "SENATEME-26"
    },
    "polymarket": {
@@ -215,8 +215,8 @@
   },
   "sen-mi": {
    "kalshi": {
-    "D": 0.745,
     "R": 0.245,
+    "D": 0.745,
     "src": "SENATEMI-26"
    },
    "polymarket": {
@@ -244,8 +244,8 @@
     "src": "SENATENC-26"
    },
    "polymarket": {
-    "D": 0.976,
-    "R": 0.0235,
+    "D": 0.9745,
+    "R": 0.025,
     "src": "north-carolina-senate-election-winner"
    }
   },
@@ -351,14 +351,14 @@
    },
    "polymarket": {
     "R": 0.875,
-    "D": 0.125,
+    "D": 0.126,
     "src": "tx-32-house-election-winner"
    }
   },
   "tx-33": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.026,
+    "R": 0.0255,
     "D": 0.973,
     "src": "tx-33-house-election-winner"
    }
@@ -381,8 +381,8 @@
   },
   "tx-gov": {
    "kalshi": {
-    "R": 0.635,
     "D": 0.365,
+    "R": 0.635,
     "src": "GOVPARTYTX-26"
    },
    "polymarket": {
@@ -7177,6 +7177,13 @@
   },
   {
    "t": 1793432138835,
+   "sk": 0.705,
+   "sp": 0.71,
+   "hk": 0.9375,
+   "hp": 0.945
+  },
+  {
+   "t": 1793432278757,
    "sk": 0.705,
    "sp": 0.71,
    "hk": 0.9375,
