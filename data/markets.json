@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793442741123,
+ "updatedAt": 1793442880214,
  "control": {
   "senate": {
    "kalshi": {
@@ -100,7 +100,7 @@
   "gov-nh": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.0635,
+    "D": 0.0645,
     "R": 0.9315,
     "src": "new-hampshire-governor-winner-2026"
    }
@@ -143,8 +143,8 @@
   },
   "sen-ak": {
    "kalshi": {
-    "R": 0.305,
     "D": 0.695,
+    "R": 0.305,
     "src": "SENATEAK-26"
    },
    "polymarket": {
@@ -167,20 +167,20 @@
   },
   "sen-ga": {
    "kalshi": {
-    "D": 0.9704999999999999,
-    "R": 0.028,
+    "D": 0.971,
+    "R": 0.0275,
     "src": "SENATEGA-26"
    },
    "polymarket": {
     "D": 0.9715,
-    "R": 0.029,
+    "R": 0.0295,
     "src": "georgia-senate-election-winner"
    }
   },
   "sen-ia": {
    "kalshi": {
-    "D": 0.445,
     "R": 0.565,
+    "D": 0.445,
     "src": "SENATEIA-26"
    },
    "polymarket": {
@@ -215,8 +215,8 @@
   },
   "sen-mi": {
    "kalshi": {
-    "D": 0.755,
     "R": 0.225,
+    "D": 0.755,
     "src": "SENATEMI-26"
    },
    "polymarket": {
@@ -244,7 +244,7 @@
     "src": "SENATENC-26"
    },
    "polymarket": {
-    "D": 0.9745,
+    "D": 0.975,
     "R": 0.0255,
     "src": "north-carolina-senate-election-winner"
    }
@@ -258,8 +258,8 @@
    },
    "polymarket": {
     "D": 0.0005,
-    "R": 0.775,
-    "I": 0.215,
+    "R": 0.785,
+    "I": 0.21,
     "src": "nebraska-senate-election-winner"
    }
   },
@@ -7709,6 +7709,13 @@
   },
   {
    "t": 1793442741123,
+   "sk": 0.705,
+   "sp": 0.705,
+   "hk": 0.9375,
+   "hp": 0.945
+  },
+  {
+   "t": 1793442880214,
    "sk": 0.705,
    "sp": 0.705,
    "hk": 0.9375,
