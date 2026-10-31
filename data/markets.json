@@ -1,10 +1,10 @@
 {
- "updatedAt": 1793440925239,
+ "updatedAt": 1793441064393,
  "control": {
   "senate": {
    "kalshi": {
-    "R": 0.295,
     "D": 0.705,
+    "R": 0.295,
     "src": "CONTROLS-2026"
    },
    "polymarket": {
@@ -53,8 +53,8 @@
   },
   "gov-ga": {
    "kalshi": {
-    "R": 0.335,
     "D": 0.655,
+    "R": 0.335,
     "src": "GOVPARTYGA-26"
    },
    "polymarket": {
@@ -85,8 +85,8 @@
   },
   "gov-mi": {
    "kalshi": {
-    "R": 0.07250000000000001,
     "D": 0.9285000000000001,
+    "R": 0.07250000000000001,
     "I": 0.0005,
     "src": "GOVPARTYMI-26"
    },
@@ -119,8 +119,8 @@
   },
   "gov-oh": {
    "kalshi": {
-    "D": 0.795,
     "R": 0.20500000000000002,
+    "D": 0.795,
     "src": "GOVPARTYOH-26"
    },
    "polymarket": {
@@ -266,12 +266,12 @@
   "sen-nh": {
    "kalshi": {
     "R": 0.077,
-    "D": 0.9225000000000001,
+    "D": 0.923,
     "src": "SENATENH-26"
    },
    "polymarket": {
-    "D": 0.935,
-    "R": 0.075,
+    "D": 0.93,
+    "R": 0.07,
     "src": "new-hampshire-senate-election-winner"
    }
   },
@@ -315,7 +315,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.9615,
-    "D": 0.0385,
+    "D": 0.04,
     "src": "tx-05-house-election-winner"
    }
   },
@@ -381,13 +381,13 @@
   },
   "tx-gov": {
    "kalshi": {
-    "R": 0.655,
     "D": 0.345,
+    "R": 0.655,
     "src": "GOVPARTYTX-26"
    },
    "polymarket": {
     "D": 0.355,
-    "R": 0.646,
+    "R": 0.6465,
     "src": "texas-governor-winner-2026"
    }
   },
@@ -407,7 +407,7 @@
    "kalshi": null,
    "polymarket": {
     "D": 0.59,
-    "R": 0.395,
+    "R": 0.39,
     "src": "texas-railroad-commissioner-election-winner-2026"
    }
   }
@@ -7618,6 +7618,13 @@
   },
   {
    "t": 1793440925239,
+   "sk": 0.705,
+   "sp": 0.705,
+   "hk": 0.9375,
+   "hp": 0.945
+  },
+  {
+   "t": 1793441064393,
    "sk": 0.705,
    "sp": 0.705,
    "hk": 0.9375,
