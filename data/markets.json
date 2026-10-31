@@ -1,10 +1,10 @@
 {
- "updatedAt": 1793428649947,
+ "updatedAt": 1793428789117,
  "control": {
   "senate": {
    "kalshi": {
-    "D": 0.705,
     "R": 0.295,
+    "D": 0.705,
     "src": "CONTROLS-2026"
    },
    "polymarket": {
@@ -85,9 +85,9 @@
   },
   "gov-mi": {
    "kalshi": {
+    "R": 0.0725,
     "D": 0.9315,
     "I": 0.0005,
-    "R": 0.0725,
     "src": "GOVPARTYMI-26"
    },
    "polymarket": {
@@ -100,7 +100,7 @@
   "gov-nh": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.0645,
+    "D": 0.065,
     "R": 0.9315,
     "src": "new-hampshire-governor-winner-2026"
    }
@@ -167,8 +167,8 @@
   },
   "sen-ga": {
    "kalshi": {
-    "R": 0.0275,
-    "D": 0.9704999999999999,
+    "D": 0.971,
+    "R": 0.028,
     "src": "SENATEGA-26"
    },
    "polymarket": {
@@ -191,8 +191,8 @@
   },
   "sen-ks": {
    "kalshi": {
-    "R": 0.495,
     "D": 0.505,
+    "R": 0.495,
     "src": "SENATEKS-26"
    },
    "polymarket": {
@@ -244,8 +244,8 @@
     "src": "SENATENC-26"
    },
    "polymarket": {
-    "D": 0.9765,
-    "R": 0.0245,
+    "D": 0.976,
+    "R": 0.025,
     "src": "north-carolina-senate-election-winner"
    }
   },
@@ -282,7 +282,7 @@
     "src": "SENATEOHS-26"
    },
    "polymarket": {
-    "D": 0.72,
+    "D": 0.715,
     "R": 0.275,
     "src": "ohio-senate-election-winner"
    }
@@ -322,7 +322,7 @@
   "tx-06": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.9815,
+    "R": 0.983,
     "D": 0.0175,
     "src": "tx-06-house-election-winner"
    }
@@ -338,8 +338,8 @@
   "tx-30": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.019,
-    "D": 0.9775,
+    "R": 0.0195,
+    "D": 0.976,
     "src": "tx-30-house-election-winner"
    }
   },
@@ -381,8 +381,8 @@
   },
   "tx-gov": {
    "kalshi": {
-    "R": 0.635,
     "D": 0.365,
+    "R": 0.635,
     "src": "GOVPARTYTX-26"
    },
    "polymarket": {
@@ -7002,6 +7002,13 @@
   },
   {
    "t": 1793428649947,
+   "sk": 0.705,
+   "sp": 0.705,
+   "hk": 0.936,
+   "hp": 0.945
+  },
+  {
+   "t": 1793428789117,
    "sk": 0.705,
    "sp": 0.705,
    "hk": 0.936,
