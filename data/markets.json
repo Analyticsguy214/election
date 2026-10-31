@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793489248983,
+ "updatedAt": 1793489389626,
  "control": {
   "senate": {
    "kalshi": {
@@ -16,7 +16,7 @@
   "house": {
    "kalshi": {
     "D": 0.9355,
-    "R": 0.067,
+    "R": 0.0675,
     "src": "CONTROLH-2026"
    },
    "polymarket": {
@@ -29,8 +29,8 @@
  "races": {
   "gov-az": {
    "kalshi": {
-    "R": 0.096,
     "D": 0.9125000000000001,
+    "R": 0.096,
     "src": "GOVPARTYAZ-26"
    },
    "polymarket": {
@@ -85,9 +85,9 @@
   },
   "gov-mi": {
    "kalshi": {
+    "R": 0.0755,
     "I": 0.0005,
     "D": 0.928,
-    "R": 0.076,
     "src": "GOVPARTYMI-26"
    },
    "polymarket": {
@@ -204,7 +204,7 @@
   "sen-me": {
    "kalshi": {
     "D": 0.675,
-    "R": 0.325,
+    "R": 0.33,
     "src": "SENATEME-26"
    },
    "polymarket": {
@@ -227,7 +227,7 @@
   },
   "sen-mn": {
    "kalshi": {
-    "D": 0.9075,
+    "D": 0.9065000000000001,
     "R": 0.0925,
     "src": "SENATEMN-26"
    },
@@ -314,7 +314,7 @@
   "tx-05": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.9565,
+    "R": 0.9575,
     "D": 0.039,
     "src": "tx-05-house-election-winner"
    }
@@ -339,7 +339,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.017,
-    "D": 0.9765,
+    "D": 0.977,
     "src": "tx-30-house-election-winner"
    }
   },
@@ -367,7 +367,7 @@
    "kalshi": null,
    "polymarket": {
     "D": 0.255,
-    "R": 0.735,
+    "R": 0.74,
     "src": "texas-attorney-general-election-winner-2026"
    }
   },
@@ -381,8 +381,8 @@
   },
   "tx-gov": {
    "kalshi": {
-    "D": 0.345,
     "R": 0.665,
+    "D": 0.345,
     "src": "GOVPARTYTX-26"
    },
    "polymarket": {
@@ -398,8 +398,8 @@
   "tx-ltgov": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.235,
-    "R": 0.76,
+    "D": 0.23,
+    "R": 0.765,
     "src": "texas-lieutenant-governor-election-winner-2026"
    }
   },
@@ -10089,6 +10089,13 @@
   },
   {
    "t": 1793489248983,
+   "sk": 0.715,
+   "sp": 0.715,
+   "hk": 0.9355,
+   "hp": 0.945
+  },
+  {
+   "t": 1793489389626,
    "sk": 0.715,
    "sp": 0.715,
    "hk": 0.9355,
