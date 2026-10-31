@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793465324243,
+ "updatedAt": 1793465463083,
  "control": {
   "senate": {
    "kalshi": {
@@ -15,8 +15,8 @@
   },
   "house": {
    "kalshi": {
-    "R": 0.0635,
     "D": 0.9384999999999999,
+    "R": 0.0635,
     "src": "CONTROLH-2026"
    },
    "polymarket": {
@@ -86,8 +86,8 @@
   "gov-mi": {
    "kalshi": {
     "R": 0.07050000000000001,
-    "I": 0.0005,
     "D": 0.9335,
+    "I": 0.0005,
     "src": "GOVPARTYMI-26"
    },
    "polymarket": {
@@ -100,8 +100,8 @@
   "gov-nh": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.077,
-    "R": 0.9165,
+    "D": 0.0765,
+    "R": 0.9175,
     "src": "new-hampshire-governor-winner-2026"
    }
   },
@@ -119,8 +119,8 @@
   },
   "gov-oh": {
    "kalshi": {
-    "R": 0.20500000000000002,
     "D": 0.795,
+    "R": 0.20500000000000002,
     "src": "GOVPARTYOH-26"
    },
    "polymarket": {
@@ -143,8 +143,8 @@
   },
   "sen-ak": {
    "kalshi": {
-    "D": 0.695,
     "R": 0.305,
+    "D": 0.695,
     "src": "SENATEAK-26"
    },
    "polymarket": {
@@ -172,7 +172,7 @@
     "src": "SENATEGA-26"
    },
    "polymarket": {
-    "D": 0.972,
+    "D": 0.9725,
     "R": 0.0285,
     "src": "georgia-senate-election-winner"
    }
@@ -322,8 +322,8 @@
   "tx-06": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.9755,
-    "D": 0.0175,
+    "R": 0.9695,
+    "D": 0.0185,
     "src": "tx-06-house-election-winner"
    }
   },
@@ -351,7 +351,7 @@
    },
    "polymarket": {
     "R": 0.865,
-    "D": 0.131,
+    "D": 0.1315,
     "src": "tx-32-house-election-winner"
    }
   },
@@ -367,7 +367,7 @@
    "kalshi": null,
    "polymarket": {
     "D": 0.255,
-    "R": 0.74,
+    "R": 0.735,
     "src": "texas-attorney-general-election-winner-2026"
    }
   },
@@ -387,7 +387,7 @@
    },
    "polymarket": {
     "D": 0.315,
-    "R": 0.6855,
+    "R": 0.685,
     "src": "texas-governor-winner-2026"
    }
   },
@@ -398,8 +398,8 @@
   "tx-ltgov": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.28,
-    "R": 0.72,
+    "D": 0.29,
+    "R": 0.705,
     "src": "texas-lieutenant-governor-election-winner-2026"
    }
   },
@@ -8892,6 +8892,13 @@
   },
   {
    "t": 1793465324243,
+   "sk": 0.715,
+   "sp": 0.705,
+   "hk": 0.9384999999999999,
+   "hp": 0.945
+  },
+  {
+   "t": 1793465463083,
    "sk": 0.715,
    "sp": 0.705,
    "hk": 0.9384999999999999,
