@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793437997446,
+ "updatedAt": 1793438136510,
  "control": {
   "senate": {
    "kalshi": {
@@ -15,7 +15,7 @@
   },
   "house": {
    "kalshi": {
-    "D": 0.9365000000000001,
+    "D": 0.937,
     "R": 0.0635,
     "src": "CONTROLH-2026"
    },
@@ -46,15 +46,15 @@
     "src": "GOVPARTYFL-26"
    },
    "polymarket": {
-    "D": 0.39,
+    "D": 0.385,
     "R": 0.615,
     "src": "florida-governor-winner-2026"
    }
   },
   "gov-ga": {
    "kalshi": {
-    "R": 0.335,
     "D": 0.655,
+    "R": 0.335,
     "src": "GOVPARTYGA-26"
    },
    "polymarket": {
@@ -100,15 +100,15 @@
   "gov-nh": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.065,
+    "D": 0.063,
     "R": 0.9315,
     "src": "new-hampshire-governor-winner-2026"
    }
   },
   "gov-nv": {
    "kalshi": {
-    "R": 0.245,
     "D": 0.745,
+    "R": 0.245,
     "src": "GOVPARTYNV-26"
    },
    "polymarket": {
@@ -252,14 +252,14 @@
   "sen-ne": {
    "kalshi": {
     "I": 0.275,
-    "R": 0.735,
-    "D": 0.0005,
+    "R": 0.75,
+    "D": 0.001,
     "src": "SENATENE-26"
    },
    "polymarket": {
     "D": 0.0005,
-    "R": 0.75,
-    "I": 0.25,
+    "R": 0.745,
+    "I": 0.26,
     "src": "nebraska-senate-election-winner"
    }
   },
@@ -7474,6 +7474,13 @@
    "sk": 0.705,
    "sp": 0.705,
    "hk": 0.9365000000000001,
+   "hp": 0.945
+  },
+  {
+   "t": 1793438136510,
+   "sk": 0.705,
+   "sp": 0.705,
+   "hk": 0.937,
    "hp": 0.945
   }
  ],
