@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793515559766,
+ "updatedAt": 1793515701228,
  "control": {
   "senate": {
    "kalshi": {
@@ -29,8 +29,8 @@
  "races": {
   "gov-az": {
    "kalshi": {
-    "D": 0.9085000000000001,
     "R": 0.0955,
+    "D": 0.908,
     "src": "GOVPARTYAZ-26"
    },
    "polymarket": {
@@ -41,8 +41,8 @@
   },
   "gov-fl": {
    "kalshi": {
-    "R": 0.645,
     "D": 0.355,
+    "R": 0.645,
     "src": "GOVPARTYFL-26"
    },
    "polymarket": {
@@ -155,8 +155,8 @@
   },
   "sen-fl": {
    "kalshi": {
-    "R": 0.895,
     "D": 0.11499999999999999,
+    "R": 0.895,
     "src": "SENATEFLS-26"
    },
    "polymarket": {
@@ -168,7 +168,7 @@
   "sen-ga": {
    "kalshi": {
     "D": 0.9695,
-    "R": 0.034,
+    "R": 0.0335,
     "src": "SENATEGA-26"
    },
    "polymarket": {
@@ -208,8 +208,8 @@
     "src": "SENATEME-26"
    },
    "polymarket": {
-    "D": 0.695,
-    "R": 0.315,
+    "D": 0.675,
+    "R": 0.325,
     "src": "maine-senate-election-winner"
    }
   },
@@ -322,8 +322,8 @@
   "tx-06": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.9875,
-    "D": 0.0135,
+    "R": 0.9845,
+    "D": 0.0145,
     "src": "tx-06-house-election-winner"
    }
   },
@@ -331,7 +331,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.95,
-    "D": 0.05,
+    "D": 0.055,
     "src": "tx-24-house-election-winner"
    }
   },
@@ -351,7 +351,7 @@
    },
    "polymarket": {
     "R": 0.85,
-    "D": 0.147,
+    "D": 0.149,
     "src": "tx-32-house-election-winner"
    }
   },
@@ -381,8 +381,8 @@
   },
   "tx-gov": {
    "kalshi": {
-    "D": 0.335,
     "R": 0.675,
+    "D": 0.335,
     "src": "GOVPARTYTX-26"
    },
    "polymarket": {
@@ -406,8 +406,8 @@
   "tx-rrc": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.53,
-    "R": 0.465,
+    "D": 0.525,
+    "R": 0.46,
     "src": "texas-railroad-commissioner-election-winner-2026"
    }
   }
@@ -11398,6 +11398,13 @@
   },
   {
    "t": 1793515559766,
+   "sk": 0.715,
+   "sp": 0.725,
+   "hk": 0.9315,
+   "hp": 0.945
+  },
+  {
+   "t": 1793515701228,
    "sk": 0.715,
    "sp": 0.725,
    "hk": 0.9315,
