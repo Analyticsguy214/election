@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793553699566,
+ "updatedAt": 1793553838838,
  "control": {
   "senate": {
    "kalshi": {
@@ -29,8 +29,8 @@
  "races": {
   "gov-az": {
    "kalshi": {
-    "R": 0.0925,
     "D": 0.9105000000000001,
+    "R": 0.092,
     "src": "GOVPARTYAZ-26"
    },
    "polymarket": {
@@ -53,8 +53,8 @@
   },
   "gov-ga": {
    "kalshi": {
-    "R": 0.325,
     "D": 0.685,
+    "R": 0.325,
     "src": "GOVPARTYGA-26"
    },
    "polymarket": {
@@ -119,8 +119,8 @@
   },
   "gov-oh": {
    "kalshi": {
-    "R": 0.195,
     "D": 0.805,
+    "R": 0.195,
     "src": "GOVPARTYOH-26"
    },
    "polymarket": {
@@ -155,8 +155,8 @@
   },
   "sen-fl": {
    "kalshi": {
-    "D": 0.11499999999999999,
     "R": 0.885,
+    "D": 0.11499999999999999,
     "src": "SENATEFLS-26"
    },
    "polymarket": {
@@ -179,8 +179,8 @@
   },
   "sen-ia": {
    "kalshi": {
-    "R": 0.555,
     "D": 0.445,
+    "R": 0.555,
     "src": "SENATEIA-26"
    },
    "polymarket": {
@@ -191,8 +191,8 @@
   },
   "sen-ks": {
    "kalshi": {
-    "D": 0.515,
     "R": 0.485,
+    "D": 0.515,
     "src": "SENATEKS-26"
    },
    "polymarket": {
@@ -215,8 +215,8 @@
   },
   "sen-mi": {
    "kalshi": {
-    "R": 0.255,
     "D": 0.735,
+    "R": 0.26,
     "src": "SENATEMI-26"
    },
    "polymarket": {
@@ -227,24 +227,24 @@
   },
   "sen-mn": {
    "kalshi": {
-    "R": 0.10500000000000001,
     "D": 0.9085000000000001,
+    "R": 0.10500000000000001,
     "src": "SENATEMN-26"
    },
    "polymarket": {
-    "D": 0.925,
+    "D": 0.935,
     "R": 0.075,
     "src": "minnesota-senate-election-winner"
    }
   },
   "sen-nc": {
    "kalshi": {
-    "D": 0.972,
     "R": 0.0295,
+    "D": 0.972,
     "src": "SENATENC-26"
    },
    "polymarket": {
-    "D": 0.977,
+    "D": 0.9775,
     "R": 0.024,
     "src": "north-carolina-senate-election-winner"
    }
@@ -314,7 +314,7 @@
   "tx-05": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.959,
+    "R": 0.956,
     "D": 0.031,
     "src": "tx-05-house-election-winner"
    }
@@ -13344,6 +13344,13 @@
   },
   {
    "t": 1793553699566,
+   "sk": 0.715,
+   "sp": 0.725,
+   "hk": 0.9355,
+   "hp": 0.945
+  },
+  {
+   "t": 1793553838838,
    "sk": 0.715,
    "sp": 0.725,
    "hk": 0.9355,
