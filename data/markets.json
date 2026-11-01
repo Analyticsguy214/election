@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793520511674,
+ "updatedAt": 1793520657578,
  "control": {
   "senate": {
    "kalshi": {
@@ -107,8 +107,8 @@
   },
   "gov-nv": {
    "kalshi": {
-    "R": 0.255,
     "D": 0.755,
+    "R": 0.255,
     "src": "GOVPARTYNV-26"
    },
    "polymarket": {
@@ -168,12 +168,12 @@
   "sen-ga": {
    "kalshi": {
     "D": 0.9695,
-    "R": 0.033,
+    "R": 0.0335,
     "src": "SENATEGA-26"
    },
    "polymarket": {
     "D": 0.9745,
-    "R": 0.0265,
+    "R": 0.027,
     "src": "georgia-senate-election-winner"
    }
   },
@@ -322,7 +322,7 @@
   "tx-06": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.9885,
+    "R": 0.986,
     "D": 0.0115,
     "src": "tx-06-house-election-winner"
    }
@@ -406,8 +406,8 @@
   "tx-rrc": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.525,
-    "R": 0.465,
+    "D": 0.54,
+    "R": 0.46,
     "src": "texas-railroad-commissioner-election-winner-2026"
    }
   }
@@ -11636,6 +11636,13 @@
   },
   {
    "t": 1793520511674,
+   "sk": 0.715,
+   "sp": 0.725,
+   "hk": 0.9315,
+   "hp": 0.945
+  },
+  {
+   "t": 1793520657578,
    "sk": 0.715,
    "sp": 0.725,
    "hk": 0.9315,
