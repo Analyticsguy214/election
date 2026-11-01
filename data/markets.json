@@ -1,10 +1,10 @@
 {
- "updatedAt": 1793557617246,
+ "updatedAt": 1793557756602,
  "control": {
   "senate": {
    "kalshi": {
-    "R": 0.295,
     "D": 0.705,
+    "R": 0.295,
     "src": "CONTROLS-2026"
    },
    "polymarket": {
@@ -29,8 +29,8 @@
  "races": {
   "gov-az": {
    "kalshi": {
-    "D": 0.9145000000000001,
-    "R": 0.0865,
+    "D": 0.9175,
+    "R": 0.083,
     "src": "GOVPARTYAZ-26"
    },
    "polymarket": {
@@ -41,8 +41,8 @@
   },
   "gov-fl": {
    "kalshi": {
-    "R": 0.655,
     "D": 0.365,
+    "R": 0.655,
     "src": "GOVPARTYFL-26"
    },
    "polymarket": {
@@ -86,8 +86,8 @@
   "gov-mi": {
    "kalshi": {
     "D": 0.9215,
+    "R": 0.0835,
     "I": 0.0005,
-    "R": 0.083,
     "src": "GOVPARTYMI-26"
    },
    "polymarket": {
@@ -101,7 +101,7 @@
    "kalshi": null,
    "polymarket": {
     "D": 0.0765,
-    "R": 0.921,
+    "R": 0.919,
     "src": "new-hampshire-governor-winner-2026"
    }
   },
@@ -143,7 +143,7 @@
   },
   "sen-ak": {
    "kalshi": {
-    "D": 0.72,
+    "D": 0.715,
     "R": 0.28500000000000003,
     "src": "SENATEAK-26"
    },
@@ -228,7 +228,7 @@
   "sen-mn": {
    "kalshi": {
     "D": 0.9105000000000001,
-    "R": 0.094,
+    "R": 0.093,
     "src": "SENATEMN-26"
    },
    "polymarket": {
@@ -314,16 +314,16 @@
   "tx-05": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.9565,
-    "D": 0.03,
+    "R": 0.955,
+    "D": 0.0315,
     "src": "tx-05-house-election-winner"
    }
   },
   "tx-06": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.993,
-    "D": 0.0095,
+    "R": 0.9935,
+    "D": 0.0085,
     "src": "tx-06-house-election-winner"
    }
   },
@@ -359,15 +359,15 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.017,
-    "D": 0.955,
+    "D": 0.9515,
     "src": "tx-33-house-election-winner"
    }
   },
   "tx-ag": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.47,
-    "R": 0.39,
+    "D": 0.55,
+    "R": 0.42,
     "src": "texas-attorney-general-election-winner-2026"
    }
   },
@@ -387,7 +387,7 @@
    },
    "polymarket": {
     "D": 0.335,
-    "R": 0.6745,
+    "R": 0.6755,
     "src": "texas-governor-winner-2026"
    }
   },
@@ -13540,6 +13540,13 @@
   },
   {
    "t": 1793557617246,
+   "sk": 0.705,
+   "sp": 0.715,
+   "hk": 0.9325000000000001,
+   "hp": 0.945
+  },
+  {
+   "t": 1793557756602,
    "sk": 0.705,
    "sp": 0.715,
    "hk": 0.9325000000000001,
