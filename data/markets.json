@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793521094435,
+ "updatedAt": 1793521238788,
  "control": {
   "senate": {
    "kalshi": {
@@ -15,8 +15,8 @@
   },
   "house": {
    "kalshi": {
-    "R": 0.0685,
     "D": 0.9315,
+    "R": 0.0685,
     "src": "CONTROLH-2026"
    },
    "polymarket": {
@@ -227,7 +227,7 @@
   },
   "sen-mn": {
    "kalshi": {
-    "D": 0.9085000000000001,
+    "D": 0.9115,
     "R": 0.093,
     "src": "SENATEMN-26"
    },
@@ -322,8 +322,8 @@
   "tx-06": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.9885,
-    "D": 0.0115,
+    "R": 0.988,
+    "D": 0.0135,
     "src": "tx-06-house-election-winner"
    }
   },
@@ -331,7 +331,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.95,
-    "D": 0.045,
+    "D": 0.05,
     "src": "tx-24-house-election-winner"
    }
   },
@@ -351,14 +351,14 @@
    },
    "polymarket": {
     "R": 0.85,
-    "D": 0.147,
+    "D": 0.1465,
     "src": "tx-32-house-election-winner"
    }
   },
   "tx-33": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.023,
+    "R": 0.022,
     "D": 0.973,
     "src": "tx-33-house-election-winner"
    }
@@ -367,7 +367,7 @@
    "kalshi": null,
    "polymarket": {
     "D": 0.255,
-    "R": 0.745,
+    "R": 0.74,
     "src": "texas-attorney-general-election-winner-2026"
    }
   },
@@ -407,7 +407,7 @@
    "kalshi": null,
    "polymarket": {
     "D": 0.535,
-    "R": 0.46,
+    "R": 0.465,
     "src": "texas-railroad-commissioner-election-winner-2026"
    }
   }
@@ -11664,6 +11664,13 @@
   },
   {
    "t": 1793521094435,
+   "sk": 0.715,
+   "sp": 0.725,
+   "hk": 0.9315,
+   "hp": 0.945
+  },
+  {
+   "t": 1793521238788,
    "sk": 0.715,
    "sp": 0.725,
    "hk": 0.9315,
