@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793523509538,
+ "updatedAt": 1793523651035,
  "control": {
   "senate": {
    "kalshi": {
@@ -167,13 +167,13 @@
   },
   "sen-ga": {
    "kalshi": {
-    "R": 0.0325,
     "D": 0.9695,
+    "R": 0.033,
     "src": "SENATEGA-26"
    },
    "polymarket": {
     "D": 0.9745,
-    "R": 0.027,
+    "R": 0.026,
     "src": "georgia-senate-election-winner"
    }
   },
@@ -215,8 +215,8 @@
   },
   "sen-mi": {
    "kalshi": {
-    "R": 0.235,
     "D": 0.765,
+    "R": 0.235,
     "src": "SENATEMI-26"
    },
    "polymarket": {
@@ -322,8 +322,8 @@
   "tx-06": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.989,
-    "D": 0.013,
+    "R": 0.9905,
+    "D": 0.0125,
     "src": "tx-06-house-election-winner"
    }
   },
@@ -11783,6 +11783,13 @@
   },
   {
    "t": 1793523509538,
+   "sk": 0.715,
+   "sp": 0.725,
+   "hk": 0.9315,
+   "hp": 0.945
+  },
+  {
+   "t": 1793523651035,
    "sk": 0.715,
    "sp": 0.725,
    "hk": 0.9315,
