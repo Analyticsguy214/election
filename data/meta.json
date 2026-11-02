@@ -175,24 +175,36 @@
   {
    "title": "2024 county presidential results (tonmcg/US_County_Level_Election_Results)",
    "url": "https://github.com/tonmcg/US_County_Level_Election_Results_08-24"
+  },
+  {
+   "title": "Theo Elections: Texas early vote by primary history",
+   "url": "https://theoelections.com/early-vote"
+  },
+  {
+   "title": "Texas Tribune: early vote beats 2018 record",
+   "url": "https://www.texastribune.org/2026/10/31/texas-early-voting-turnout-rate-election-2026/"
   }
  ],
  "turnout": {
   "tx": {
    "label": "Texas",
-   "ev": 6218876,
-   "asOf": "Oct. 28",
-   "evDay": 10,
+   "ev": 7744549,
+   "asOf": "Oct. 30",
+   "evDay": 12,
    "evDays": 12,
    "reg": 19041684,
    "ev2022": 5497027,
    "total2022": 8102908,
    "inPersonSameDay2022": 3526753,
    "hist": {
-    "D": 0.35,
-    "R": 0.33,
-    "asOf": "Oct. 25"
-   }
+    "D": 0.283,
+    "R": 0.299,
+    "both": 0.025,
+    "asOf": "Oct. 30",
+    "src": "theoelections.com"
+   },
+   "inPerson": 7463553,
+   "mail": 280996
   },
   "dallas": {
    "label": "Dallas County",
@@ -204,149 +216,150 @@
    "regPct2022": 0.249
   },
   "counties": {
-   "asOf": "Oct. 28",
-   "evDay": 10,
-   "statewide": 6218876,
+   "asOf": "Oct. 29",
+   "evDay": 11,
+   "statewide": 7744549,
+   "inPersonPct": true,
    "list": [
     {
      "fips": "48201",
      "n": "Harris",
-     "ev": 831034,
-     "regPct": 0.303,
-     "regPct2022": 0.22
+     "ev": 948286,
+     "regPct": 0.331,
+     "regPct2022": 0.22899999999999998
     },
     {
      "fips": "48113",
      "n": "Dallas",
-     "ev": 502969,
-     "regPct": 0.337,
-     "regPct2022": 0.217
+     "ev": 550383,
+     "regPct": 0.358,
+     "regPct2022": 0.237
     },
     {
      "fips": "48439",
      "n": "Tarrant",
-     "ev": 477629,
-     "regPct": 0.389,
-     "regPct2022": 0.251
+     "ev": 524507,
+     "regPct": 0.41200000000000003,
+     "regPct2022": 0.268
     },
     {
      "fips": "48029",
      "n": "Bexar",
-     "ev": 431944,
-     "regPct": 0.326,
-     "regPct2022": 0.244
+     "ev": 473312,
+     "regPct": 0.34,
+     "regPct2022": 0.252
     },
     {
      "fips": "48453",
      "n": "Travis",
-     "ev": 357423,
-     "regPct": 0.37799999999999995,
-     "regPct2022": 0.27399999999999997
+     "ev": 395295,
+     "regPct": 0.402,
+     "regPct2022": 0.293
     },
     {
      "fips": "48085",
      "n": "Collin",
-     "ev": 305734,
-     "regPct": 0.38799999999999996,
-     "regPct2022": 0.295
+     "ev": 335775,
+     "regPct": 0.41600000000000004,
+     "regPct2022": 0.317
     },
     {
      "fips": "48121",
      "n": "Denton",
-     "ev": 265378,
-     "regPct": 0.386,
-     "regPct2022": 0.293
+     "ev": 288491,
+     "regPct": 0.41,
+     "regPct2022": 0.313
     },
     {
      "fips": "48157",
      "n": "Fort Bend",
-     "ev": 220723,
-     "regPct": 0.379,
-     "regPct2022": 0.273
+     "ev": 242210,
+     "regPct": 0.40700000000000003,
+     "regPct2022": 0.289
     },
     {
      "fips": "48491",
      "n": "Williamson",
-     "ev": 191170,
-     "regPct": 0.405,
-     "regPct2022": 0.303
+     "ev": 208290,
+     "regPct": 0.425,
+     "regPct2022": 0.322
     },
     {
      "fips": "48339",
      "n": "Montgomery",
-     "ev": 152847,
-     "regPct": 0.314,
-     "regPct2022": 0.26899999999999996
+     "ev": 169922,
+     "regPct": 0.332,
+     "regPct2022": 0.28
     },
     {
      "fips": "48215",
      "n": "Hidalgo",
-     "ev": 135915,
-     "regPct": 0.292,
-     "regPct2022": 0.191
+     "ev": 148240,
+     "regPct": 0.309,
+     "regPct2022": 0.201
     },
     {
      "fips": "48141",
      "n": "El Paso",
-     "ev": 131505,
-     "regPct": 0.248,
-     "regPct2022": 0.147
+     "ev": 144415,
+     "regPct": 0.258,
+     "regPct2022": 0.159
     },
     {
      "fips": "48039",
      "n": "Brazoria",
-     "ev": 96005,
-     "regPct": 0.36700000000000005,
-     "regPct2022": 0.263
+     "ev": 104246,
+     "regPct": 0.387,
+     "regPct2022": 0.27899999999999997
     },
     {
      "fips": "48167",
      "n": "Galveston",
-     "ev": 90291,
-     "regPct": 0.36,
-     "regPct2022": 0.271
+     "ev": 98300,
+     "regPct": 0.37799999999999995,
+     "regPct2022": 0.281
     },
     {
      "fips": "48209",
      "n": "Hays",
-     "ev": 80606,
-     "regPct": 0.396,
-     "regPct2022": 0.299
+     "ev": 87948,
+     "regPct": 0.426,
+     "regPct2022": 0.313
     },
     {
      "fips": "48027",
      "n": "Bell",
-     "ev": 68317,
-     "regPct": 0.27699999999999997,
-     "regPct2022": 0.201
+     "ev": 74345,
+     "regPct": 0.289,
+     "regPct2022": 0.20800000000000002
     },
     {
      "fips": "48303",
      "n": "Lubbock",
-     "ev": 67474,
-     "regPct": 0.33,
-     "regPct2022": 0.252
+     "ev": 74343,
+     "regPct": 0.354,
+     "regPct2022": 0.266
     },
     {
      "fips": "48061",
      "n": "Cameron",
-     "ev": 65204,
-     "regPct": 0.267,
-     "regPct2022": 0.188
-    },
-    {
-     "fips": "48091",
-     "n": "Comal",
-     "ev": 57773,
-     "regPct": 0.38,
-     "regPct2022": 0.33
+     "ev": 71304,
+     "regPct": 0.28300000000000003,
+     "regPct2022": 0.195
     },
     {
      "fips": "48355",
      "n": "Nueces",
-     "ev": 57566,
-     "regPct": 0.264,
-     "regPct2022": 0.222
+     "ev": 64070,
+     "regPct": 0.273,
+     "regPct2022": 0.217
+    },
+    {
+     "fips": "48091",
+     "n": "Comal",
+     "ev": 63351,
+     "regPct": 0.397,
+     "regPct2022": 0.33799999999999997
     }
    ]
   },
