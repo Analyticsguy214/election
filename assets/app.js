@@ -14,6 +14,7 @@
   const CLOSE=new Date("2026-11-04T01:00:00Z");
   let races=[],meta=null,MK=null,group="all";
   try{const s=localStorage.getItem("hed-tab");if(s)group=s}catch(e){}
+  {const hs=(location.hash||"").slice(1);if(["all","senate","governor","texas","dfw"].includes(hs))group=hs}
 
   // ---------- model ----------
   function erf(x){const s=x<0?-1:1;x=Math.abs(x);const t=1/(1+0.3275911*x);const y=1-(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-x*x);return s*y}
@@ -100,7 +101,7 @@
     $("liveText").textContent=st==="live"?"Live":st==="final"?"Results":"Pre-election";
     renderFresh();
     const diff=CLOSE-Date.now();
-    if(st==="pre"&&diff>0){const d=Math.floor(diff/864e5),h=Math.floor(diff%864e5/36e5),m=Math.floor(diff%36e5/6e4);$("countdown").textContent="Texas polls close in "+(d?d+" days, ":"")+h+" hr "+m+" min";}
+    if(st==="pre"&&diff>0){const d=Math.floor(diff/864e5),h=Math.floor(diff%864e5/36e5),m=Math.floor(diff%36e5/6e4);$("countdown").textContent="Texas polls close in "+(d?d+(d===1?" day, ":" days, "):"")+h+" hr "+m+" min";}
     else $("countdown").textContent=(meta&&meta.note)||"";
     $("bopNote").textContent=st==="pre"?"Pre-election forecast · results begin Nov. 3":"Live estimate · seats shown as won are AP calls";
     $("utilRight").textContent=st==="live"?"Results updating every 5–10 minutes · Times are Central":"Times are Central";
@@ -436,7 +437,27 @@
     box.innerHTML=s+"</svg>";
   }
   document.addEventListener("click",e=>{const b=e.target.closest(".seg-ctl button");if(!b)return;ctyMode=b.dataset.mode;ctyAuto=false;renderCounties()});
-  function renderAll(){renderStatus();renderBop();renderOutcomes();renderProj();renderEV();renderCounties();renderMap();renderSections();renderChart()}
+
+  // ---------- key races rail ----------
+  function railCard(href,kicker,sub,title,a,b,pa,foot){
+    return`<a class="rcard" href="${href}"><div class="rk">${kicker}<span>${sub}</span></div><h3>${title}</h3><div class="rs"><div><div class="p" style="color:${a.c}">${a.v}</div><div class="l">${a.l}</div></div><div><div class="p" style="color:${b.c}">${b.v}</div><div class="l">${b.l}</div></div></div><div class="rb"><i style="width:${pa*100}%;background:${a.c}"></i><i style="flex:1;background:${b.c}"></i></div><div class="rf">${foot}</div></a>`;
+  }
+  function renderRail(){
+    const el=$("rail");if(!el||!races.length)return;let h="";
+    const s=senateControl(r=>model(r));
+    h+=railCard("#bop-h","Senate","Control",`Who controls the Senate`,{c:"var(--dem)",v:pct(s.p),l:"Democrats"},{c:"var(--rep)",v:pct(1-s.p),l:"Republicans"},s.p,`Average outcome D ${s.seats.toFixed(1)} · R ${s.seatsR.toFixed(1)}`);
+    const hh=(meta&&meta.house)||{cD:0,cR:0,projD:218};const hc=houseControl(hh)||{p:.5,exp:218};let pH=hc.p;
+    if(!(hh.cD||hh.cR)){const xs=[hc.p];const c=MK&&MK.control&&MK.control.house;[c&&c.kalshi,c&&c.polymarket].forEach(o=>{if(o&&o.D!=null)xs.push(o.D/((o.D||0)+(o.R!=null?o.R:1-o.D)))});pH=xs.reduce((a,b)=>a+b,0)/xs.length}
+    h+=railCard("#bop-h","House","Control",`Who controls the House`,{c:"var(--dem)",v:pct(pH),l:"Democrats"},{c:"var(--rep)",v:pct(1-pH),l:"Republicans"},pH,`218 seats needed · AP called D ${hh.cD||0} · R ${hh.cR||0}`);
+    [["sen-tx","Texas","U.S. Senate"],["tx-gov","Texas","Governor"]].forEach(([id,k,t])=>{const r=races.find(x=>x.id===id);if(!r)return;const m=model(r);const c0=r.cands[0],c1=r.cands[1];
+      const tot=r.votes?r.votes.reduce((a,b)=>a+(b||0),0):0;const p=m.probs?m.probs[0]:.5;
+      const A=tot?{c:PC[c0.p],v:((r.votes[0]||0)/tot*100).toFixed(1)+"%",l:last(c0.n)}:{c:PC[c0.p],v:pct(p),l:last(c0.n)};
+      const B=tot?{c:PC[c1.p],v:((r.votes[1]||0)/tot*100).toFixed(1)+"%",l:last(c1.n)}:{c:PC[c1.p],v:pct(1-p),l:last(c1.n)};
+      const status=r.called!=null?`✓ AP: ${last(r.cands[r.called].n)} wins`:tot?`${Math.round((r.r||0)*100)}% of votes counted · win chance ${last((p>=.5?c0:c1).n)} ${pct(Math.max(p,1-p))}`:"Chance to win · Hilltop forecast";
+      h+=railCard("texas.html#"+id,k,tot?"Live":"Forecast",t,A,B,tot?(r.votes[0]||0)/(((r.votes[0]||0)+(r.votes[1]||0))||1):p,status)});
+    el.innerHTML=h;
+  }
+  function renderAll(){renderStatus();renderRail();renderBop();renderOutcomes();renderProj();renderEV();renderCounties();renderMap();renderSections();renderChart()}
   document.querySelectorAll("nav.sections button").forEach(t=>t.addEventListener("click",()=>{group=t.dataset.g;try{localStorage.setItem("hed-tab",group)}catch(e){}renderSections();document.getElementById("sections").scrollIntoView({behavior:"smooth",block:"start"})}));
   setInterval(renderStatus,30000);
   let rt;window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{renderChart();renderDallasDaily()},200)});

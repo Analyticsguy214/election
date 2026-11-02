@@ -2,34 +2,49 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="build" content="0">
+<meta name="build" content="1793592730">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Texas Live · Hilltop Election Desk</title>
 <meta name="description" content="Live Texas results for Nov. 3, 2026: every statewide race and the Dallas County congressional races, county by county, with a model that updates as votes are counted.">
 <meta property="og:title" content="Texas Live · Hilltop Election Desk">
 <meta property="og:description" content="Live Texas results county by county, with a live projection.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://analyticsguy214.github.io/election/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://analyticsguy214.github.io/election/og.png">
 <meta name="theme-color" content="#354CA1">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23354CA1'/%3E%3Crect y='26' width='32' height='6' fill='%23CC0035'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-weight='700' font-size='20' fill='white' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
-<link rel="stylesheet" href="assets/styles.css?v=0">
-<link rel="stylesheet" href="assets/texas.css?v=0">
+<link rel="stylesheet" href="assets/styles.css?v=1793592730">
+<link rel="stylesheet" href="assets/texas.css?v=1793592730">
 <style>body{margin:0}</style>
 </head>
 <body>
-<div class="util"><div class="wrap"><span>General Election · <b>Tuesday, Nov. 3, 2026</b></span><span id="utilRight">Texas polls close at 7 p.m. Central (8 p.m. in El Paso)</span></div></div>
+<div class="util"><div class="wrap"><span>General Election · <b>Tuesday, Nov. 3, 2026</b></span><span class="utilr"><span id="utilRight">Texas polls close at 7 p.m. Central</span><button id="themeBtn" type="button">☾ Dark mode</button></span></div></div>
+<div class="brandbar"><div class="wrap">
+  <a class="logo" href="./" aria-label="Hilltop Election Desk home"><svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" fill="#354CA1"/><path d="M0 38 C10 25 18 22 26 27 C32 31 38 30 48 22 V48 H0Z" fill="#fff" opacity=".95"/><path d="M0 44 C12 35 22 33 30 36 C37 38 42 37 48 33 V48 H0Z" fill="#CC0035"/><path d="M14 15.5 l5 5 l11-11" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="square"/></svg><span class="wm"><b>Hilltop Election Desk</b><small>Dallas · University Park</small></span></a>
+  <div class="brandcta"><a class="cta" href="./">National results</a><button class="sharebtn" type="button" data-share="native">Share</button></div>
+</div></div>
 <header class="mast">
   <div class="wrap">
-    <a class="brand" href="./" aria-label="Hilltop Election Desk home"><span class="mark">H</span><span class="name"><small>Dallas · University Park</small>Hilltop Election Desk</span></a>
     <nav class="sections" aria-label="Sections">
-      <a class="navlink" href="./">National</a>
-      <a class="navlink" href="texas.html" aria-current="page">Texas Live</a>
+      <a href="./#all">Overview</a>
+      <a href="./#senate">Senate</a>
+      <a href="./#governor">Governor</a>
+      <a href="./#texas">Texas</a>
+      <a href="./#dfw">Dallas County</a>
+      <span class="sep"></span>
+      <a class="livelink" href="texas.html" aria-current="page"><span class="dot"></span>Texas Live</a>
+      <a href="./#method">How it works</a>
     </nav>
   </div>
 </header>
+<div class="ticker"><div class="wrap"><span class="tlab">Key races</span><div class="ttrack" id="tickerTrack"></div></div></div>
 
-<div class="callstrip"><div class="wrap" id="callStrip"></div></div>
+
+<div class="callstrip" aria-label="Texas race calls"><div class="wrap" id="callStrip"></div></div>
 
 <main class="txlive">
   <div class="wrap">
@@ -93,24 +108,32 @@
   </div>
 </main>
 
-<footer>
+<footer class="site" id="method">
   <div class="wrap">
     <div>
-      <h4>Where the numbers come from</h4>
+      <a class="logo" href="./"><svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" fill="#354CA1"/><path d="M0 38 C10 25 18 22 26 27 C32 31 38 30 48 22 V48 H0Z" fill="#fff" opacity=".95"/><path d="M0 44 C12 35 22 33 30 36 C37 38 42 37 48 33 V48 H0Z" fill="#CC0035"/><path d="M14 15.5 l5 5 l11-11" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="square"/></svg><span class="wm"><b>Hilltop Election Desk</b><small>Dallas · University Park</small></span></a>
+      <p style="margin-top:14px">Live results, forecasts and prediction-market odds for the 2026 midterms, with a close look at Texas and Dallas County.</p>
+    </div>
+    <div>
+      <h4>About these results</h4>
       <p>County vote counts come from the Texas Secretary of State's unofficial election-night results, checked against Associated Press counts reported by Decision Desk HQ and news outlets. A solid ✓ AP badge means the Associated Press has called the race.</p>
       <p>Counties usually post early and mail votes first, around 7 p.m., then Election Day votes through the night. Early votes lean more Democratic than Election Day votes, so leads often shrink as the night goes on.</p>
     </div>
     <div>
-      <h4>How the live model works</h4>
+      <h4>How the model works</h4>
       <p>Each county's expected turnout is its 2024 turnout scaled to the statewide 2026 projection. Votes not yet counted in a county are estimated from that county's pre-election projection, blended with its own Election Day results once those come in. The statewide total of counted plus estimated votes gives the projected margin; the uncertainty shrinks as more of the expected vote is counted.</p>
       <p>A dashed ◆ badge is the Hilltop projection: shown only at 99%+ confidence with at least 80% counted, holding across two straight updates, and with prediction markets agreeing. It is not an AP call.</p>
+      <h4 style="margin-top:16px">Sections</h4>
+      <ul><li><a href="./">National results</a></li><li><a href="texas.html">Texas Live</a></li><li><a href="./#projection">Projected result</a></li><li><a href="./#counties">Texas counties &amp; early vote</a></li></ul>
     </div>
     <div>
       <h4>Sources</h4>
       <ul id="sources"><li>Loading…</li></ul>
     </div>
+    <div class="legal"><span>© 2026 Hilltop Election Desk. An independent project, not affiliated with Southern Methodist University.</span><span>Win chances are estimates, not race calls. Official winners are called by the Associated Press.</span></div>
   </div>
 </footer>
-<script src="assets/texas.js?v=0"></script>
+<script src="assets/chrome.js?v=1793592730"></script>
+<script src="assets/texas.js?v=1793592730"></script>
 </body>
 </html>

@@ -97,3 +97,9 @@
 .badge.won-D{background:var(--dem);border-color:var(--dem);color:#fff}
 .badge.won-R{background:var(--rep);border-color:var(--rep);color:#fff}
 .badge.hc{border:1.5px dashed currentColor}
+.txhead .byline{display:block;font-size:12.5px;color:var(--muted)}
+.txhead .byline b{color:var(--fg);font-weight:600}
+.buckets{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:2px;max-width:520px}
+.buckets .bl{grid-column:1/-1;margin:0 0 2px}
+.buckets .bk{max-width:none;min-width:0}
+@media (max-width:760px){.rp-c .pc{font-size:28px}.rp-c .nm{font-size:15px}.callstrip .wrap{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}}

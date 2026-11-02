@@ -2,34 +2,46 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="build" content="1793592178">
+<meta name="build" content="1793592730">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Hilltop Election Desk · 2026 Midterm Results</title>
 <meta name="description" content="Live 2026 midterm results, win probabilities and prediction-market odds for Congress, governors, Texas and Dallas County.">
 <meta property="og:title" content="Hilltop Election Desk">
 <meta property="og:description" content="Live 2026 midterm results, forecasts and prediction-market odds.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://analyticsguy214.github.io/election/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://analyticsguy214.github.io/election/og.png">
 <meta name="theme-color" content="#354CA1">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23354CA1'/%3E%3Crect y='26' width='32' height='6' fill='%23CC0035'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-weight='700' font-size='20' fill='white' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
-<link rel="stylesheet" href="assets/styles.css?v=1793592178">
+<link rel="stylesheet" href="assets/styles.css?v=1793592730">
 <style>body{margin:0}</style>
 </head>
 <body>
-<div class="util"><div class="wrap"><span>General Election · <b>Tuesday, Nov. 3, 2026</b></span><span id="utilRight">Times are Central</span></div></div>
+<div class="util"><div class="wrap"><span>General Election · <b>Tuesday, Nov. 3, 2026</b></span><span class="utilr"><span id="utilRight">Times are Central</span><button id="themeBtn" type="button">☾ Dark mode</button></span></div></div>
+<div class="brandbar"><div class="wrap">
+  <a class="logo" href="./" aria-label="Hilltop Election Desk home"><svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" fill="#354CA1"/><path d="M0 38 C10 25 18 22 26 27 C32 31 38 30 48 22 V48 H0Z" fill="#fff" opacity=".95"/><path d="M0 44 C12 35 22 33 30 36 C37 38 42 37 48 33 V48 H0Z" fill="#CC0035"/><path d="M14 15.5 l5 5 l11-11" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="square"/></svg><span class="wm"><b>Hilltop Election Desk</b><small>Dallas · University Park</small></span></a>
+  <div class="brandcta"><a class="cta primary" href="texas.html"><span class="dot"></span>Texas Live results</a><button class="sharebtn" type="button" data-share="native">Share</button></div>
+</div></div>
 <header class="mast">
   <div class="wrap">
-    <a class="brand" href="#overview" aria-label="Hilltop Election Desk home"><span class="mark">H</span><span class="name"><small>Dallas · University Park</small>Hilltop Election Desk</span></a>
     <nav class="sections" role="tablist" aria-label="Sections">
       <button role="tab" data-g="all" id="tab-all">Overview</button>
       <button role="tab" data-g="senate" id="tab-senate">Senate</button>
       <button role="tab" data-g="governor" id="tab-governor">Governor</button>
       <button role="tab" data-g="texas" id="tab-texas">Texas</button>
       <button role="tab" data-g="dfw" id="tab-dfw">Dallas County</button>
+      <span class="sep"></span>
+      <a class="livelink" href="texas.html"><span class="dot"></span>Texas Live</a>
+      <a href="#method">How it works</a>
     </nav>
   </div>
 </header>
+<div class="ticker"><div class="wrap"><span class="tlab">Key races</span><div class="ttrack" id="tickerTrack"></div></div></div>
+
 
 <main>
   <div class="wrap" style="padding-block:0">
@@ -37,11 +49,12 @@
       <div class="kicker"><span class="live off" id="livePill"><i></i><span id="liveText">Pre-election</span></span><span>2026 Midterm Elections</span></div>
       <h1>2026 Midterm Election Results and Forecast</h1>
       <p class="dek">Live results for control of Congress, key governor races, every Texas statewide office and the Dallas County congressional races, with win probabilities updated as votes are counted.</p>
-      <div class="byline"><span id="updated">Loading results…</span><span id="countdown"></span></div>
+      <div class="byline"><span>By the <b>Hilltop Election Desk</b></span><span id="updated">Loading results…</span><span id="countdown"></span><span class="share"><button class="sharebtn" type="button" data-share="copy">Copy link</button><button class="sharebtn" type="button" data-share="x">Post on X</button></span></div>
     </div>
   </div>
   <div class="wrap">
     <div class="notice" id="notice" hidden></div>
+    <section class="rail" id="rail" aria-label="Key races at a glance"></section>
 
     <section aria-labelledby="bop-h">
       <h2 class="slabel" id="bop-h">Balance of power <span id="bopNote">Pre-election forecast · results begin Nov. 3</span></h2>
@@ -138,23 +151,31 @@
   </div>
 </main>
 
-<footer>
+<footer class="site" id="method">
   <div class="wrap">
+    <div>
+      <a class="logo" href="./"><svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" fill="#354CA1"/><path d="M0 38 C10 25 18 22 26 27 C32 31 38 30 48 22 V48 H0Z" fill="#fff" opacity=".95"/><path d="M0 44 C12 35 22 33 30 36 C37 38 42 37 48 33 V48 H0Z" fill="#CC0035"/><path d="M14 15.5 l5 5 l11-11" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="square"/></svg><span class="wm"><b>Hilltop Election Desk</b><small>Dallas · University Park</small></span></a>
+      <p style="margin-top:14px">Live results, forecasts and prediction-market odds for the 2026 midterms, with a close look at Texas and Dallas County.</p>
+    </div>
     <div>
       <h4>About these results</h4>
       <p>Vote counts come from Associated Press tabulations as reported by news outlets, and from the Texas Secretary of State. A solid badge with ✓ AP means the Associated Press has called the race.</p><p>A dashed badge with ◆ is the Hilltop projection: the desk's own model, shown only when the leader has at least a 99% chance of winning, at least 80% of the expected vote is counted, that has held across two straight counts, and Kalshi and Polymarket (where available) give the leader at least 90%. It is not an AP call and can be withdrawn if the count changes.</p>
       <p id="cadence">Polymarket odds update every 30 seconds and Kalshi odds about every five minutes. On election night, results update about every three to five minutes from the first poll closings at 5 p.m. Central. This page checks for new data every 30 seconds, so there is no need to reload.</p>
     </div>
     <div>
-      <h4>How win chances work</h4>
+      <h4>How the model works</h4>
       <p>Before votes are counted, the Hilltop forecast averages the Decision Desk HQ forecast (or the race rating) with Kalshi and Polymarket prices. As votes come in, the counted margin is blended with that forecast, weighted by how much of the expected vote is in. Control of each chamber is estimated from 4,000 simulated outcomes that share a national swing.</p>
+      <h4 style="margin-top:16px">Sections</h4>
+      <ul><li><a href="./">National results</a></li><li><a href="texas.html">Texas Live</a></li><li><a href="./#projection">Projected result</a></li><li><a href="./#counties">Texas counties &amp; early vote</a></li></ul>
     </div>
     <div>
       <h4>Sources</h4>
       <ul id="sources"><li>Loading…</li></ul>
     </div>
+    <div class="legal"><span>© 2026 Hilltop Election Desk. An independent project, not affiliated with Southern Methodist University.</span><span>Win chances are estimates, not race calls. Official winners are called by the Associated Press.</span></div>
   </div>
 </footer>
-<script src="assets/app.js?v=1793592178"></script>
+<script src="assets/chrome.js?v=1793592730"></script>
+<script src="assets/app.js?v=1793592730"></script>
 </body>
 </html>
