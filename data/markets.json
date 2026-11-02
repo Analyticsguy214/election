@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793613987736,
+ "updatedAt": 1793614120120,
  "control": {
   "senate": {
    "kalshi": {
@@ -100,7 +100,7 @@
   "gov-nh": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.1485,
+    "D": 0.148,
     "R": 0.8465,
     "src": "new-hampshire-governor-winner-2026"
    }
@@ -215,8 +215,8 @@
   },
   "sen-mi": {
    "kalshi": {
-    "D": 0.785,
     "R": 0.215,
+    "D": 0.785,
     "src": "SENATEMI-26"
    },
    "polymarket": {
@@ -322,8 +322,8 @@
   "tx-06": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.982,
-    "D": 0.0185,
+    "R": 0.9815,
+    "D": 0.02,
     "src": "tx-06-house-election-winner"
    }
   },
@@ -367,7 +367,7 @@
    "kalshi": null,
    "polymarket": {
     "D": 0.34,
-    "R": 0.635,
+    "R": 0.64,
     "src": "texas-attorney-general-election-winner-2026"
    }
   },
@@ -413,13 +413,6 @@
   }
  },
  "history": [
-  {
-   "t": 1793340779474,
-   "sk": 0.675,
-   "sp": 0.685,
-   "hk": 0.9195,
-   "hp": 0.935
-  },
   {
    "t": 1793340918905,
    "sk": 0.675,
@@ -14412,6 +14405,13 @@
    "sp": 0.725,
    "hk": 0.9375,
    "hp": 0.945
+  },
+  {
+   "t": 1793614120120,
+   "sk": 0.725,
+   "sp": 0.725,
+   "hk": 0.9375,
+   "hp": 0.945
   }
  ],
  "outside": {
@@ -14460,7 +14460,6 @@
   "kalshi miss events KXHOUSETX30-26 404 https://api.elections.kalshi.com/trade-api/v2/events/KXHOUSETX30-26?with_nested_markets=true",
   "kalshi miss events HOUSETX32-26 404 https://api.elections.kalshi.com/trade-api/v2/events/HOUSETX32-26?with_nested_markets=true",
   "kalshi miss events HOUSETX33-26 404 https://api.elections.kalshi.com/trade-api/v2/events/HOUSETX33-26?with_nested_markets=true",
-  "kalshi miss HOUSETX33-26 429 https://api.elections.kalshi.com/trade-api/v2/markets?event_ticker=HOUSETX33-26&limit=50",
   "kalshi miss events KXHOUSETX33-26 404 https://api.elections.kalshi.com/trade-api/v2/events/KXHOUSETX33-26?with_nested_markets=true",
   "kalshi miss KXHOUSETX33-26 429 https://api.elections.kalshi.com/trade-api/v2/markets?event_ticker=KXHOUSETX33-26&limit=50"
  ]
