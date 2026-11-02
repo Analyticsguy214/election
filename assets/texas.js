@@ -78,14 +78,15 @@
     const res={race,id,isSW,noPrior,m0,pPrior:priorP(race)};
     if(res.pPrior==null&&m0!=null)res.pPrior=Phi(m0/7);
     const live=LIVE&&LIVE.races&&LIVE.races[id];
-    const T26=expectedTotal()*(id==="sen-tx"?1:0.97);res.T26=T26;
+    const T26=isSW?expectedTotal()*(id==="sen-tx"?1:0.97):expectedTotal()/38;res.T26=T26; // House: an average district is 1/38 of the state
     // statewide counted from races.json (AP/DDHQ) or summed counties (SOS)
     let cv=null;if(race.votes&&race.votes.some(x=>x))cv=race.votes.slice();
+    const lsw=live&&live.statewide&&live.statewide.v;if(lsw){const lt=lsw.reduce((a,b)=>a+(b||0),0),rt=cv?cv.reduce((a,b)=>a+(b||0),0):0;if(lt>=rt&&lt>0)cv=lsw.slice()}
     const cty=live&&live.counties?live.counties:null;
     let sumC=null,evS=[0,0,0],edS=[0,0,0],nRep=0;
     if(cty){sumC=race.cands.map(()=>0);for(const k in cty){const x=cty[k];if(!x.v)continue;const t=x.v.reduce((a,b)=>a+(b||0),0);if(t>0)nRep++;x.v.forEach((v,i)=>{if(i<sumC.length)sumC[i]+=v||0});(x.ev||[]).forEach((v,i)=>evS[Math.min(i,2)]+=v||0);(x.ed||[]).forEach((v,i)=>edS[Math.min(i,2)]+=v||0)}}
-    if(live&&live.statewide&&live.statewide.v&&!cv)cv=live.statewide.v.slice();
     if(!cv&&sumC&&sumC.some(x=>x))cv=sumC;
+    if(live&&live.statewide&&live.statewide.ev&&live.statewide.ev.some(x=>x)){evS=live.statewide.ev.slice(0,3);edS=live.statewide.ed.slice(0,3)}
     res.counted=cv;res.nRep=nRep;res.evS=evS;res.edS=edS;
     const tot=cv?cv.reduce((a,b)=>a+(b||0),0):0;res.tot=tot;
     if(race.called!=null){res.mode="called"}
@@ -193,7 +194,7 @@
     else{const L=pD>=.5?c0:c1,p=pD>=.5?pD:1-pD;$("gaugeTxt").innerHTML=`<b style="color:${PC[L.p]}">${esc(last(L.n))} ${pct(p)}</b><br>chance to win · ${a.mode==="live"?"live model":a.mode==="called"?"AP call":"forecast"}`}
     // expected bar
     const E=a.expTot||a.T26;const d=tot?(a.counted[0]||0)/E*100:0,r=tot?(a.counted[1]||0)/E*100:0;const oth=tot?Math.max(0,tot-(a.counted[0]||0)-(a.counted[1]||0)):0;
-    $("xbar").innerHTML=`<div class="d" style="width:${d}%;background:${PC[c0.p]}"></div><div class="gap">${tot?fmt(Math.max(0,E-tot))+" left":fmt(E)+" expected"}</div><div class="r" style="width:${r}%;background:${PC[c1.p]}"></div><div class="maj" title="Majority"></div>`;
+    $("xbar").innerHTML=`<div class="d" style="width:${d}%;background:${PC[c0.p]}"></div><div class="gap"><span>${tot?fmt(Math.max(0,E-tot))+" left":fmt(E)+" expected"}</span></div><div class="r" style="width:${r}%;background:${PC[c1.p]}"></div><div class="maj" title="Majority"></div>`;
     $("xbarLbl").innerHTML=`<span>${fmt(a.counted?a.counted[0]:0)} ${esc(last(c0.n))}</span><span>majority</span><span>Other ${tot?(oth/tot*100).toFixed(2):"0.00"}% · ${fmt(a.counted?a.counted[1]:0)} ${esc(last(c1.n))}</span>`;
     // projection
     if(a.margin==null){$("rpProj").innerHTML=`<div style="grid-column:1/-1" class="s">No forecast or market for this race yet. A projection appears as votes are counted.</div>`}
@@ -204,7 +205,7 @@
       <div><div class="k">Projected · ${esc(last(c0.n))}</div><div class="v" style="color:${PC[c0.p]}">${fmtM(pd)}</div></div>
       <div><div class="k">Projected · ${esc(last(c1.n))}</div><div class="v" style="color:${PC[c1.p]}">${fmtM(pr)}</div></div>
       ${a.noPrior?`<div style="grid-column:1/-1" class="s">No forecast or market exists for this race, so the pre-election estimate averages the other statewide down-ballot races.</div>`:""}
-      ${a.mode==="live"&&a.devG?`<div style="grid-column:1/-1" class="s">Counties reporting so far are running ${Math.abs(a.devG*25).toFixed(1)} points ${a.devG>0?"more Democratic":"more Republican"} than the forecast; the model applies that to counties still out.</div>`:""}`}
+      ${a.mode==="live"&&a.devG?`<div style="grid-column:1/-1" class="s">Counties reporting so far are running ${Math.abs(a.devG*50).toFixed(1)} points ${a.devG>0?"more Democratic":"more Republican"} than the forecast; the model applies that to counties still out.</div>`:""}`}
     // vote type
     const row=(lbl,arr)=>{const t=arr.reduce((a,b)=>a+b,0);if(!t)return`<div class="vtrow"><span>${lbl}</span><div class="vbar"></div><span class="mg muted">—</span></div>`;
       const m=(arr[0]-arr[1])/((arr[0]+arr[1])||1)*100;return`<div class="vtrow"><span>${lbl}<br><small class="muted">${fmtM(t)} votes</small></span><div class="vbar"><div style="width:${arr[0]/t*100}%;background:${PC[c0.p]}"></div><div style="width:${arr[2]/t*100}%;background:var(--neutral-2)"></div><div style="flex:1;background:${PC[c1.p]}"></div></div><span class="mg" style="color:${mcol(m)}">${mfmt(m)}</span></div>`};
@@ -281,7 +282,7 @@
   function renderFresh(){
     const st=(meta&&meta.status)||"pre";$("livePill").className="live"+(st==="live"?"":" off");$("liveText").textContent=st==="live"?"Live":st==="final"?"Results":"Pre-election";
     let h="";const rt=LIVE&&LIVE.updatedAt;
-    if(rt)h+=`<b>County results</b> ${ago(rt)}${LIVE.source?" · "+esc(LIVE.source):""}`;else h+=st==="pre"?"<b>Results</b> begin when polls close at 7 p.m.":"";
+    if(rt)h+=`<b>County results</b> ${ago(LIVE.fetchedAt||rt)}${LIVE.source?" · "+esc(LIVE.source):""}${LIVE.sosUpdated?" (SOS time "+esc(LIVE.sosUpdated.replace(/^\w+ \d+, \d+ /,""))+")":""}`;else h+=st==="pre"?"<b>Results</b> begin when polls close at 7 p.m.":"";
     if(meta&&meta.updatedAt&&st!=="pre")h+=` · <b>Statewide totals</b> ${ago(meta.updatedAt)}`;
     const ot=Math.max((MK&&MK.updatedAt)||0);if(ot)h+=` · <b>Odds</b> ${ago(ot)}`;
     if(lastCheck)h+=` · <span class="muted">checked ${ago(lastCheck)}</span>`;$("fresh").innerHTML=h;
@@ -312,7 +313,7 @@
     try{
       if(!GEO)GEO=await getJ("data/tx-counties.json");
       const [r,m,k,l]=await Promise.all([getJ("data/races.json"),getJ("data/meta.json"),getJ("data/markets.json").catch(()=>MK),getJ("data/tx-live.json").catch(()=>LIVE)]);
-      const sg=JSON.stringify([m.updatedAt,k&&k.updatedAt,l&&l.updatedAt,r.map(x=>(x.votes||[]).join(",")+x.called)]);
+      const sg=JSON.stringify([m.updatedAt,k&&k.updatedAt,l&&l.updatedAt,l&&l.fetchedAt,r.map(x=>(x.votes||[]).join(",")+x.called)]);
       lastCheck=Date.now();$("notice").hidden=true;
       if(sg!==sigPrev){sigPrev=sg;races=r;meta=m;MK=k;LIVE=l;renderAll()}else renderFresh();
     }catch(e){const n=$("notice");n.hidden=false;n.textContent="Having trouble reaching the results server. Retrying automatically."}

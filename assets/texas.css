@@ -103,3 +103,5 @@
 .buckets .bl{grid-column:1/-1;margin:0 0 2px}
 .buckets .bk{max-width:none;min-width:0}
 @media (max-width:760px){.rp-c .pc{font-size:28px}.rp-c .nm{font-size:15px}.callstrip .wrap{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}}
+
+.xbar .gap span{position:relative;z-index:1;background:var(--bg);padding:1px 6px}

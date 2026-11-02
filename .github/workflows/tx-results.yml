@@ -35,8 +35,8 @@ jobs:
         if: ${{ github.event.inputs.election_id == '' }}
         run: |
           git config user.name "hilltop-bot"; git config user.email "hilltop-bot@users.noreply.github.com"
-          # active from Nov 3 6:30 p.m. CT through Nov 5 6 a.m. CT (UTC 00:30 Nov 4 – 12:00 Nov 5)
-          now=$(date -u +%s); start=$(date -u -d "2026-11-04T00:30:00Z" +%s); stop=$(date -u -d "2026-11-05T12:00:00Z" +%s)
+          # active from Nov 3 11 a.m. CT through Nov 5 6 a.m. CT
+          now=$(date -u +%s); start=$(date -u -d "2026-11-03T17:00:00Z" +%s); stop=$(date -u -d "2026-11-05T12:00:00Z" +%s)
           if [ $now -lt $start ] || [ $now -gt $stop ]; then echo "Outside election-night window"; exit 0; fi
           END=$((SECONDS+20400))
           while [ $SECONDS -lt $END ] && [ $(date -u +%s) -lt $stop ]; do

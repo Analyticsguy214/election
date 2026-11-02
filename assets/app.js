@@ -469,10 +469,18 @@
   async function load(){
     try{
       const q="?t="+Date.now();
-      const [r,m,k,cr]=await Promise.all([fetch(BASE+"races.json"+q,{cache:"no-store"}),fetch(BASE+"meta.json"+q,{cache:"no-store"}),fetch(BASE+"markets.json"+q,{cache:"no-store"}),fetch(BASE+"county-results.json"+q,{cache:"no-store"}).catch(()=>null)]);
+      const [r,m,k,cr,tl]=await Promise.all([fetch(BASE+"races.json"+q,{cache:"no-store"}),fetch(BASE+"meta.json"+q,{cache:"no-store"}),fetch(BASE+"markets.json"+q,{cache:"no-store"}),fetch(BASE+"county-results.json"+q,{cache:"no-store"}).catch(()=>null),fetch(BASE+"tx-live.json"+q,{cache:"no-store"}).catch(()=>null)]);
       if(!r.ok||!m.ok)throw new Error("HTTP");
-      const nr=await r.json(),nm=await m.json(),nk=k.ok?await k.json():MK;const ncr=cr&&cr.ok?await cr.json():CR;
-      const sig=JSON.stringify([ncr&&ncr.updatedAt,nm.updatedAt,nk&&nk.updatedAt,nr.length,nr.map(x=>(x.snaps||[]).length+":"+x.called)]);
+      const nr=await r.json(),nm=await m.json(),nk=k.ok?await k.json():MK;let ncr=cr&&cr.ok?await cr.json():CR;
+      const ntl=tl&&tl.ok?await tl.json():null;
+      if(ntl&&ntl.races){ // Texas SOS feed: overlay statewide votes and county results
+        meta=nm;const T=txTurnout();const exp=T?T.total:null;
+        nr.forEach(x=>{const s=ntl.races[x.id]&&ntl.races[x.id].statewide;if(!s||!s.v)return;const lt=s.v.reduce((a,b)=>a+(b||0),0),rt=(x.votes||[]).reduce((a,b)=>a+(b||0),0);
+          if(lt>0&&lt>=rt){x.votes=x.cands.map((c,i)=>i<2?s.v[i]:0);if(exp&&x.groups.includes("texas"))x.r=Math.max(x.r||0,Math.min(0.99,lt/(exp*(x.id==="sen-tx"?1:0.97))))}});
+        const sc=ntl.races["sen-tx"]&&ntl.races["sen-tx"].counties;
+        if(sc&&Object.keys(sc).length){ncr={race:"sen-tx",updatedAt:ntl.fetchedAt||ntl.updatedAt,counties:{}};for(const f in sc){ncr.counties[f]={d:sc[f].v[0],r:sc[f].v[1],pct:null}}}
+      }
+      const sig=JSON.stringify([ntl&&ntl.fetchedAt,ncr&&ncr.updatedAt,nm.updatedAt,nk&&nk.updatedAt,nr.length,nr.map(x=>(x.snaps||[]).length+":"+x.called)]);
       if(sig!==load.sig){load.sig=sig;races=nr;meta=nm;MK=nk;CR=ncr;renderAll()}
       lastCheck=Date.now();renderFresh();$("notice").hidden=true;
     }catch(e){const n=$("notice");if(races.length){n.hidden=false;n.textContent="Having trouble reaching the results server. Retrying automatically."}}
