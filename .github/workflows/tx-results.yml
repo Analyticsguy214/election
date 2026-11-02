@@ -1,0 +1,52 @@
+name: Texas results (Secretary of State)
+# Election night: reads the Texas SOS results feed every 60 seconds and publishes data/tx-live.json.
+# Each run loops ~5h40m, then starts the next. Outside election week it exits right away.
+on:
+  workflow_dispatch:
+    inputs:
+      election_id:
+        description: "Test against a past SOS election ID (writes data/tx-live-test.json once)"
+        required: false
+  schedule:
+    - cron: "*/20 * * * *"
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: tx-results
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Test against a past election
+        if: ${{ github.event.inputs.election_id != '' }}
+        run: |
+          git config user.name "hilltop-bot"; git config user.email "hilltop-bot@users.noreply.github.com"
+          ELECTION_ID=${{ github.event.inputs.election_id }} OUT=data/tx-live-test.json node scripts/fetch-tx-sos.mjs
+          git add data/tx-live-test.json && git commit -qm "Test SOS feed" && (git push -q || (git pull -q --rebase && git push -q))
+      - name: Election-night loop
+        if: ${{ github.event.inputs.election_id == '' }}
+        run: |
+          git config user.name "hilltop-bot"; git config user.email "hilltop-bot@users.noreply.github.com"
+          # active from Nov 3 6:30 p.m. CT through Nov 5 6 a.m. CT (UTC 00:30 Nov 4 – 12:00 Nov 5)
+          now=$(date -u +%s); start=$(date -u -d "2026-11-04T00:30:00Z" +%s); stop=$(date -u -d "2026-11-05T12:00:00Z" +%s)
+          if [ $now -lt $start ] || [ $now -gt $stop ]; then echo "Outside election-night window"; exit 0; fi
+          END=$((SECONDS+20400))
+          while [ $SECONDS -lt $END ] && [ $(date -u +%s) -lt $stop ]; do
+            git pull -q --rebase --autostash || true
+            node scripts/fetch-tx-sos.mjs || echo "fetch failed"
+            git add data/tx-live.json
+            if ! git diff --cached --quiet; then
+              git commit -qm "Texas results (SOS)"
+              (git push -q || (git pull -q --rebase && git push -q)) && gh workflow run deploy.yml --ref main || echo "push/deploy failed"
+            fi
+            sleep 60
+          done
+          if [ $(date -u +%s) -lt $stop ]; then gh workflow run tx-results.yml --ref main; fi
