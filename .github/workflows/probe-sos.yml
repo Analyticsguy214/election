@@ -22,7 +22,15 @@ jobs:
           const v=await J(D+"/Version.json");log("Version",v);
           const ec=await J(D+"/ElectionConstants_"+v.___versionNo+".json");
           log("EC keys",Object.keys(ec));log("current",ec.currentelectionInfo);
-          log("electionInfo",(ec.electionInfo||[]).slice(0,40));
+          const ei=ec.electionInfo;log("electionInfo type",Array.isArray(ei)?"array":typeof ei,Object.keys(ei).slice(0,30));
+          const flat=[];const walk=o=>{if(Array.isArray(o))o.forEach(walk);else if(o&&typeof o==="object"){if(o.ID&&o.N)flat.push(o);else Object.values(o).forEach(walk)}};walk(ei);
+          log("elections 2025-2026",flat.filter(e=>/202[56]/.test(e.Y||e.N)).map(e=>[e.ID,e.Y,e.ET,e.EC,e.N]));
+          let k=0;let j=0;while((j=js.indexOf("getElectionVersionUrl()+",j))>=0&&k<25){log("VU ::",js.slice(j+24,j+140));j+=10;k++}
+          j=js.indexOf("_electionUrl=");log("_electionUrl ::",js.slice(j,j+120));
+          const pick=flat.find(e=>/2026/.test(e.Y||"")&&e.ET==="G")||flat.find(e=>e.ID==="49664");log("PICK",pick);
+          const eu=D+"/"+pick.ID;const ev=await J(eu+"/Version.json");log("EV",ev);
+          if(ev){const vu=eu+"/"+ev.___versionNo;for(const f of ["Race.json","Federal.json","StateWide.json","County.json"]){const x=await J(vu+"/"+f);if(x){fs.writeFileSync("probe/"+f,JSON.stringify(x).slice(0,60000));log("FILE",f,JSON.stringify(x).slice(0,1500))}}}
+          const g24=flat.find(e=>e.ID==="49664");if(g24&&pick.ID!=="49664"){const eu2=D+"/49664";const ev2=await J(eu2+"/Version.json");log("EV2024",ev2);if(ev2){const vu=eu2+"/"+ev2.___versionNo;for(const f of ["Federal.json","County.json"]){const x=await J(vu+"/"+f);if(x){fs.writeFileSync("probe/2024_"+f,JSON.stringify(x).slice(0,60000));log("FILE2024",f,JSON.stringify(x).slice(0,1500))}}}}
           fs.writeFileSync("probe/ElectionConstants.json",JSON.stringify(ec,null,1));
           fs.writeFileSync("probe/out.txt",out.join("\n"));
           JS
