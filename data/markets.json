@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793600334832,
+ "updatedAt": 1793600466809,
  "control": {
   "senate": {
    "kalshi": {
@@ -30,7 +30,7 @@
   "gov-az": {
    "kalshi": {
     "D": 0.9115,
-    "R": 0.0905,
+    "R": 0.091,
     "src": "GOVPARTYAZ-26"
    },
    "polymarket": {
@@ -41,8 +41,8 @@
   },
   "gov-fl": {
    "kalshi": {
-    "R": 0.615,
     "D": 0.385,
+    "R": 0.615,
     "src": "GOVPARTYFL-26"
    },
    "polymarket": {
@@ -78,16 +78,16 @@
   "gov-ks": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.29,
+    "D": 0.295,
     "R": 0.695,
     "src": "kansas-governor-winner-2026"
    }
   },
   "gov-mi": {
    "kalshi": {
-    "I": 0.0005,
-    "R": 0.068,
     "D": 0.935,
+    "R": 0.068,
+    "I": 0.0005,
     "src": "GOVPARTYMI-26"
    },
    "polymarket": {
@@ -143,8 +143,8 @@
   },
   "sen-ak": {
    "kalshi": {
-    "R": 0.28500000000000003,
     "D": 0.715,
+    "R": 0.28500000000000003,
     "src": "SENATEAK-26"
    },
    "polymarket": {
@@ -173,7 +173,7 @@
    },
    "polymarket": {
     "D": 0.969,
-    "R": 0.03,
+    "R": 0.0305,
     "src": "georgia-senate-election-winner"
    }
   },
@@ -203,8 +203,8 @@
   },
   "sen-me": {
    "kalshi": {
-    "D": 0.725,
     "R": 0.275,
+    "D": 0.725,
     "src": "SENATEME-26"
    },
    "polymarket": {
@@ -215,8 +215,8 @@
   },
   "sen-mi": {
    "kalshi": {
-    "R": 0.225,
     "D": 0.775,
+    "R": 0.225,
     "src": "SENATEMI-26"
    },
    "polymarket": {
@@ -227,8 +227,8 @@
   },
   "sen-mn": {
    "kalshi": {
-    "R": 0.0775,
-    "D": 0.924,
+    "D": 0.921,
+    "R": 0.078,
     "src": "SENATEMN-26"
    },
    "polymarket": {
@@ -266,7 +266,7 @@
   "sen-nh": {
    "kalshi": {
     "D": 0.9315,
-    "R": 0.0685,
+    "R": 0.068,
     "src": "SENATENH-26"
    },
    "polymarket": {
@@ -277,8 +277,8 @@
   },
   "sen-oh": {
    "kalshi": {
-    "R": 0.295,
     "D": 0.705,
+    "R": 0.295,
     "src": "SENATEOHS-26"
    },
    "polymarket": {
@@ -301,8 +301,8 @@
   },
   "sen-tx": {
    "kalshi": {
-    "R": 0.265,
     "D": 0.735,
+    "R": 0.265,
     "src": "SENATETX-26"
    },
    "polymarket": {
@@ -322,7 +322,7 @@
   "tx-06": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.981,
+    "R": 0.9815,
     "D": 0.0125,
     "src": "tx-06-house-election-winner"
    }
@@ -331,7 +331,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.94,
-    "D": 0.0385,
+    "D": 0.043,
     "src": "tx-24-house-election-winner"
    }
   },
@@ -386,8 +386,8 @@
     "src": "GOVPARTYTX-26"
    },
    "polymarket": {
-    "D": 0.36,
-    "R": 0.6435,
+    "D": 0.355,
+    "R": 0.6465,
     "src": "texas-governor-winner-2026"
    }
   },
@@ -406,20 +406,13 @@
   "tx-rrc": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.62,
+    "D": 0.625,
     "R": 0.38,
     "src": "texas-railroad-commissioner-election-winner-2026"
    }
   }
  },
  "history": [
-  {
-   "t": 1793326204731,
-   "sk": 0.675,
-   "sp": 0.685,
-   "hk": 0.9185000000000001,
-   "hp": 0.935
-  },
   {
    "t": 1793326346829,
    "sk": 0.675,
@@ -14412,6 +14405,13 @@
    "sp": 0.725,
    "hk": 0.9365000000000001,
    "hp": 0.945
+  },
+  {
+   "t": 1793600466809,
+   "sk": 0.725,
+   "sp": 0.725,
+   "hk": 0.9365000000000001,
+   "hp": 0.945
   }
  ],
  "outside": {
@@ -14460,7 +14460,6 @@
   "kalshi miss events KXHOUSETX30-26 404 https://api.elections.kalshi.com/trade-api/v2/events/KXHOUSETX30-26?with_nested_markets=true",
   "kalshi miss events HOUSETX32-26 404 https://api.elections.kalshi.com/trade-api/v2/events/HOUSETX32-26?with_nested_markets=true",
   "kalshi miss events HOUSETX33-26 404 https://api.elections.kalshi.com/trade-api/v2/events/HOUSETX33-26?with_nested_markets=true",
-  "kalshi miss events KXHOUSETX33-26 404 https://api.elections.kalshi.com/trade-api/v2/events/KXHOUSETX33-26?with_nested_markets=true",
-  "kalshi miss KXHOUSETX33-26 429 https://api.elections.kalshi.com/trade-api/v2/markets?event_ticker=KXHOUSETX33-26&limit=50"
+  "kalshi miss events KXHOUSETX33-26 404 https://api.elections.kalshi.com/trade-api/v2/events/KXHOUSETX33-26?with_nested_markets=true"
  ]
 }
