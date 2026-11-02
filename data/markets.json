@@ -1,22 +1,22 @@
 {
- "updatedAt": 1793619024870,
+ "updatedAt": 1793619159197,
  "control": {
   "senate": {
    "kalshi": {
-    "R": 0.275,
     "D": 0.735,
+    "R": 0.275,
     "src": "CONTROLS-2026"
    },
    "polymarket": {
     "D": 0.725,
-    "R": 0.285,
+    "R": 0.275,
     "src": "which-party-will-win-the-senate-in-2026"
    }
   },
   "house": {
    "kalshi": {
-    "D": 0.9365000000000001,
     "R": 0.0635,
+    "D": 0.9365000000000001,
     "src": "CONTROLH-2026"
    },
    "polymarket": {
@@ -29,8 +29,8 @@
  "races": {
   "gov-az": {
    "kalshi": {
-    "R": 0.0895,
     "D": 0.913,
+    "R": 0.0895,
     "src": "GOVPARTYAZ-26"
    },
    "polymarket": {
@@ -155,8 +155,8 @@
   },
   "sen-fl": {
    "kalshi": {
-    "R": 0.855,
     "D": 0.14500000000000002,
+    "R": 0.855,
     "src": "SENATEFLS-26"
    },
    "polymarket": {
@@ -167,7 +167,7 @@
   },
   "sen-ga": {
    "kalshi": {
-    "R": 0.028999999999999998,
+    "R": 0.028499999999999998,
     "D": 0.9704999999999999,
     "src": "SENATEGA-26"
    },
@@ -227,7 +227,7 @@
   },
   "sen-mn": {
    "kalshi": {
-    "D": 0.924,
+    "D": 0.9235,
     "R": 0.0775,
     "src": "SENATEMN-26"
    },
@@ -265,7 +265,7 @@
   },
   "sen-nh": {
    "kalshi": {
-    "R": 0.067,
+    "R": 0.0675,
     "D": 0.9335,
     "src": "SENATENH-26"
    },
@@ -301,13 +301,13 @@
   },
   "sen-tx": {
    "kalshi": {
-    "D": 0.735,
     "R": 0.265,
+    "D": 0.735,
     "src": "SENATETX-26"
    },
    "polymarket": {
     "D": 0.755,
-    "R": 0.255,
+    "R": 0.25,
     "src": "texas-senate-election-winner"
    }
   },
@@ -359,7 +359,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0115,
-    "D": 0.9775,
+    "D": 0.977,
     "src": "tx-33-house-election-winner"
    }
   },
@@ -406,20 +406,13 @@
   "tx-rrc": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.63,
+    "D": 0.635,
     "R": 0.365,
     "src": "texas-railroad-commissioner-election-winner-2026"
    }
   }
  },
  "history": [
-  {
-   "t": 1793346091137,
-   "sk": 0.675,
-   "sp": 0.685,
-   "hk": 0.9195,
-   "hp": 0.935
-  },
   {
    "t": 1793346230767,
    "sk": 0.675,
@@ -14408,6 +14401,13 @@
   },
   {
    "t": 1793619024870,
+   "sk": 0.735,
+   "sp": 0.725,
+   "hk": 0.9365000000000001,
+   "hp": 0.945
+  },
+  {
+   "t": 1793619159197,
    "sk": 0.735,
    "sp": 0.725,
    "hk": 0.9365000000000001,
