@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793590663182,
+ "updatedAt": 1793590795640,
  "control": {
   "senate": {
    "kalshi": {
@@ -41,12 +41,12 @@
   },
   "gov-fl": {
    "kalshi": {
-    "R": 0.615,
     "D": 0.385,
+    "R": 0.615,
     "src": "GOVPARTYFL-26"
    },
    "polymarket": {
-    "D": 0.365,
+    "D": 0.375,
     "R": 0.605,
     "src": "florida-governor-winner-2026"
    }
@@ -86,8 +86,8 @@
   "gov-mi": {
    "kalshi": {
     "I": 0.0005,
-    "R": 0.0675,
-    "D": 0.9335,
+    "R": 0.0665,
+    "D": 0.934,
     "src": "GOVPARTYMI-26"
    },
    "polymarket": {
@@ -100,8 +100,8 @@
   "gov-nh": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.1075,
-    "R": 0.8765,
+    "D": 0.1135,
+    "R": 0.876,
     "src": "new-hampshire-governor-winner-2026"
    }
   },
@@ -179,8 +179,8 @@
   },
   "sen-ia": {
    "kalshi": {
-    "D": 0.475,
     "R": 0.515,
+    "D": 0.475,
     "src": "SENATEIA-26"
    },
    "polymarket": {
@@ -191,8 +191,8 @@
   },
   "sen-ks": {
    "kalshi": {
-    "R": 0.405,
     "D": 0.6,
+    "R": 0.405,
     "src": "SENATEKS-26"
    },
    "polymarket": {
@@ -203,8 +203,8 @@
   },
   "sen-me": {
    "kalshi": {
-    "R": 0.275,
     "D": 0.725,
+    "R": 0.275,
     "src": "SENATEME-26"
    },
    "polymarket": {
@@ -228,7 +228,7 @@
   "sen-mn": {
    "kalshi": {
     "D": 0.9155,
-    "R": 0.089,
+    "R": 0.086,
     "src": "SENATEMN-26"
    },
    "polymarket": {
@@ -289,8 +289,8 @@
   },
   "sen-sc": {
    "kalshi": {
-    "R": 0.685,
     "D": 0.315,
+    "R": 0.685,
     "src": "SENATESC-26"
    },
    "polymarket": {
@@ -330,8 +330,8 @@
   "tx-24": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.95,
-    "D": 0.0505,
+    "R": 0.945,
+    "D": 0.049,
     "src": "tx-24-house-election-winner"
    }
   },
@@ -359,14 +359,14 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.015,
-    "D": 0.9705,
+    "D": 0.9715,
     "src": "tx-33-house-election-winner"
    }
   },
   "tx-ag": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.355,
+    "D": 0.35,
     "R": 0.65,
     "src": "texas-attorney-general-election-winner-2026"
    }
@@ -386,7 +386,7 @@
     "src": "GOVPARTYTX-26"
    },
    "polymarket": {
-    "D": 0.42,
+    "D": 0.415,
     "R": 0.5865,
     "src": "texas-governor-winner-2026"
    }
@@ -413,13 +413,6 @@
   }
  },
  "history": [
-  {
-   "t": 1793315886883,
-   "sk": 0.675,
-   "sp": 0.685,
-   "hk": 0.9185000000000001,
-   "hp": 0.925
-  },
   {
    "t": 1793316028634,
    "sk": 0.675,
@@ -14412,6 +14405,13 @@
    "sp": 0.715,
    "hk": 0.9355,
    "hp": 0.945
+  },
+  {
+   "t": 1793590795640,
+   "sk": 0.725,
+   "sp": 0.715,
+   "hk": 0.9355,
+   "hp": 0.945
   }
  ],
  "outside": {
@@ -14460,7 +14460,6 @@
   "kalshi miss events KXHOUSETX30-26 404 https://api.elections.kalshi.com/trade-api/v2/events/KXHOUSETX30-26?with_nested_markets=true",
   "kalshi miss events HOUSETX32-26 404 https://api.elections.kalshi.com/trade-api/v2/events/HOUSETX32-26?with_nested_markets=true",
   "kalshi miss events HOUSETX33-26 404 https://api.elections.kalshi.com/trade-api/v2/events/HOUSETX33-26?with_nested_markets=true",
-  "kalshi miss events KXHOUSETX33-26 404 https://api.elections.kalshi.com/trade-api/v2/events/KXHOUSETX33-26?with_nested_markets=true",
-  "kalshi miss KXHOUSETX33-26 429 https://api.elections.kalshi.com/trade-api/v2/markets?event_ticker=KXHOUSETX33-26&limit=50"
+  "kalshi miss events KXHOUSETX33-26 404 https://api.elections.kalshi.com/trade-api/v2/events/KXHOUSETX33-26?with_nested_markets=true"
  ]
 }
