@@ -13,16 +13,17 @@ jobs:
           mkdir -p probe
           cat > /tmp/p.mjs <<'JS'
           import fs from "node:fs";
-          const B="https://results.texas-election.com";const UA={"user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/130 Safari/537.36"};
-          const out=[];const log=(...a)=>{out.push(a.join(" "));console.log(...a)};
-          const home=await (await fetch(B+"/",{headers:UA})).text();
-          const main=home.match(/main\.[a-f0-9]+\.js/)[0];const js=await (await fetch(B+"/"+main,{headers:UA})).text();
-          for(const k of ["appJsonPath","getElectionVersionUrl","ElectionConstants_","electionVerisonUrl","Version.json","StateWide.json","County.json","Race.json","Lookups.json","Home.json","Texas_Map.json","environment"]){
-            let i=0,n=0;while((i=js.indexOf(k,i))>=0&&n<5){log("##",k,"::",js.slice(Math.max(0,i-260),i+260).replace(/\s+/g," "));i+=k.length;n++}
-          }
-          const m=js.match(/appJsonPath:"([^"]*)"/);log("appJsonPath=",m&&m[1]);
-          const tryU=async u=>{try{const r=await fetch(u,{headers:UA});const t=await r.text();log("GET",u,r.status,r.headers.get("content-type"),t.length,t.slice(0,600).replace(/\s+/g," "))}catch(e){log("ERR",u,e.message)}};
-          if(m){const p=m[1];const base=p.startsWith("http")?p:B+(p.startsWith("/")?"":"/")+p;for(const f of ["","ElectionConstants_1.json","Elections.json","ElectionConstants.json"])await tryU(base+f)}
+          const B="https://results.texas-election.com";const D=B+"/static/data";const UA={"user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/130 Safari/537.36"};
+          const out=[];const log=(...a)=>{const s=a.map(x=>typeof x==="string"?x:JSON.stringify(x)).join(" ");out.push(s);console.log(s.slice(0,400))};
+          const J=async u=>{const r=await fetch(u,{headers:UA});const t=await r.text();try{return JSON.parse(t)}catch(e){log("NOTJSON",u,r.status,t.slice(0,200));return null}};
+          const home=await (await fetch(B+"/",{headers:UA})).text();const js=await (await fetch(B+"/"+home.match(/main\.[a-f0-9]+\.js/)[0],{headers:UA})).text();
+          let i=js.indexOf("setElectionUrl=function");log("setElectionUrl ::",js.slice(i,i+500));
+          i=js.indexOf("raceJsonMapping");log("raceJsonMapping ::",js.slice(i-50,i+700));
+          const v=await J(D+"/Version.json");log("Version",v);
+          const ec=await J(D+"/ElectionConstants_"+v.___versionNo+".json");
+          log("EC keys",Object.keys(ec));log("current",ec.currentelectionInfo);
+          log("electionInfo",(ec.electionInfo||[]).slice(0,40));
+          fs.writeFileSync("probe/ElectionConstants.json",JSON.stringify(ec,null,1));
           fs.writeFileSync("probe/out.txt",out.join("\n"));
           JS
           node /tmp/p.mjs
