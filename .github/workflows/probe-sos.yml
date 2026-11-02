@@ -11,20 +11,13 @@ jobs:
           mkdir -p probe && cd probe
           UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130 Safari/537.36"
           B=https://results.texas-election.com
-          curl -sSL -A "$UA" -D home.h "$B/" -o home.html || true
-          curl -sSL -A "$UA" -D races.h "$B/races" -o races.html || true
-          grep -oE '(src|href)="[^"]+\.(js|json)[^"]*"' home.html races.html | sed -E 's/^[^"]*"//;s/"$//' | sort -u > assets.txt || true
-          : > js_urls.txt
-          while read -r s; do case "$s" in http*) u="$s";; /*) u="$B$s";; *) u="$B/$s";; esac
-            curl -sSL -A "$UA" "$u" -o t.js || continue
-            echo "== $u $(wc -c < t.js)" >> js_urls.txt
-            grep -oE '"[^"]{0,120}(api|static|data|election|Election|json)[^"]{0,120}"' t.js | sort -u | head -150 >> js_urls.txt
-            grep -oE '`[^`]{0,160}(api|static|data|election|json)[^`]{0,160}`' t.js | sort -u | head -80 >> js_urls.txt
-          done < assets.txt
-          for p in /api/elections /static/data/elections.json /api/election /elections.json /static/data/election.json /api/Elections /static/data/ElectionInfo.json /api/home; do
-            code=$(curl -sS -A "$UA" -o "x$(echo $p|tr / _)" -w "%{http_code} %{content_type} %{size_download}" "$B$p" || echo fail); echo "$p $code" >> tried.txt; done
-          head -c 4000 home.html > home_head.html; head -c 2000 races.html > races_head.html; rm -f home.html races.html t.js
-          ls -la
+          M=$(curl -sSL -A "$UA" "$B/" | grep -oE 'main\.[a-f0-9]+\.js' | head -1)
+          curl -sSL -A "$UA" "$B/$M" -o main.js
+          for k in appJsonPath getElectionVersionUrl ElectionConstants_ electionVerisonUrl Version.json StateWide.json County.json Race.json Lookups.json Home.json environment; do
+            echo "##### $k" >> ctx.txt; grep -oE ".{0,300}$k.{0,300}" main.js | head -6 >> ctx.txt; done
+          grep -oE 'appJsonPath:"[^"]*"|apiPath:"[^"]*"|[a-zA-Z]+Path:"[^"]*"|[a-zA-Z]+Url:"[^"]*"' main.js | sort -u > paths.txt
+          cat paths.txt
+          rm -f main.js
       - run: |
           git config user.name "hilltop-bot"; git config user.email "hilltop-bot@users.noreply.github.com"
           git add probe; git commit -qm "Probe Texas SOS results site" && (git push -q || (git pull -q --rebase && git push -q))
