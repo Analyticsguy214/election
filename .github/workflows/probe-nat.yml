@@ -16,6 +16,14 @@ jobs:
           const g=async p=>{const r=await fetch(A+p,{headers:UA});const t=await r.text();console.log("GET",r.status,p,t.length,t.slice(0,200).replace(/\s+/g," "));try{return dec(JSON.parse(t))}catch(e){return null}};
           const ec=await g("/s3/enr/electionConstants");if(!ec)process.exit(0);
           console.log("EC keys",Object.keys(ec).join(","));console.log("CURRENT",JSON.stringify(ec.currentelectionInfo));console.log("Y2026",JSON.stringify(ec.electionInfo&&ec.electionInfo["2026"]).slice(0,1200));
-          globalThis.EC=ec;
+          i=js.indexOf("getElectionData(e){");console.log("DEC",js.slice(i,i+700).replace(/\s+/g," "));
+          const zlib=await import("node:zlib");
+          const decAny=s=>{const b=Buffer.from(s,"base64");for(const f of [x=>x.toString("utf8"),x=>zlib.gunzipSync(x).toString("utf8"),x=>zlib.inflateSync(x).toString("utf8"),x=>zlib.inflateRawSync(x).toString("utf8")]){try{const t=f(b);return JSON.parse(t)}catch(e){}}return null};
+          for(const id of [53815,58314]){const r=await fetch(A+"/s3/enr/election/"+id,{headers:UA});const t=await r.text();console.log("EL",id,r.status,t.length);let o;try{o=JSON.parse(t)}catch(e){console.log("notjson",t.slice(0,200));continue}
+            console.log(" keys",Object.keys(o).join(","),"Version",JSON.stringify(o.Version));
+            for(const k of Object.keys(o)){if(k==="Version")continue;const d=decAny(o[k]);console.log(" K",k,d?JSON.stringify(d).slice(0,900):"undecodable "+String(o[k]).slice(0,60))}
+            const rc=await fetch(A+"/s3/enr/election/countyInfo/"+id,{headers:UA});const tc=await rc.text();console.log(" CTY",rc.status,tc.length,tc.slice(0,150));let oc;try{oc=JSON.parse(tc)}catch(e){continue}
+            const dc=typeof oc==="object"&&oc.upload?decAny(oc.upload):(typeof oc==="object"?Object.fromEntries(Object.entries(oc).map(([k,v])=>[k,typeof v==="string"?decAny(v):v])):null);
+            console.log(" CTYDEC",JSON.stringify(dc).slice(0,1500));}
           JS
           node /tmp/p.mjs
