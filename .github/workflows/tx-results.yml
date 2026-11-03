@@ -1,4 +1,4 @@
-name: Texas results (Secretary of State)
+name: Live results (Texas SOS + AP via NYT)
 # Election night: reads the Texas SOS results feed every 60 seconds and publishes data/tx-live.json.
 # Each run loops ~5h40m, then starts the next. Outside election week it exits right away.
 on:
@@ -43,10 +43,11 @@ jobs:
           END=$((SECONDS+20400))
           while [ $SECONDS -lt $END ] && [ $(date -u +%s) -lt $stop ]; do
             git pull -q --rebase --autostash || true
-            node scripts/fetch-tx-sos.mjs || echo "fetch failed"
-            git add data/tx-live.json
+            node scripts/fetch-tx-sos.mjs || echo "SOS fetch failed"
+            node scripts/fetch-national.mjs || echo "national fetch failed"
+            git add data/tx-live.json data/national-live.json 2>/dev/null || git add data/tx-live.json
             if ! git diff --cached --quiet; then
-              git commit -qm "Texas results (SOS)"
+              git commit -qm "Live results"
               (git push -q || (git pull -q --rebase && git push -q)) && gh workflow run deploy.yml --ref main || echo "push/deploy failed"
             fi
             sleep 60

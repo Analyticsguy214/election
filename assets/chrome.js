@@ -62,7 +62,7 @@
   async function ticker(){
     const el=$("tickerTrack");if(!el)return;
     try{
-      const q="?t="+Date.now();const [rs,mk]=await Promise.all([fetch("data/races.json"+q,{cache:"no-store"}).then(r=>r.json()),fetch("data/markets.json"+q,{cache:"no-store"}).then(r=>r.json()).catch(()=>null)]);
+      const q="?t="+Date.now();const [rs,mk,nl]=await Promise.all([fetch("data/races.json"+q,{cache:"no-store"}).then(r=>r.json()),fetch("data/markets.json"+q,{cache:"no-store"}).then(r=>r.json()).catch(()=>null),fetch("data/national-live.json"+q,{cache:"no-store"}).then(r=>r.json()).catch(()=>null)]);if(nl&&nl.races)rs.forEach(x=>{const n=nl.races[x.id];if(!n)return;const tn=(n.v||[]).reduce((a,b)=>a+b,0);if(tn>0){x.votes=n.v;x.r=n.r}if(x.called==null&&n.called!=null)x.called=n.called});
       const tp=/texas\.html/.test(location.pathname);
       let h="";const c=mk&&mk.control;
       const ctl=(nm,o)=>{if(!o)return"";const xs=[o.kalshi,o.polymarket].filter(Boolean).map(x=>x.D/((x.D||0)+(x.R!=null?x.R:1-x.D)));if(!xs.length)return"";const p=xs.reduce((a,b)=>a+b,0)/xs.length;

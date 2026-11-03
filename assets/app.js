@@ -501,14 +501,25 @@
   const BUILD=(document.querySelector('meta[name="build"]')||{}).content||"";
   async function checkBuild(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.json()).v;if(BUILD&&v&&v!==BUILD)location.reload()}catch(e){}}
   setInterval(checkBuild,60000);
+  function overlayNational(races,meta,NL){
+    if(!NL||!NL.races)return false;let any=false;
+    races.forEach(x=>{const n=NL.races[x.id];if(!n)return;const tn=(n.v||[]).reduce((a,b)=>a+(b||0),0),tr=(x.votes||[]).reduce((a,b)=>a+(b||0),0);
+      if(tn>0&&tn>=tr){x.votes=x.cands.map((c,i)=>n.v[i]||0);if(n.r!=null)x.r=n.r;if(n.snaps&&n.snaps.length>((x.snaps||[]).length))x.snaps=n.snaps;any=true}
+      if(x.called==null&&n.called!=null){x.called=n.called;any=true}});
+    if(meta){meta.house=meta.house||{};if(NL.house){meta.house.cD=Math.max(meta.house.cD||0,NL.house.cD||0);meta.house.cR=Math.max(meta.house.cR||0,NL.house.cR||0)}
+      meta.senateCalledStates=Object.assign({},NL.senateCalledStates||{},meta.senateCalledStates||{});
+      meta.senateCalled=((meta.senateSafe)||[]).map(s=>meta.senateCalledStates[s.st]).filter(Boolean);
+      if(any){if(!meta.status||meta.status==="pre")meta.status="live";meta.updatedAt=Math.max(meta.updatedAt||0,NL.fetchedAt||0)}}
+    return any;
+  }
   const BASE="data/";
   async function load(){
     try{
       const q="?t="+Date.now();
-      const [r,m,k,cr,tl]=await Promise.all([fetch(BASE+"races.json"+q,{cache:"no-store"}),fetch(BASE+"meta.json"+q,{cache:"no-store"}),fetch(BASE+"markets.json"+q,{cache:"no-store"}),fetch(BASE+"county-results.json"+q,{cache:"no-store"}).catch(()=>null),fetch(BASE+"tx-live.json"+q,{cache:"no-store"}).catch(()=>null)]);
+      const [r,m,k,cr,tl,nl]=await Promise.all([fetch(BASE+"races.json"+q,{cache:"no-store"}),fetch(BASE+"meta.json"+q,{cache:"no-store"}),fetch(BASE+"markets.json"+q,{cache:"no-store"}),fetch(BASE+"county-results.json"+q,{cache:"no-store"}).catch(()=>null),fetch(BASE+"tx-live.json"+q,{cache:"no-store"}).catch(()=>null),fetch(BASE+"national-live.json"+q,{cache:"no-store"}).catch(()=>null)]);
       if(!r.ok||!m.ok)throw new Error("HTTP");
       const nr=await r.json(),nm=await m.json(),nk=k.ok?await k.json():MK;let ncr=cr&&cr.ok?await cr.json():CR;
-      const ntl=tl&&tl.ok?await tl.json():null;
+      const ntl=tl&&tl.ok?await tl.json():null;const nnl=nl&&nl.ok?await nl.json():null;overlayNational(nr,nm,nnl);
       if(ntl&&ntl.races){ // Texas SOS feed: overlay statewide votes and county results
         meta=nm;const T=txTurnout();const exp=T?T.total:null;
         nr.forEach(x=>{const s=ntl.races[x.id]&&ntl.races[x.id].statewide;if(!s||!s.v)return;const lt=s.v.reduce((a,b)=>a+(b||0),0),rt=(x.votes||[]).reduce((a,b)=>a+(b||0),0);
@@ -516,7 +527,7 @@
         const sc=ntl.races["sen-tx"]&&ntl.races["sen-tx"].counties;
         if(sc&&Object.keys(sc).length){ncr={race:"sen-tx",updatedAt:ntl.fetchedAt||ntl.updatedAt,counties:{}};for(const f in sc){ncr.counties[f]={d:sc[f].v[0],r:sc[f].v[1],pct:null}}}
       }
-      const sig=JSON.stringify([ntl&&ntl.fetchedAt,ncr&&ncr.updatedAt,nm.updatedAt,nk&&nk.updatedAt,nr.length,nr.map(x=>(x.snaps||[]).length+":"+x.called)]);
+      const sig=JSON.stringify([nnl&&nnl.fetchedAt,ntl&&ntl.fetchedAt,ncr&&ncr.updatedAt,nm.updatedAt,nk&&nk.updatedAt,nr.length,nr.map(x=>(x.snaps||[]).length+":"+x.called)]);
       if(sig!==load.sig){load.sig=sig;races=nr;meta=nm;MK=nk;CR=ncr;renderAll()}
       lastCheck=Date.now();renderFresh();$("notice").hidden=true;
     }catch(e){const n=$("notice");if(races.length){n.hidden=false;n.textContent="Having trouble reaching the results server. Retrying automatically."}}

@@ -1,4 +1,4 @@
-name: Probe national results feeds
+name: Test national feed
 on: workflow_dispatch
 permissions:
   contents: write
@@ -10,7 +10,6 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 20 }
       - run: |
-          DATE=2024-11-05 OUT=/tmp/t24.json node scripts/fetch-national.mjs
-          node -e 'const d=require("/tmp/t24.json");console.log("HOUSE",JSON.stringify(d.house));console.log("SENCALLED",JSON.stringify(d.senateCalledStates));for(const k of ["sen-tx","sen-mi","sen-oh","sen-ne","h-pa-07","h-ny-17","tx-24","h-ak-al","gov-nh"])console.log(k,JSON.stringify(d.races[k]&&{v:d.races[k].v,r:d.races[k].r,called:d.races[k].called,by:d.races[k].calledBy,exp:d.races[k].expected}));console.log("CONTROL",JSON.stringify(d.control).slice(0,800))'
-          OUT=/tmp/t26.json node scripts/fetch-national.mjs
-          node -e 'const d=require("/tmp/t26.json");console.log("N26",Object.keys(d.races).length,Object.keys(d.races).filter(k=>k.startsWith("h-")).length,JSON.stringify(d.races["sen-nc"]));const all=require("./data/races.json").filter(r=>/^(sen-|gov-|h-|tx-gov|tx-\d)/.test(r.id)).map(r=>r.id);console.log("MISSING",all.filter(k=>!d.races[k]).join(","))'
+          DATE=2024-11-05 OUT=data/national-test.json node scripts/fetch-national.mjs
+          git config user.name "hilltop-bot"; git config user.email "hilltop-bot@users.noreply.github.com"
+          git add data/national-test.json && git commit -qm "Test national feed" && (git push -q || (git pull -q --rebase && git push -q))

@@ -308,12 +308,23 @@
   async function checkBuild(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.json()).v;if(BUILD&&BUILD!=="0"&&v&&v!==BUILD)location.reload()}catch(e){}}
   setInterval(checkBuild,60000);
   async function getJ(u){const r=await fetch(u+(u.includes("?")?"&":"?")+"t="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error(u);return r.json()}
+  function overlayNational(races,meta,NL){
+    if(!NL||!NL.races)return false;let any=false;
+    races.forEach(x=>{const n=NL.races[x.id];if(!n)return;const tn=(n.v||[]).reduce((a,b)=>a+(b||0),0),tr=(x.votes||[]).reduce((a,b)=>a+(b||0),0);
+      if(tn>0&&tn>=tr){x.votes=x.cands.map((c,i)=>n.v[i]||0);if(n.r!=null)x.r=n.r;if(n.snaps&&n.snaps.length>((x.snaps||[]).length))x.snaps=n.snaps;any=true}
+      if(x.called==null&&n.called!=null){x.called=n.called;any=true}});
+    if(meta){meta.house=meta.house||{};if(NL.house){meta.house.cD=Math.max(meta.house.cD||0,NL.house.cD||0);meta.house.cR=Math.max(meta.house.cR||0,NL.house.cR||0)}
+      meta.senateCalledStates=Object.assign({},NL.senateCalledStates||{},meta.senateCalledStates||{});
+      meta.senateCalled=((meta.senateSafe)||[]).map(s=>meta.senateCalledStates[s.st]).filter(Boolean);
+      if(any){if(!meta.status||meta.status==="pre")meta.status="live";meta.updatedAt=Math.max(meta.updatedAt||0,NL.fetchedAt||0)}}
+    return any;
+  }
   let sigPrev=null;
   async function load(){
     try{
       if(!GEO)GEO=await getJ("data/tx-counties.json");
-      const [r,m,k,l]=await Promise.all([getJ("data/races.json"),getJ("data/meta.json"),getJ("data/markets.json").catch(()=>MK),getJ("data/tx-live.json").catch(()=>LIVE)]);
-      const sg=JSON.stringify([m.updatedAt,k&&k.updatedAt,l&&l.updatedAt,l&&l.fetchedAt,r.map(x=>(x.votes||[]).join(",")+x.called)]);
+      const [r,m,k,l,nl]=await Promise.all([getJ("data/races.json"),getJ("data/meta.json"),getJ("data/markets.json").catch(()=>MK),getJ("data/tx-live.json").catch(()=>LIVE),getJ("data/national-live.json").catch(()=>null)]);overlayNational(r,m,nl);
+      const sg=JSON.stringify([nl&&nl.fetchedAt,m.updatedAt,k&&k.updatedAt,l&&l.updatedAt,l&&l.fetchedAt,r.map(x=>(x.votes||[]).join(",")+x.called)]);
       lastCheck=Date.now();$("notice").hidden=true;
       if(sg!==sigPrev){sigPrev=sg;races=r;meta=m;MK=k;LIVE=l;renderAll()}else renderFresh();
     }catch(e){const n=$("notice");n.hidden=false;n.textContent="Having trouble reaching the results server. Retrying automatically."}

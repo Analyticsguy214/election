@@ -35,7 +35,18 @@
   // tile grid (col,row)
   const TILES=[["AK",0,0],["ME",11,0],["VT",10,1],["NH",11,1],["WA",1,2],["ID",2,2],["MT",3,2],["ND",4,2],["MN",5,2],["IL",6,2],["WI",7,2],["MI",8,2],["NY",9,2],["RI",10,2],["MA",11,2],["OR",1,3],["NV",2,3],["WY",3,3],["SD",4,3],["IA",5,3],["IN",6,3],["OH",7,3],["PA",8,3],["NJ",9,3],["CT",10,3],["CA",1,4],["UT",2,4],["CO",3,4],["NE",4,4],["MO",5,4],["KY",6,4],["WV",7,4],["VA",8,4],["MD",9,4],["DE",10,4],["AZ",2,5],["NM",3,5],["KS",4,5],["AR",5,5],["TN",6,5],["NC",7,5],["SC",8,5],["DC",9,5],["OK",4,6],["LA",5,6],["MS",6,6],["AL",7,6],["GA",8,6],["HI",1,7],["TX",4,7],["FL",9,7]];
   async function getJ(u){const r=await fetch(u+(u.includes("?")?"&":"?")+"t="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error(u);return r.json()}
-  async function loadAll(){const [races,meta,MK,tx]=await Promise.all([getJ("data/races.json"),getJ("data/meta.json"),getJ("data/markets.json").catch(()=>null),getJ("data/tx-live.json").catch(()=>null)]);return{races,meta,MK,tx}}
+  function overlayNational(races,meta,NL){
+    if(!NL||!NL.races)return false;let any=false;
+    races.forEach(x=>{const n=NL.races[x.id];if(!n)return;const tn=(n.v||[]).reduce((a,b)=>a+(b||0),0),tr=(x.votes||[]).reduce((a,b)=>a+(b||0),0);
+      if(tn>0&&tn>=tr){x.votes=x.cands.map((c,i)=>n.v[i]||0);if(n.r!=null)x.r=n.r;if(n.snaps&&n.snaps.length>((x.snaps||[]).length))x.snaps=n.snaps;any=true}
+      if(x.called==null&&n.called!=null){x.called=n.called;any=true}});
+    if(meta){meta.house=meta.house||{};if(NL.house){meta.house.cD=Math.max(meta.house.cD||0,NL.house.cD||0);meta.house.cR=Math.max(meta.house.cR||0,NL.house.cR||0)}
+      meta.senateCalledStates=Object.assign({},NL.senateCalledStates||{},meta.senateCalledStates||{});
+      meta.senateCalled=((meta.senateSafe)||[]).map(s=>meta.senateCalledStates[s.st]).filter(Boolean);
+      if(any){if(!meta.status||meta.status==="pre")meta.status="live";meta.updatedAt=Math.max(meta.updatedAt||0,NL.fetchedAt||0)}}
+    return any;
+  }
+  async function loadAll(){const [races,meta,MK,tx,nl]=await Promise.all([getJ("data/races.json"),getJ("data/meta.json"),getJ("data/markets.json").catch(()=>null),getJ("data/tx-live.json").catch(()=>null),getJ("data/national-live.json").catch(()=>null)]);overlayNational(races,meta,nl);return{races,meta,MK,tx,nl}}
   function expTexas(meta,MK){const t=meta&&meta.turnout&&meta.turnout.tx;const xs=[];if(t&&t.ev&&t.ev2022&&t.total2022)xs.push(t.ev/(t.ev2022/t.total2022));const o=MK&&MK.outside&&MK.outside["sen-tx"];if(o&&o.turnout)xs.push(o.turnout);return xs.length?xs.reduce((a,b)=>a+b,0)/xs.length:null}
   const pct=p=>p==null?"—":(p>=0.995?">99%":p<=0.005?"<1%":Math.round(p*100)+"%");
   const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
