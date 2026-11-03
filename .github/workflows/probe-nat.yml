@@ -1,29 +1,12 @@
-name: Probe Civix ENR
+name: probe
 on: workflow_dispatch
 jobs:
   p:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: 20 }
       - run: |
-          cat > /tmp/p.mjs <<'JS'
-          const B="https://goelect.txelections.civixapps.com";const A=B+"/api-ivis-system/api";const UA={"user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/130","accept":"application/json, text/plain, */*","referer":B+"/ivis-enr-ui/races"};
-          const home=await (await fetch(B+"/ivis-enr-ui/races",{headers:UA})).text();const main=home.match(/main\.[a-f0-9]+\.js/)[0];const js=await (await fetch(B+"/ivis-enr-ui/"+main,{headers:UA})).text();
-          let i=js.indexOf("getElectionDataByID(e)");console.log("FN",js.slice(i,i+900).replace(/\s+/g," "));
-          i=js.indexOf("getElectionData(");console.log("FN2",js.slice(i,i+700).replace(/\s+/g," "));
-          const dec=x=>{if(x&&typeof x.upload==="string"){try{return JSON.parse(Buffer.from(x.upload,"base64").toString("utf8"))}catch(e){return null}}return x};
-          const g=async p=>{const r=await fetch(A+p,{headers:UA});const t=await r.text();console.log("GET",r.status,p,t.length,t.slice(0,200).replace(/\s+/g," "));try{return dec(JSON.parse(t))}catch(e){return null}};
-          const ec=await g("/s3/enr/electionConstants");if(!ec)process.exit(0);
-          console.log("EC keys",Object.keys(ec).join(","));console.log("CURRENT",JSON.stringify(ec.currentelectionInfo));console.log("Y2026",JSON.stringify(ec.electionInfo&&ec.electionInfo["2026"]).slice(0,1200));
-          i=js.indexOf("getElectionData(e){");console.log("DEC",js.slice(i,i+700).replace(/\s+/g," "));
-          const zlib=await import("node:zlib");
-          const decAny=s=>{const b=Buffer.from(s,"base64");for(const f of [x=>x.toString("utf8"),x=>zlib.gunzipSync(x).toString("utf8"),x=>zlib.inflateSync(x).toString("utf8"),x=>zlib.inflateRawSync(x).toString("utf8")]){try{const t=f(b);return JSON.parse(t)}catch(e){}}return null};
-          for(const id of [53815,58314]){const r=await fetch(A+"/s3/enr/election/"+id,{headers:UA});const t=await r.text();console.log("EL",id,r.status,t.length);let o;try{o=JSON.parse(t)}catch(e){console.log("notjson",t.slice(0,200));continue}
-            console.log(" keys",Object.keys(o).join(","),"Version",JSON.stringify(o.Version));
-            for(const k of Object.keys(o)){if(k==="Version")continue;const d=decAny(o[k]);console.log(" K",k,d?JSON.stringify(d).slice(0,900):"undecodable "+String(o[k]).slice(0,60))}
-            const rc=await fetch(A+"/s3/enr/election/countyInfo/"+id,{headers:UA});const tc=await rc.text();console.log(" CTY",rc.status,tc.length,tc.slice(0,150));let oc;try{oc=JSON.parse(tc)}catch(e){continue}
-            const dc=typeof oc==="object"&&oc.upload?decAny(oc.upload):(typeof oc==="object"?Object.fromEntries(Object.entries(oc).map(([k,v])=>[k,typeof v==="string"?decAny(v):v])):null);
-            console.log(" CTYDEC",JSON.stringify(dc).slice(0,1500));}
-          JS
-          node /tmp/p.mjs
+          for id in 53813 58314; do ELECTION_ID=$id SOS=civix OUT=/tmp/t$id.json node scripts/fetch-tx-sos.mjs; node -e "const o=require('/tmp/t$id.json');console.log('SUM',o.system,o.electionId,o.sosUpdated,JSON.stringify(o.countiesReporting),JSON.stringify(o.polling));for(const[k,v] of Object.entries(o.races))console.log('R',k,v.sosName,JSON.stringify(v.statewide),Object.keys(v.counties).length,'cty',JSON.stringify(v.counties['48113']||null),v.final)"; done
+          OUT=/tmp/live.json node scripts/fetch-tx-sos.mjs; node -e "const o=require('/tmp/live.json');console.log('LIVE',o.system,o.electionId,o.electionName,o.sosUpdated,Object.keys(o.races).join(','))"
