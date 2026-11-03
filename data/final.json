@@ -1,0 +1,315 @@
+{
+ "asOf": "Nov. 2, 2026, 10:45 p.m. CT",
+ "updatedAt": 1793680780457,
+ "headline": "Democrats are favored to win both chambers; Texas Senate leans Talarico while Abbott is favored to keep the governorship",
+ "calls": [
+  {
+   "k": "Senate",
+   "call": "Democrats win control",
+   "seats": "D 53 \u00b7 R 47",
+   "range": "Likely range D 50\u201356",
+   "p": 0.72,
+   "party": "D"
+  },
+  {
+   "k": "House",
+   "call": "Democrats win control",
+   "seats": "D 247 \u00b7 R 188",
+   "range": "Likely range D 230\u2013262",
+   "p": 0.91,
+   "party": "D"
+  },
+  {
+   "k": "Texas Senate",
+   "call": "Talarico wins",
+   "seats": "Talarico 50.3% \u00b7 Paxton 47.6%",
+   "range": "Margin D+2.7 \u00b7 range R+3 to D+8",
+   "p": 0.67,
+   "party": "D"
+  },
+  {
+   "k": "Texas Governor",
+   "call": "Abbott wins",
+   "seats": "Abbott 51.0% \u00b7 Hinojosa 47.4%",
+   "range": "Margin R+3.6 \u00b7 range R+9 to D+2",
+   "p": 0.58,
+   "party": "R"
+  }
+ ],
+ "texas": [
+  {
+   "id": "sen-tx",
+   "office": "U.S. Senate",
+   "d": 50.3,
+   "r": 47.6,
+   "note": "Polls, VoteHub's early-vote model and the markets all point the same way, but narrowly."
+  },
+  {
+   "id": "tx-gov",
+   "office": "Governor",
+   "d": 47.4,
+   "r": 51.0,
+   "note": "Final polls show Abbott running 7 to 10 points ahead of Paxton among the same voters."
+  },
+  {
+   "id": "tx-ltgov",
+   "office": "Lieutenant Governor",
+   "d": 45.5,
+   "r": 52.5,
+   "note": "Patrick led by about 8 in the final On Point poll."
+  },
+  {
+   "id": "tx-ag",
+   "office": "Attorney General",
+   "d": 47.0,
+   "r": 50.5,
+   "note": "Markets give Middleton about a 65% chance."
+  },
+  {
+   "id": "tx-rrc",
+   "office": "Railroad Commissioner",
+   "d": 48.8,
+   "r": 49.6,
+   "note": "Low confidence. Markets lean Rosenthal, but down-ballot races usually track the governor's race."
+  },
+  {
+   "id": "tx-comp",
+   "office": "Comptroller",
+   "d": 47.2,
+   "r": 50.8,
+   "note": "No polls or markets; based on the other down-ballot races."
+  },
+  {
+   "id": "tx-land",
+   "office": "Land Commissioner",
+   "d": 46.8,
+   "r": 51.2,
+   "note": "No polls or markets; based on the other down-ballot races."
+  },
+  {
+   "id": "tx-agri",
+   "office": "Agriculture Commissioner",
+   "d": 47.0,
+   "r": 51.0,
+   "note": "No polls or markets; based on the other down-ballot races."
+  }
+ ],
+ "turnout": {
+  "tx": 10600000,
+  "txNote": "About 10.6 million Texans vote, roughly 56% of registered voters: 7.74 million early plus about 2.9 million on Election Day. That's the highest midterm turnout on record, just short of 2024's 11.4 million.",
+  "dallas": "Dallas County: about 830,000 votes, with Talarico near 68% (D+37), up from Harris's D+22 margin here in 2024."
+ },
+ "senate": [
+  [
+   "GA",
+   "Ossoff",
+   "D",
+   "94%"
+  ],
+  [
+   "NC",
+   "Cooper",
+   "D",
+   "93% \u00b7 flip"
+  ],
+  [
+   "NH",
+   "Pappas",
+   "D",
+   "91%"
+  ],
+  [
+   "MN",
+   "Flanagan",
+   "D",
+   "88%"
+  ],
+  [
+   "AK",
+   "Peltola",
+   "D",
+   "77% \u00b7 flip"
+  ],
+  [
+   "MI",
+   "El-Sayed",
+   "D",
+   "76%"
+  ],
+  [
+   "ME",
+   "Jackson",
+   "D",
+   "67% \u00b7 flip"
+  ],
+  [
+   "TX",
+   "Talarico",
+   "D",
+   "67% \u00b7 flip"
+  ],
+  [
+   "OH",
+   "Brown",
+   "D",
+   "66% \u00b7 flip"
+  ],
+  [
+   "KS",
+   "Hamilton",
+   "D",
+   "53% \u00b7 flip, coin flip"
+  ],
+  [
+   "IA",
+   "Hinson",
+   "R",
+   "50% \u00b7 coin flip"
+  ],
+  [
+   "SC",
+   "Graham",
+   "R",
+   "67%"
+  ],
+  [
+   "NE",
+   "Ricketts",
+   "R",
+   "71%"
+  ],
+  [
+   "FL",
+   "Moody",
+   "R",
+   "83%"
+  ]
+ ],
+ "governors": [
+  [
+   "MI",
+   "Benson",
+   "D"
+  ],
+  [
+   "AZ",
+   "Hobbs",
+   "D"
+  ],
+  [
+   "IA",
+   "Sand",
+   "D"
+  ],
+  [
+   "WI",
+   "Crowley",
+   "D"
+  ],
+  [
+   "OH",
+   "Acton",
+   "D"
+  ],
+  [
+   "NV",
+   "Ford",
+   "D"
+  ],
+  [
+   "GA",
+   "Bottoms",
+   "D"
+  ],
+  [
+   "KS",
+   "Masterson",
+   "R"
+  ],
+  [
+   "FL",
+   "Donalds",
+   "R"
+  ],
+  [
+   "NH",
+   "Ayotte",
+   "R"
+  ],
+  [
+   "TX",
+   "Abbott",
+   "R"
+  ]
+ ],
+ "factors": [
+  {
+   "t": "The national environment favors Democrats",
+   "b": "The generic congressional ballot averages D+8.9 (Silver Bulletin, Nov. 2), near its high for the cycle. Historically, a lead that size produces a comfortable House majority for the party ahead."
+  },
+  {
+   "t": "Markets and forecasters agree on direction, not size",
+   "b": "Kalshi and Polymarket give Democrats about 75% for the Senate and 94% for the House. Decision Desk HQ is more cautious: 84% and 241 seats for the House. Our model averages them, which is why our House number lands between."
+  },
+  {
+   "t": "Texas early vote broke the midterm record",
+   "b": "7.74 million Texans voted early, 40.5% of registered voters, past 2018's record. Turnout jumped most in the big metros: Tarrant and Dallas counties are 12 to 14 points ahead of their 2022 pace."
+  },
+  {
+   "t": "But the early electorate is not a Democratic landslide",
+   "b": "By primary history, 29.9% of early voters last voted in a Republican primary and 28.3% in a Democratic one; 39% have no primary history. Modeled estimates range from about R+8 (On Point) to roughly even (VoteHub's Tilt D for Talarico). Election Day voters are expected to lean Republican."
+  },
+  {
+   "t": "Texas voters are splitting tickets",
+   "b": "In the final On Point poll, Talarico led by 5.5 while Abbott led by 4.6. Among people who had already voted, Talarico led 54\u201344; among those who hadn't, it was 49\u201348. Abbott led Election Day voters by 12."
+  },
+  {
+   "t": "Polls in Texas have missed toward Democrats before",
+   "b": "Texas polls have underestimated Republicans in several recent elections. We widen the Texas ranges for that, which is why a Paxton win is very much in play even though he trails."
+  }
+ ],
+ "flip": [
+  {
+   "t": "Paxton wins Texas if\u2026",
+   "b": "Election Day voters break about R+13 or more, enough to overcome the early-vote edge On Point estimates for Talarico, or the polls miss toward Republicans the way they did in 2020."
+  },
+  {
+   "t": "Republicans keep the Senate if\u2026",
+   "b": "They hold Ohio, Maine and Texas and win both coin flips, Iowa and Kansas. That's roughly the 28% of simulations where Republicans finish with 50 or more seats."
+  },
+  {
+   "t": "Republicans keep the House if\u2026",
+   "b": "The national environment tightens to about D+3 or less on the day, or Republicans sweep the toss-ups: about 9% of our simulations."
+  }
+ ],
+ "sources": [
+  {
+   "title": "Silver Bulletin generic ballot average (Nov. 2)",
+   "url": "https://www.natesilver.net/p/generic-ballot-average-2026-nate-silver-bulletin-congress-polls"
+  },
+  {
+   "title": "RealClearPolling: Texas Senate average",
+   "url": "https://www.realclearpolling.com/polls/senate/general/2026/texas/talarico-vs-paxton"
+  },
+  {
+   "title": "On Point Politics: final Texas poll (Nov. 1)",
+   "url": "https://onpointpolitics.substack.com/p/final-texas-poll-talarico-leads-paxton"
+  },
+  {
+   "title": "Emerson College: Texas poll",
+   "url": "https://emersoncollegepolling.com/texas-2026-poll-paxton-and-talarico/"
+  },
+  {
+   "title": "Mish Talk on On Point's early-vote model",
+   "url": "https://mishtalk.com/economics/texas-early-voting-is-13-5-points-bluer-than-2024-is-that-enough/"
+  },
+  {
+   "title": "VoteHub Texas early vote tracking",
+   "url": "https://x.com/VoteHub/status/2115913814843543955"
+  },
+  {
+   "title": "Decision Desk HQ forecast (Nov. 2)",
+   "url": "https://x.com/DecisionDeskHQ/status/2117275155449934280"
+  }
+ ]
+}

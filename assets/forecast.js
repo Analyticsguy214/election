@@ -102,7 +102,23 @@
   let deb;["env","turn","err","srcDD","srcRT","srcKA","srcPM","srcVH"].forEach(id=>$(id).addEventListener("change",()=>{clearTimeout(deb);deb=setTimeout(run,60)}));
   $("rerun").addEventListener("click",run);
   document.addEventListener("click",e=>{const b=e.target.closest("#rtTabs button");if(b&&lastRun){tab=b.dataset.g;renderTable(lastRun)}});
-  async function load(first){try{D=await H.loadAll();$("notice").hidden=true;if(first)run();const src=$("sources");if(src&&D.meta.sources){src.innerHTML="";D.meta.sources.forEach(s=>{const li=document.createElement("li");const a=document.createElement("a");a.href=s.url;a.target="_blank";a.rel="noopener";a.textContent=s.title;li.appendChild(a);src.appendChild(li)})}}catch(e){const n=$("notice");n.hidden=false;n.textContent="Having trouble loading the model inputs. Retrying automatically."}}
+
+  // ---- final call ----
+  async function renderFinal(){
+    let F;try{F=await (await fetch("data/final.json?t="+Date.now(),{cache:"no-store"})).json()}catch(e){$("final").hidden=true;return}
+    $("finalAsOf").textContent="As of "+F.asOf;$("finalHed").textContent=F.headline;
+    $("finalCards").innerHTML=F.calls.map(c=>`<div class="callcard" style="border-top-color:${PC[c.party]}"><div class="k">${esc(c.k)}</div><div class="c" style="color:${PC[c.party]}">${esc(c.call)}</div><div class="s">${esc(c.seats)}</div><div class="r">${esc(c.range)} · ${pct(c.p)} chance</div><div class="pb"><i style="display:block;width:${(c.party==="D"?c.p:1-c.p)*100}%;background:var(--dem)"></i><i style="display:block;flex:1;background:var(--rep)"></i></div></div>`).join("");
+    const R=id=>D&&D.races.find(r=>r.id===id);
+    $("finalTx").innerHTML=`<thead><tr><th class="l">Office</th><th class="l">Projected result</th><th>Margin</th><th class="l">Why</th></tr></thead><tbody>`+F.texas.map(t=>{const r=R(t.id);if(!r)return"";const c0=r.cands[0],c1=r.cands[1];const m=t.d-t.r;const w=m>=0?c0:c1;
+      return`<tr><td class="l"><b>${esc(t.office)}</b><br><span class="pill ${w.p}">${esc(last(w.n))}</span></td><td class="l"><span style="color:${PC[c0.p]}">${esc(last(c0.n))} ${t.d.toFixed(1)}%</span> · <span style="color:${PC[c1.p]}">${esc(last(c1.n))} ${t.r.toFixed(1)}%</span><div class="txbar"><i style="display:block;width:${t.d/(t.d+t.r)*100}%;background:${PC[c0.p]}"></i><i style="display:block;flex:1;background:${PC[c1.p]}"></i></div></td><td class="mg" style="color:${PC[w.p]}">${w.p}+${Math.abs(m).toFixed(1)}</td><td class="l" style="font-size:12.5px;color:var(--fg-2)">${esc(t.note)}</td></tr>`}).join("")+"</tbody>";
+    $("finalTurn").innerHTML=`<b>Turnout:</b> ${esc(F.turnout.txNote)} ${esc(F.turnout.dallas)}`;
+    const cg=(st,nm,p,sub)=>`<span class="cg"><span class="dd" style="background:${PC[p]}"></span><span><b>${esc(st)}</b> ${esc(nm)}${sub?`<br><small>${esc(sub)}</small>`:""}</span></span>`;
+    $("finalSen").innerHTML=F.senate.map(x=>cg(x[0],x[1],x[2],x[3])).join("");
+    $("finalGov").innerHTML=F.governors.map(x=>cg(x[0],x[1],x[2])).join("");
+    $("finalFactors").innerHTML=F.factors.map(f=>`<li><b>${esc(f.t)}</b>${esc(f.b)}</li>`).join("");
+    $("finalFlip").innerHTML=F.flip.map(f=>`<li><b>${esc(f.t)}</b>${esc(f.b)}</li>`).join("");
+  }
+  async function load(first){try{D=await H.loadAll();$("notice").hidden=true;if(first){run();renderFinal()}const src=$("sources");if(src&&D.meta.sources){src.innerHTML="";D.meta.sources.forEach(s=>{const li=document.createElement("li");const a=document.createElement("a");a.href=s.url;a.target="_blank";a.rel="noopener";a.textContent=s.title;li.appendChild(a);src.appendChild(li)})}}catch(e){const n=$("notice");n.hidden=false;n.textContent="Having trouble loading the model inputs. Retrying automatically."}}
   envLbl();load(true);setInterval(()=>load(false),120000);
   let rt;window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>lastRun&&render(lastRun,settings()),200)});
 })();
