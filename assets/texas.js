@@ -289,11 +289,39 @@
     const ot=Math.max((MK&&MK.updatedAt)||0);if(ot)h+=` · <b>Odds</b> ${ago(ot)}`;
     if(lastCheck)h+=` · <span class="muted">checked ${ago(lastCheck)}</span>`;$("fresh").innerHTML=h;
   }
+  // ---------- Election Day turnout tracker ----------
+  function renderEDay(){
+    const T=$("edayT");if(!T||!GEO)return;
+    const tx=(meta&&meta.turnout&&meta.turnout.tx)||{};const list=(meta&&meta.turnout&&meta.turnout.counties&&meta.turnout.counties.list)||[];
+    const evList=Object.fromEntries(list.map(c=>[c.fips,c.ev]));
+    const L=LIVE&&LIVE.races&&LIVE.races["sen-tx"];const LC=(L&&L.counties)||{};
+    const sum=a=>(a||[]).reduce((x,y)=>x+(y||0),0);
+    const Tot=expectedTotal();const V=Object.values(GEO.counties).reduce((a,c)=>a+c.v,0);const k=Tot/V;
+    const liveEV=L&&L.statewide?sum(L.statewide.ev):0,liveED=L&&L.statewide?sum(L.statewide.ed):0;
+    const EVst=Math.max(tx.ev||0,liveEV);const EDexp=Math.max(0,Tot-EVst);
+    const rows=Object.entries(GEO.counties).map(([f,c])=>{const x=LC[f];const ev=x&&sum(x.ev)>0?sum(x.ev):(evList[f]||null);const E=c.v*k;
+      const edExp=ev!=null?Math.max(0,E-ev):null;const ed=x?sum(x.ed):0;
+      const mg=a=>{const t=sum(a);return t>0?((a[0]||0)-(a[1]||0))/t*100:null};
+      return{f,n:c.n,E,ev,edExp,ed,mEv:x?mg(x.ev):null,mEd:x?mg(x.ed):null}}).sort((a,b)=>b.E-a.E);
+    const top=rows.filter(r=>r.ev!=null).slice(0,15);if(!top.some(r=>r.f==="48113")){const d=rows.find(r=>r.f==="48113");if(d)top.push(d)}
+    const now=Date.now(),close=Date.parse("2026-11-04T01:00:00Z"),open=Date.parse("2026-11-03T13:00:00Z");
+    const st=liveED>0?"counting":now<open?"before":now<close?"open":"closed";
+    $("edayNote").textContent=st==="counting"?`${fmt(liveED)} Election Day votes counted so far`:st==="open"?"Polls open 7 a.m.–7 p.m. local time":st==="closed"?"Polls closed · waiting for counties to post":"";
+    const pctIn=EDexp?Math.min(1,liveED/EDexp):0;
+    $("edayTop").innerHTML=`<div class="eday-k"><div><b>${fmtM(EVst)}</b><span>Early votes banked (in person + mail)</span></div><div><b>≈${fmtM(EDexp)}</b><span>Expected on Election Day</span></div><div><b>≈${fmtM(Tot)}</b><span>Expected total turnout (live model)</span></div><div><b>${liveED?fmtM(liveED):"—"}</b><span>Election Day votes counted</span></div></div>
+      <div class="eday-bar" role="img" aria-label="Election Day votes counted: ${Math.round(pctIn*100)}% of expected"><i class="ev" style="width:${(EVst/Tot*100).toFixed(1)}%"></i><i class="ed" style="width:${(liveED/Tot*100).toFixed(1)}%"></i></div>
+      <div class="eday-lg"><span><i class="ev"></i>Early vote</span><span><i class="ed"></i>Election Day counted</span><span><i class="lf"></i>Still expected</span></div>`;
+    const m=v=>v==null?'<td class="mut">—</td>':`<td style="color:${mcol(v)};font-weight:700">${mfmt(v)}</td>`;
+    T.innerHTML=`<thead><tr><th scope="col">County</th><th scope="col">Early votes</th><th scope="col">Expected on Election Day</th><th scope="col">Share of state's Election Day vote</th><th scope="col">Election Day counted</th><th scope="col">Senate margin, early</th><th scope="col">Senate margin, Election Day</th></tr></thead><tbody>`+
+      top.map(r=>`<tr${r.f==="48113"?' class="hl"':""}><th scope="row">${esc(r.n)}</th><td>${fmt(r.ev)}</td><td>${r.edExp!=null?"≈"+fmtM(r.edExp):"—"}</td><td>${r.edExp!=null&&EDexp?(r.edExp/EDexp*100).toFixed(1)+"%":"—"}</td><td>${r.ed?fmt(r.ed)+(r.edExp?` <small>(${Math.min(999,Math.round(r.ed/r.edExp*100))}%)</small>`:""):'<span class="mut">—</span>'}</td>${m(r.mEv)}${m(r.mEd)}</tr>`).join("")+`</tbody>`;
+    $("edayFoot").textContent=st==="counting"?"Election Day counts come from the Texas Secretary of State feed, updated every minute. The percentage in parentheses is the share of that county's expected Election Day vote counted so far. Margins compare Talarico (D) and Paxton (R) among early and Election Day ballots.":
+      "Texas counties don't publish Election Day turnout counts while polls are open. Election Day ballots start appearing in the Secretary of State feed after polls close at 7 p.m. CT, and this table fills in every minute. Expected Election Day votes = each county's projected turnout (2024 vote scaled to the Hilltop turnout estimate) minus its early votes, so they're estimates. Early votes are county reports through "+((meta.turnout.counties&&meta.turnout.counties.asOf)||"the end of early voting")+" until the SOS feed replaces them.";
+  }
   let A={};
   function renderAll(){
     if(!races.length)return;A={};STATEWIDE.concat(HOUSE).forEach(id=>{const r=R(id);if(r)A[id]=analyze(r)});
     if(!A[sel])sel="sen-tx";const a=A[sel];
-    renderStrip(A);renderList(A);renderPanel(a);renderMap(a);renderVotesLeft(a);renderFresh();
+    renderStrip(A);renderList(A);renderPanel(a);renderMap(a);renderVotesLeft(a);renderFresh();try{renderEDay()}catch(e){console.error(e)}
     const src=$("sources");if(meta&&meta.sources){src.innerHTML="";[{title:"Texas Secretary of State election night results",url:"https://goelect.txelections.civixapps.com/ivis-enr-ui/races"}].concat(meta.sources).forEach(s=>{const li=document.createElement("li");const x=document.createElement("a");x.href=s.url;x.target="_blank";x.rel="noopener";x.textContent=s.title;li.appendChild(x);src.appendChild(li)})}
   }
   document.addEventListener("click",e=>{if(!e.target.closest("#rpShare")||!window.HEDcard)return;const a=A[sel];if(!a)return;const race={...a.race,votes:a.counted||null,r:a.frac||0};
