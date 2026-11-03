@@ -484,7 +484,7 @@
     $("tvOpen").href="https://www.youtube.com/channel/"+id+"/live";$("tvOpen").textContent="Open "+nm+" on YouTube ↗";
     const st=$("tvStatus");if(st)st.textContent=TVS?`${TV.filter(([,c])=>{const x=tvLive(c);return x&&x.live}).length} of ${TV.length} channels live · checked ${tvAgo(TVS.checkedAt)}`:"";
     const vid=L&&L.live&&L.video;
-    if(soft&&play&&el.querySelector("iframe")&&el.dataset.vid===(vid||""))return;
+    if(soft&&el.querySelector("iframe"))return;
     el.dataset.vid=vid||"";tvPlaying=play;
     if(play&&vid){el.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${vid}?autoplay=1&mute=1&playsinline=1" title="${nm} live on YouTube" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;return}
     const others=TV.filter(([,c])=>{const x=tvLive(c);return x&&x.live&&c!==id}).map(([n])=>n);
@@ -541,7 +541,7 @@
   let rt;window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{renderChart();renderDallasDaily()},200)});
   renderAll();
   const BUILD=(document.querySelector('meta[name="build"]')||{}).content||"";
-  async function checkBuild(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.json()).v;if(BUILD&&v&&v!==BUILD)location.reload()}catch(e){}}
+  async function checkBuild(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.json()).v;if(BUILD&&v&&v!==BUILD){if(document.querySelector("#tv iframe"))return;location.reload()}}catch(e){}}
   setInterval(checkBuild,60000);
   function overlayNational(races,meta,NL){
     if(!NL||!NL.races)return false;let any=false;
