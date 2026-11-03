@@ -29,7 +29,7 @@ jobs:
           END=$((SECONDS+20400))
           while [ $SECONDS -lt $END ]; do
             git pull -q --rebase --autostash || true
-            node scripts/fetch-markets.mjs || echo "fetch failed"
+            timeout 90 node scripts/fetch-markets.mjs || echo "fetch failed"
             git add data/markets.json
             if ! git diff --cached --quiet; then
               git commit -qm "Update market odds"

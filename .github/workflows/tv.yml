@@ -26,7 +26,7 @@ jobs:
           END=$((SECONDS+20400))
           while [ $SECONDS -lt $END ] && [ $(date +%s) -lt 1793880000 ]; do
             git pull -q --rebase --autostash || true
-            node scripts/fetch-tv.mjs || echo "tv check failed"
+            timeout 80 node scripts/fetch-tv.mjs || echo "tv check failed"
             git add data/tv-live.json
             if ! git diff --cached --quiet; then
               git commit -qm "Update live TV status"

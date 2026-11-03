@@ -7,7 +7,7 @@ const UA = { "user-agent": "Mozilla/5.0 (HilltopElectionDesk results reader)", a
 const OUT = process.env.OUT || "data/tx-live.json";
 const races = JSON.parse(fs.readFileSync("data/races.json", "utf8"));
 
-async function J(u) { const r = await fetch(u + (u.includes("?") ? "&" : "?") + "t=" + Date.now(), { headers: UA }); if (!r.ok) throw new Error(r.status + " " + u); return r.json(); }
+async function J(u) { const r = await fetch(u + (u.includes("?") ? "&" : "?") + "t=" + Date.now(), { headers: UA, signal: AbortSignal.timeout(20000) }); if (!r.ok) throw new Error(r.status + " " + u); return r.json(); }
 
 // SOS office name -> our race id
 function raceIdFor(name) {

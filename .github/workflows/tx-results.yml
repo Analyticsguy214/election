@@ -42,9 +42,9 @@ jobs:
           if [ $now -lt $start ]; then gh workflow run tx-results.yml --ref main; exit 0; fi
           END=$((SECONDS+20400))
           while [ $SECONDS -lt $END ] && [ $(date -u +%s) -lt $stop ]; do
-            git pull -q --rebase --autostash || true
-            node scripts/fetch-tx-sos.mjs || echo "SOS fetch failed"
-            node scripts/fetch-national.mjs || echo "national fetch failed"
+            timeout 40 git pull -q --rebase --autostash || true
+            timeout 50 node scripts/fetch-tx-sos.mjs || echo "SOS fetch failed"
+            timeout 50 node scripts/fetch-national.mjs || echo "national fetch failed"
             git add data/tx-live.json data/national-live.json 2>/dev/null || git add data/tx-live.json
             if ! git diff --cached --quiet; then
               git commit -qm "Live results"

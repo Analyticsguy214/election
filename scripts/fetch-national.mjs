@@ -9,7 +9,7 @@ const UA = { "user-agent": "Mozilla/5.0 (HilltopElectionDesk results reader)", a
 const races = JSON.parse(fs.readFileSync("data/races.json", "utf8"));
 const prev = fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, "utf8")) : { races: {} };
 
-async function J(f) { const r = await fetch(B + f + "?t=" + Date.now(), { headers: UA }); if (!r.ok) throw new Error(r.status + " " + f); return r.json(); }
+async function J(f) { const r = await fetch(B + f + "?t=" + Date.now(), { headers: UA, signal: AbortSignal.timeout(25000) }); if (!r.ok) throw new Error(r.status + " " + f); return r.json(); }
 const norm = s => (s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z]/g, "");
 const lastName = n => n.split(" ").filter(w => !/^(III|II|Jr\.?|Sr\.?)$/.test(w)).pop();
 const partyOf = m => { const p = (m && m.party && (m.party.nyt_id || m.party.abbreviation)) || ""; return /DEM/i.test(p) ? "D" : /GOP|REP/i.test(p) ? "R" : "O"; };
