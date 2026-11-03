@@ -1,0 +1,12 @@
+name: probe-tv
+on: workflow_dispatch
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: |
+          node scripts/probe-handles.mjs @LiveNOWFOX @NewsNation @wfaa @NBCDFW @FOX4Dallas @FOX4News @CSPAN @BloombergTelevision @ScrippsNews @DecisionDeskHQ @SkyNews @Reuters @AssociatedPress @KERAnews @CBSTexas @TexasTribune
+          PROBE=1 OUT=/tmp/tv.json node scripts/fetch-tv.mjs

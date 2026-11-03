@@ -1,0 +1,3 @@
+const UA={"user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36","accept-language":"en-US,en;q=0.9",cookie:"CONSENT=YES+1; SOCS=CAI"};
+for (const h of process.argv.slice(2)) { try { const t = await (await fetch("https://www.youtube.com/"+h,{headers:UA})).text();
+  const id=(t.match(/"externalId":"(UC[\w-]{22})"/)||t.match(/<meta itemprop="identifier" content="(UC[\w-]{22})"/)||[])[1]; const nm=(t.match(/<meta property="og:title" content="([^"]*)"/)||[])[1]; console.log("H",h,id,nm);} catch(e){console.log("H",h,"ERR",e.message)} }
