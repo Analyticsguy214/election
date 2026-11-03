@@ -6,4 +6,4 @@ jobs:
     steps:
       - run: |
           for id in UCBi2mrWuNuyYy4gbM6fU18Q UCeY0bbntWzzVIaj2z3QigXg UC8p1vwvWtl6T73JiExfWs1g UC6ZFN9Tx6xh-skXCuRHCDpQ; do
-            t=$(curl -sL -A "Mozilla/5.0" "https://www.youtube.com/feeds/videos.xml?channel_id=$id" | grep -o '<title>[^<]*</title>' | head -1); echo "ID $id => $t"; done
+            t=$(curl -sL -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/130" -H "Accept-Language: en-US" "https://www.youtube.com/channel/$id" | grep -oE "<meta property=\"og:title\" content=\"[^\"]*\"" | head -1); echo "ID $id => $t"; done
