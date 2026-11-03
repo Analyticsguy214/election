@@ -465,15 +465,36 @@
     return`<svg class="needle" viewBox="0 0 200 120" role="img" aria-label="${label}">${g}</svg>`;
   }
   // ---------- live TV ----------
-  const TV=[["ABC News","UCBi2mrWuNuyYy4gbM6fU18Q"],["NBC News","UCeY0bbntWzzVIaj2z3QigXg"],["CBS News","UC8p1vwvWtl6T73JiExfWs1g"],["PBS NewsHour","UC6ZFN9Tx6xh-skXCuRHCDpQ"]];
-  let tvSel=0;try{const s=localStorage.getItem("hed-tv");if(s)tvSel=+s||0}catch(e){}
-  function renderTV(play){
-    const el=$("tv");if(!el)return;const [nm,id]=TV[tvSel];
-    $("tvTabs").innerHTML=TV.map(([n],i)=>`<button type="button" role="tab" aria-selected="${i===tvSel}" data-tv="${i}">${n}</button>`).join("");
-    $("tvOpen").href="https://www.youtube.com/channel/"+id+"/live";$("tvOpen").textContent="Open "+nm+" on YouTube ↗";
-    el.innerHTML=play?`<iframe src="https://www.youtube-nocookie.com/embed/live_stream?channel=${id}&autoplay=1&mute=1" title="${nm} live on YouTube" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>`:`<button class="tvplay" type="button" id="tvPlay"><span class="tri"></span><span>Watch ${nm} live</span><small>Streams on YouTube. If a channel isn't live yet, try another or open it on YouTube.</small></button>`;
+  let TV=[["ABC News","UCBi2mrWuNuyYy4gbM6fU18Q"],["NBC News","UCeY0bbntWzzVIaj2z3QigXg"],["CBS News","UC8p1vwvWtl6T73JiExfWs1g"],["PBS News","UC6ZFN9Tx6xh-skXCuRHCDpQ"]];
+  let TVS=null,tvSel=0,tvPlaying=false;try{const s=localStorage.getItem("hed-tv");if(s)tvSel=+s||0}catch(e){}
+  const tvLive=id=>TVS&&TVS.channels&&TVS.channels[id]||null;
+  const tvAgo=t=>{const m=Math.round((Date.now()-t)/60000);return m<1?"just now":m+" min ago"};
+  async function loadTV(){
+    try{const c=await fetch("data/tv-channels.json?t="+Date.now()).then(r=>r.json());if(Array.isArray(c)&&c.length)TV=c.map(x=>[x.name,x.id,x.g])}catch(e){}
+    try{TVS=await fetch("data/tv-live.json?t="+Date.now()).then(r=>r.json())}catch(e){}
+    if(tvSel>=TV.length)tvSel=0;
+    if(!loadTV.done){loadTV.done=1;const L=tvLive(TV[tvSel][1]);if(!(L&&L.live)){const i=TV.findIndex(([,id])=>{const x=tvLive(id);return x&&x.live});if(i>=0)tvSel=i}}
+    renderTV(tvPlaying,true);
   }
-  document.addEventListener("click",e=>{const b=e.target.closest("[data-tv]");if(b){tvSel=+b.dataset.tv;try{localStorage.setItem("hed-tv",tvSel)}catch(x){}renderTV(!!$("tv").querySelector("iframe"));return}if(e.target.closest("#tvPlay"))renderTV(true)});
+  function renderTV(play,soft){
+    const el=$("tv");if(!el)return;const [nm,id]=TV[tvSel];const L=tvLive(id);
+    let lastG=null;
+    $("tvTabs").innerHTML=TV.map(([n,cid,g],i)=>{const x=tvLive(cid);const on=x&&x.live;let pre="";if(g&&g!==lastG){pre=`<span class="tvgrp">${g}</span>`;lastG=g}
+      return pre+`<button type="button" role="tab" aria-selected="${i===tvSel}" data-tv="${i}" class="${on?"is-live":"is-off"}"><i class="tvdot" aria-hidden="true"></i>${n}<span class="sr-only">${on?" (live now)":TVS?" (not live)":""}</span></button>`}).join("");
+    $("tvOpen").href="https://www.youtube.com/channel/"+id+"/live";$("tvOpen").textContent="Open "+nm+" on YouTube ↗";
+    const st=$("tvStatus");if(st)st.textContent=TVS?`${TV.filter(([,c])=>{const x=tvLive(c);return x&&x.live}).length} of ${TV.length} channels live · checked ${tvAgo(TVS.checkedAt)}`:"";
+    const vid=L&&L.live&&L.video;
+    if(soft&&play&&el.querySelector("iframe")&&el.dataset.vid===(vid||""))return;
+    el.dataset.vid=vid||"";tvPlaying=play;
+    if(play&&vid){el.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${vid}?autoplay=1&mute=1&playsinline=1" title="${nm} live on YouTube" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;return}
+    const others=TV.filter(([,c])=>{const x=tvLive(c);return x&&x.live&&c!==id}).map(([n])=>n);
+    if(TVS&&!(L&&L.live)){
+      const when=L&&L.upcoming?`Its stream is scheduled for ${new Date(L.upcoming).toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit",timeZone:"America/Chicago"})} CT.`:"Its stream goes up when its election coverage starts. This page checks every 2 minutes, and a Watch button appears here as soon as it goes live.";
+      el.innerHTML=`<div class="tvoff"><b>${nm} isn't live yet</b><span>${when}</span>${others.length?`<span>Live now: ${others.join(", ")}</span>`:""}</div>`;tvPlaying=false;return}
+    el.innerHTML=`<button class="tvplay" type="button" id="tvPlay"><span class="tri"></span><span>Watch ${nm} live</span><small>${L&&L.title?L.title.replace(/</g,"&lt;"):"Streams on YouTube."}</small></button>`;
+  }
+  document.addEventListener("click",e=>{const b=e.target.closest("[data-tv]");if(b){tvSel=+b.dataset.tv;try{localStorage.setItem("hed-tv",tvSel)}catch(x){}renderTV(tvPlaying||!!$("tv").querySelector("iframe"));return}if(e.target.closest("#tvPlay"))renderTV(true)});
+  loadTV();setInterval(loadTV,120000);
   // ---------- key races rail ----------
   function railCard(href,kicker,sub,title,a,b,pa,foot,needle){
     return`<a class="rcard${needle?" withneedle":""}" href="${href}"><div class="rk">${kicker}<span>${sub}</span></div><h3>${title}</h3>${needle!=null&&needle!==false?needleSVG(typeof needle==="number"?needle:pa,title):""}<div class="rs"><div><div class="p" style="color:${a.c}">${a.v}</div><div class="l">${a.l}</div></div><div><div class="p" style="color:${b.c}">${b.v}</div><div class="l">${b.l}</div></div></div><div class="rb"><i style="width:${pa*100}%;background:${a.c}"></i><i style="flex:1;background:${b.c}"></i></div><div class="rf">${foot}</div></a>`;
@@ -497,7 +518,7 @@
     const grp=r.groups.includes("senate")?"Senate":r.groups.includes("governor")?"Governor":r.groups.includes("house")||r.groups.includes("dfw")?"U.S. House":"Texas";
     const title=r.id==="sen-tx"?"Texas U.S. Senate":r.id==="tx-gov"?"Texas Governor":r.groups.includes("texas")?"Texas "+r.title:r.groups.includes("senate")?r.title+" Senate":r.groups.includes("governor")?r.title+" Governor":r.title;
     window.HEDcard.openRace(r,{kicker:grp+" · 2026",title,chance:m.probs?m.probs[0]:null,note:m.mode==="pre"?"Pre-election chance to win from the Hilltop forecast (Decision Desk HQ, ratings, Kalshi and Polymarket).":m.mode==="live"?"Win chance from the Hilltop live model: "+last((m.probs[0]>=.5?r.cands[0]:r.cands[1]).n)+" "+pct(Math.max(m.probs[0],1-m.probs[0]))+".":null})});
-  function renderAll(){setTimeout(()=>window.HEDfollowSync&&window.HEDfollowSync(),0);renderStatus();renderRail();renderPolls();if(!renderAll.tv){renderAll.tv=1;renderTV(false)}renderBop();renderOutcomes();renderProj();renderEV();renderCounties();renderMap();renderSections();renderChart()}
+  function renderAll(){setTimeout(()=>window.HEDfollowSync&&window.HEDfollowSync(),0);renderStatus();renderRail();renderPolls();renderBop();renderOutcomes();renderProj();renderEV();renderCounties();renderMap();renderSections();renderChart()}
   document.querySelectorAll("nav.sections button").forEach(t=>t.addEventListener("click",()=>{group=t.dataset.g;try{localStorage.setItem("hed-tab",group)}catch(e){}renderSections();document.getElementById("sections").scrollIntoView({behavior:"smooth",block:"start"})}));
   setInterval(renderStatus,30000);
   let rt;window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{renderChart();renderDallasDaily()},200)});

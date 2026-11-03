@@ -338,3 +338,20 @@ footer.site summary{cursor:pointer;color:#fff;font-weight:600;font-size:13px}
 @media (prefers-reduced-motion:reduce){.splash .sbar i{animation:none;width:100%}.splash{transition:none}}
 
 .ract{display:flex;gap:6px;justify-content:flex-end;margin-top:8px}
+
+.tvtabs{flex-wrap:wrap}
+.tvtabs .tvgrp{flex-basis:100%;font:800 10px var(--f-sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:6px 0 2px}
+.tvtabs .tvgrp:first-child{margin-top:0}
+.tvdot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;vertical-align:1px;background:var(--neutral-2,#9aa)}
+.tvtabs .is-live .tvdot{background:#e0002a;box-shadow:0 0 0 0 rgba(224,0,42,.6);animation:tvpulse 1.6s infinite}
+.tvtabs .is-off{opacity:.72}
+@keyframes tvpulse{70%{box-shadow:0 0 0 6px rgba(224,0,42,0)}100%{box-shadow:0 0 0 0 rgba(224,0,42,0)}}
+@media (prefers-reduced-motion:reduce){.tvtabs .is-live .tvdot{animation:none}}
+.tvoff{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px;text-align:center;color:#e8ebf4;font-size:14px}
+.tvoff b{font-family:var(--f-serif);font-size:20px}
+.tvoff span{max-width:460px;color:#b8bfd2}
+.tvstatus{font-size:12px;color:var(--muted);margin-top:6px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tvtabs{width:auto;border:0;gap:6px;overflow:visible}
+.tvtabs button,.tvtabs button:last-child{border:1px solid var(--rule)}
+.tvtabs button[aria-selected="true"] .tvdot{background:#ff5a75}

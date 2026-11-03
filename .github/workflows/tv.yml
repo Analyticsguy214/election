@@ -1,0 +1,40 @@
+name: Check live TV streams
+# Checks which YouTube news channels are live every 2 minutes through election night (stops Nov 5 12:00Z).
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: tv
+  cancel-in-progress: false
+jobs:
+  tv:
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check every 2 minutes
+        run: |
+          git config user.name "hilltop-bot"
+          git config user.email "hilltop-bot@users.noreply.github.com"
+          END=$((SECONDS+20400))
+          while [ $SECONDS -lt $END ] && [ $(date +%s) -lt 1793880000 ]; do
+            git pull -q --rebase --autostash || true
+            node scripts/fetch-tv.mjs || echo "tv check failed"
+            git add data/tv-live.json
+            if ! git diff --cached --quiet; then
+              git commit -qm "Update live TV status"
+              (git push -q || (git pull -q --rebase && git push -q)) && gh workflow run deploy.yml --ref main || echo "push/deploy failed"
+            fi
+            sleep 120
+          done
+      - name: Start the next run
+        if: always()
+        run: |
+          if [ $(date +%s) -lt 1793880000 ]; then gh workflow run tv.yml --ref main; fi
