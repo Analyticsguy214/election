@@ -6,11 +6,12 @@ const CH = JSON.parse(fs.readFileSync("data/tv-channels.json", "utf8"));
 async function check(c) {
   const r = await fetch(`https://www.youtube.com/channel/${c.id}/live`, { headers: UA, redirect: "follow" });
   const h = await r.text();
-  const live = /"isLiveNow":true/.test(h) || /"isLive":true/.test(h);
+  const upcomingFlag = /"isUpcoming":true/.test(h) || /"upcomingEventData"/.test(h);
+  const live = /"isLiveNow":true/.test(h) && !upcomingFlag;
   const vid = (h.match(/<link rel="canonical" href="https:\/\/www\.youtube\.com\/watch\?v=([\w-]{11})"/) || [])[1] || null;
   const sched = (h.match(/"scheduledStartTime":"(\d+)"/) || [])[1];
   const title = (h.match(/<meta name="title" content="([^"]*)"/) || [])[1] || null;
-  return { id: c.id, live: live && !!vid, video: vid, upcoming: !live && sched ? +sched * 1000 : null, title: vid ? title : null, status: r.status };
+  return { id: c.id, live: live && !!vid, video: vid, upcoming: !live && sched && +sched * 1000 > Date.now() - 3600e3 ? +sched * 1000 : null, title: vid ? title : null, status: r.status };
 }
 const out = { checkedAt: Date.now(), channels: {} };
 for (const c of CH) { try { out.channels[c.id] = await check(c); } catch (e) { out.channels[c.id] = { id: c.id, live: false, error: e.message }; } }
