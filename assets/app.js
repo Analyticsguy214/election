@@ -4,10 +4,12 @@
     {g:"senate",t:"Senate",p:"The 14 most competitive of the 35 Senate seats on the ballot. The remaining 21 are rated safe and are included in the balance of power."},
     {g:"governor",t:"Governor",p:"The most closely watched governor races nationally, including Texas."},
     {g:"texas",t:"Texas",p:"Every statewide office on the Texas ballot. Polls close at 7 p.m. Central in most of the state and 8 p.m. in El Paso."},
-    {g:"dfw",t:"Dallas County",p:"U.S. House races on Dallas County ballots under the 2026 congressional map."}
+    {g:"dfw",t:"Dallas County",p:"U.S. House races on Dallas County ballots under the 2026 congressional map."},
+    {g:"house",t:"House battlegrounds",p:"The 50 most competitive House seats, rated toss-up or lean by the Cook Political Report. Control of the chamber is tracked above; these are the seats most likely to decide it."}
   ];
   const STATE={"sen-nc":"NC","sen-ga":"GA","sen-mi":"MI","sen-me":"ME","sen-oh":"OH","sen-tx":"TX","sen-ia":"IA","sen-ak":"AK","sen-ks":"KS","sen-sc":"SC","sen-ne":"NE","sen-mn":"MN","sen-nh":"NH","sen-fl":"FL"};
-  const CLOSES={NC:"6:30 p.m.",GA:"6 p.m.",MI:"7 p.m.",ME:"7 p.m.",OH:"6:30 p.m.",TX:"7 p.m.",IA:"8 p.m.",AK:"Midnight",KS:"7 p.m.",SC:"6 p.m.",NE:"8 p.m.",MN:"8 p.m.",NH:"7 p.m.",FL:"6 p.m.",NV:"9 p.m.",WI:"8 p.m.",AZ:"8 p.m."};
+  const PC_SCHED=[["17:00",["IN","KY"]],["18:00",["FL","GA","SC","VA","VT"]],["18:30",["NC","OH","WV"]],["19:00",["AL","CT","DE","DC","IL","MA","MD","ME","MI","MO","MS","NH","NJ","OK","PA","RI","TN","TX"]],["19:30",["AR"]],["20:00",["AZ","CO","IA","KS","LA","MN","ND","NE","NM","NY","SD","WI","WY"]],["21:00",["MT","NV","UT"]],["22:00",["CA","ID","OR","WA"]],["23:00",["HI"]],["24:00",["AK"]]];
+  const CLOSES={};const fmtClose=t=>{const [h,m]=t.split(":").map(Number);return h===24?"Midnight":((h>12?h-12:h)+(m?":"+String(m).padStart(2,"0"):"")+" p.m.")};PC_SCHED.forEach(([t,sts])=>sts.forEach(s=>CLOSES[s]=fmtClose(t)));
   const GOVST={"gov-ga":"GA","gov-oh":"OH","gov-nv":"NV","gov-wi":"WI","gov-ks":"KS","gov-fl":"FL","gov-az":"AZ","gov-mi":"MI","gov-ia":"IA","gov-nh":"NH","tx-gov":"TX"};
   const TILES=[["AK",0,0],["ME",11,0],["VT",10,1],["NH",11,1],["WA",1,2],["ID",2,2],["MT",3,2],["ND",4,2],["MN",5,2],["IL",6,2],["WI",7,2],["MI",8,2],["NY",9,2],["RI",10,2],["MA",11,2],["OR",1,3],["NV",2,3],["WY",3,3],["SD",4,3],["IA",5,3],["IN",6,3],["OH",7,3],["PA",8,3],["NJ",9,3],["CT",10,3],["CA",1,4],["UT",2,4],["CO",3,4],["NE",4,4],["MO",5,4],["KY",6,4],["WV",7,4],["VA",8,4],["MD",9,4],["DE",10,4],["AZ",2,5],["NM",3,5],["KS",4,5],["AR",5,5],["TN",6,5],["NC",7,5],["SC",8,5],["DC",9,5],["OK",4,6],["LA",5,6],["MS",6,6],["AL",7,6],["GA",8,6],["HI",1,7],["TX",4,7],["FL",9,7]];
   const PC={D:"var(--dem)",R:"var(--rep)",I:"var(--ind)"};
@@ -167,7 +169,7 @@
     const m=model(race);const tot=race.votes?race.votes.reduce((a,b)=>a+(b||0),0):0;const r=race.r||0;
     const wp=race.called!=null?race.cands[race.called].p:null;
     const art=document.createElement("article");art.className="rt";art.id="race-"+race.id;
-    const stKey=STATE[race.id]||GOVST[race.id]||(race.groups.includes("texas")||race.groups.includes("dfw")?"TX":null);
+    const stKey=race.st||STATE[race.id]||GOVST[race.id]||(race.groups.includes("texas")||race.groups.includes("dfw")?"TX":null);
     let status;
     const hc=hilltopCall(race);
     if(race.called!=null)status=`<span class="status won-${wp}">${esc(last(race.cands[race.called].n))} wins ✓ <small>AP</small></span>`;
@@ -209,7 +211,8 @@
       const sec=document.createElement("section");
       const called=list.filter(x=>x.called!=null).length;
       const proj=list.filter(x=>hilltopCall(x)!=null).length;
-      sec.innerHTML=`<div class="sechead"><h2>${s.t}</h2><span>${called} of ${list.length} called by AP${proj?` · ${proj} projected by Hilltop`:""}</span></div><p class="secdek">${s.p}</p>`;
+      const hw=s.g==="house"?{D:list.filter(x=>x.called!=null&&x.cands[x.called].p==="D").length,R:list.filter(x=>x.called!=null&&x.cands[x.called].p==="R").length,flipD:list.filter(x=>x.called!=null&&x.held==="R"&&x.cands[x.called].p==="D").length,flipR:list.filter(x=>x.called!=null&&x.held==="D"&&x.cands[x.called].p==="R").length}:null;
+      sec.innerHTML=`<div class="sechead"><h2>${s.t}</h2><span>${called} of ${list.length} called by AP${proj?` · ${proj} projected by Hilltop`:""}${hw&&called?` · <b style="color:var(--dem)">D ${hw.D}</b> · <b style="color:var(--rep)">R ${hw.R}</b>${hw.flipD||hw.flipR?` · flips: ${hw.flipD} to D, ${hw.flipR} to R`:""}`:""}</span></div><p class="secdek">${s.p}</p>`;
       const g=document.createElement("div");g.className="results";list.forEach(x=>g.appendChild(raceTable(x,s.g)));sec.appendChild(g);host.appendChild(sec);
     });
   }
@@ -438,26 +441,59 @@
   }
   document.addEventListener("click",e=>{const b=e.target.closest(".seg-ctl button");if(!b)return;ctyMode=b.dataset.mode;ctyAuto=false;renderCounties()});
 
+
+  // ---------- poll closings ----------
+  function renderPolls(){
+    const el=$("pollGrid");if(!el)return;
+    const tracked=st=>{const s=races.filter(r=>r.groups.includes("senate")&&(STATE[r.id]===st)).length+((meta&&meta.senateSafe)||[]).filter(x=>x.st===st).length;const g=races.filter(r=>r.groups.includes("governor")&&(GOVST[r.id]===st)).length+(meta&&meta.govOther&&meta.govOther[st]?1:0);const hh=races.filter(r=>r.groups.includes("house")&&r.st===st).length+(st==="TX"?6:0);return{s,g,h:hh}};
+    const now=new Date();const day="2026-11-03";
+    const at=t=>{const [h,m]=t.split(":").map(Number);return new Date(Date.parse(day+"T00:00:00-06:00")+((h*60+m)*60000))};
+    let next=null;PC_SCHED.forEach(([t])=>{const d=at(t);if(d>now&&!next)next=t});
+    el.innerHTML=PC_SCHED.map(([t,sts])=>{const d=at(t);const done=d<=now;const isNext=t===next;let S=0,G=0,Hh=0;sts.forEach(s=>{const x=tracked(s);S+=x.s;G+=x.g;Hh+=x.h});
+      const diff=d-now;const cd=isNext?(diff>36e5*24?Math.floor(diff/864e5)+" d "+Math.floor(diff%864e5/36e5)+" h":Math.floor(diff/36e5)+" h "+Math.floor(diff%36e5/6e4)+" min"):"";
+      return`<div class="pc-slot${done?" done":""}${isNext?" next":""}"><div class="pc-t">${fmtClose(t)}</div><div class="pc-s">${done?"Polls closed":isNext?"Next · in "+cd:"&nbsp;"}</div><div class="pc-st">${sts.map(s=>`<span>${s}</span>`).join("")}</div><div class="pc-n">${[S?S+" Senate":"",G?G+" Gov.":"",Hh?Hh+" House":""].filter(Boolean).join(" · ")||"&nbsp;"}</div></div>`}).join("");
+  }
+  setInterval(()=>{try{renderPolls()}catch(e){}},30000);
+  // ---------- forecast needles ----------
+  function needleSVG(pD,label){
+    const seg=12;let g="";const p=(r,t)=>[100+r*Math.cos(t),100-r*Math.sin(t)];
+    for(let i=0;i<seg;i++){const a0=Math.PI*(1-i/seg),a1=Math.PI*(1-(i+1)/seg);const left=i<seg/2;const op=left?.18+.7*(1-i/(seg/2)):.18+.7*((i-seg/2+1)/(seg/2));
+      const [x0,y0]=p(94,a0),[x1,y1]=p(94,a1),[x2,y2]=p(58,a1),[x3,y3]=p(58,a0);
+      g+=`<path d="M${x0.toFixed(1)},${y0.toFixed(1)} A94,94 0 0 1 ${x1.toFixed(1)},${y1.toFixed(1)} L${x2.toFixed(1)},${y2.toFixed(1)} A58,58 0 0 0 ${x3.toFixed(1)},${y3.toFixed(1)}Z" fill="${left?"var(--dem)":"var(--rep)"}" fill-opacity="${op.toFixed(2)}" stroke="var(--bg)" stroke-width="1.5"/>`}
+    const t=Math.PI*pD;g+=`<line x1="100" y1="100" x2="${(100+86*Math.cos(t)).toFixed(1)}" y2="${(100-86*Math.sin(t)).toFixed(1)}" stroke="var(--fg)" stroke-width="3.2" stroke-linecap="round"/><circle cx="100" cy="100" r="6" fill="var(--fg)"/>`;
+    g+=`<text x="6" y="116" font-family="Libre Franklin,Arial,sans-serif" font-size="10" font-weight="700" fill="var(--dem)">DEM</text><text x="194" y="116" text-anchor="end" font-family="Libre Franklin,Arial,sans-serif" font-size="10" font-weight="700" fill="var(--rep)">GOP</text>`;
+    return`<svg class="needle" viewBox="0 0 200 120" role="img" aria-label="${label}">${g}</svg>`;
+  }
+  // ---------- live TV ----------
+  const TV=[["ABC News","UCBi2mrWuNuyYy4gbM6fU18Q"],["NBC News","UCeY0bbntWzzVIaj2z3QigXg"],["CBS News","UC8p1vwvWtl6T73JiExfWs1g"],["PBS NewsHour","UC6ZFN9Tx6xh-skXCuRHCDpQ"]];
+  let tvSel=0;try{const s=localStorage.getItem("hed-tv");if(s)tvSel=+s||0}catch(e){}
+  function renderTV(play){
+    const el=$("tv");if(!el)return;const [nm,id]=TV[tvSel];
+    $("tvTabs").innerHTML=TV.map(([n],i)=>`<button type="button" role="tab" aria-selected="${i===tvSel}" data-tv="${i}">${n}</button>`).join("");
+    $("tvOpen").href="https://www.youtube.com/channel/"+id+"/live";$("tvOpen").textContent="Open "+nm+" on YouTube ↗";
+    el.innerHTML=play?`<iframe src="https://www.youtube-nocookie.com/embed/live_stream?channel=${id}&autoplay=1&mute=1" title="${nm} live on YouTube" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>`:`<button class="tvplay" type="button" id="tvPlay"><span class="tri"></span><span>Watch ${nm} live</span><small>Streams on YouTube. If a channel isn't live yet, try another or open it on YouTube.</small></button>`;
+  }
+  document.addEventListener("click",e=>{const b=e.target.closest("[data-tv]");if(b){tvSel=+b.dataset.tv;try{localStorage.setItem("hed-tv",tvSel)}catch(x){}renderTV(!!$("tv").querySelector("iframe"));return}if(e.target.closest("#tvPlay"))renderTV(true)});
   // ---------- key races rail ----------
-  function railCard(href,kicker,sub,title,a,b,pa,foot){
-    return`<a class="rcard" href="${href}"><div class="rk">${kicker}<span>${sub}</span></div><h3>${title}</h3><div class="rs"><div><div class="p" style="color:${a.c}">${a.v}</div><div class="l">${a.l}</div></div><div><div class="p" style="color:${b.c}">${b.v}</div><div class="l">${b.l}</div></div></div><div class="rb"><i style="width:${pa*100}%;background:${a.c}"></i><i style="flex:1;background:${b.c}"></i></div><div class="rf">${foot}</div></a>`;
+  function railCard(href,kicker,sub,title,a,b,pa,foot,needle){
+    return`<a class="rcard${needle?" withneedle":""}" href="${href}"><div class="rk">${kicker}<span>${sub}</span></div><h3>${title}</h3>${needle!=null&&needle!==false?needleSVG(typeof needle==="number"?needle:pa,title):""}<div class="rs"><div><div class="p" style="color:${a.c}">${a.v}</div><div class="l">${a.l}</div></div><div><div class="p" style="color:${b.c}">${b.v}</div><div class="l">${b.l}</div></div></div><div class="rb"><i style="width:${pa*100}%;background:${a.c}"></i><i style="flex:1;background:${b.c}"></i></div><div class="rf">${foot}</div></a>`;
   }
   function renderRail(){
     const el=$("rail");if(!el||!races.length)return;let h="";
     const s=senateControl(r=>model(r));
-    h+=railCard("#bop-h","Senate","Control",`Who controls the Senate`,{c:"var(--dem)",v:pct(s.p),l:"Democrats"},{c:"var(--rep)",v:pct(1-s.p),l:"Republicans"},s.p,`Average outcome D ${s.seats.toFixed(1)} · R ${s.seatsR.toFixed(1)}`);
+    h+=railCard("#bop-h","Senate","Control",`Who controls the Senate`,{c:"var(--dem)",v:pct(s.p),l:"Democrats"},{c:"var(--rep)",v:pct(1-s.p),l:"Republicans"},s.p,`Average outcome D ${s.seats.toFixed(1)} · R ${s.seatsR.toFixed(1)}`,true);
     const hh=(meta&&meta.house)||{cD:0,cR:0,projD:218};const hc=houseControl(hh)||{p:.5,exp:218};let pH=hc.p;
     if(!(hh.cD||hh.cR)){const xs=[hc.p];const c=MK&&MK.control&&MK.control.house;[c&&c.kalshi,c&&c.polymarket].forEach(o=>{if(o&&o.D!=null)xs.push(o.D/((o.D||0)+(o.R!=null?o.R:1-o.D)))});pH=xs.reduce((a,b)=>a+b,0)/xs.length}
-    h+=railCard("#bop-h","House","Control",`Who controls the House`,{c:"var(--dem)",v:pct(pH),l:"Democrats"},{c:"var(--rep)",v:pct(1-pH),l:"Republicans"},pH,`218 seats needed · AP called D ${hh.cD||0} · R ${hh.cR||0}`);
+    h+=railCard("#bop-h","House","Control",`Who controls the House`,{c:"var(--dem)",v:pct(pH),l:"Democrats"},{c:"var(--rep)",v:pct(1-pH),l:"Republicans"},pH,`218 seats needed · AP called D ${hh.cD||0} · R ${hh.cR||0}`,true);
     [["sen-tx","Texas","U.S. Senate"],["tx-gov","Texas","Governor"]].forEach(([id,k,t])=>{const r=races.find(x=>x.id===id);if(!r)return;const m=model(r);const c0=r.cands[0],c1=r.cands[1];
       const tot=r.votes?r.votes.reduce((a,b)=>a+(b||0),0):0;const p=m.probs?m.probs[0]:.5;
       const A=tot?{c:PC[c0.p],v:((r.votes[0]||0)/tot*100).toFixed(1)+"%",l:last(c0.n)}:{c:PC[c0.p],v:pct(p),l:last(c0.n)};
       const B=tot?{c:PC[c1.p],v:((r.votes[1]||0)/tot*100).toFixed(1)+"%",l:last(c1.n)}:{c:PC[c1.p],v:pct(1-p),l:last(c1.n)};
       const status=r.called!=null?`✓ AP: ${last(r.cands[r.called].n)} wins`:tot?`${Math.round((r.r||0)*100)}% of votes counted · win chance ${last((p>=.5?c0:c1).n)} ${pct(Math.max(p,1-p))}`:"Chance to win · Hilltop forecast";
-      h+=railCard("texas.html#"+id,k,tot?"Live":"Forecast",t,A,B,tot?(r.votes[0]||0)/(((r.votes[0]||0)+(r.votes[1]||0))||1):p,status)});
+      h+=railCard("texas.html#"+id,k,tot?"Live":"Forecast",t,A,B,tot?(r.votes[0]||0)/(((r.votes[0]||0)+(r.votes[1]||0))||1):p,status,p)});
     el.innerHTML=h;
   }
-  function renderAll(){renderStatus();renderRail();renderBop();renderOutcomes();renderProj();renderEV();renderCounties();renderMap();renderSections();renderChart()}
+  function renderAll(){renderStatus();renderRail();renderPolls();if(!renderAll.tv){renderAll.tv=1;renderTV(false)}renderBop();renderOutcomes();renderProj();renderEV();renderCounties();renderMap();renderSections();renderChart()}
   document.querySelectorAll("nav.sections button").forEach(t=>t.addEventListener("click",()=>{group=t.dataset.g;try{localStorage.setItem("hed-tab",group)}catch(e){}renderSections();document.getElementById("sections").scrollIntoView({behavior:"smooth",block:"start"})}));
   setInterval(renderStatus,30000);
   let rt;window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{renderChart();renderDallasDaily()},200)});

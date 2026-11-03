@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="build" content="1793593258">
+<meta name="build" content="1793680039">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Hilltop Election Desk · 2026 Midterm Results</title>
 <meta name="description" content="Live 2026 midterm results, win probabilities and prediction-market odds for Congress, governors, Texas and Dallas County.">
@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
-<link rel="stylesheet" href="assets/styles.css?v=1793593258">
+<link rel="stylesheet" href="assets/styles.css?v=1793680039">
 <style>body{margin:0}</style>
 </head>
 <body>
@@ -33,8 +33,11 @@
       <button role="tab" data-g="senate" id="tab-senate">Senate</button>
       <button role="tab" data-g="governor" id="tab-governor">Governor</button>
       <button role="tab" data-g="texas" id="tab-texas">Texas</button>
+      <button role="tab" data-g="house" id="tab-house">House</button>
       <button role="tab" data-g="dfw" id="tab-dfw">Dallas County</button>
       <span class="sep"></span>
+      <a href="map.html">Results map</a>
+      <a href="forecast.html">Forecast model</a>
       <a class="livelink" href="texas.html"><span class="dot"></span>Texas Live</a>
       <a href="#method">How it works</a>
     </nav>
@@ -55,6 +58,20 @@
   <div class="wrap">
     <div class="notice" id="notice" hidden></div>
     <section class="rail" id="rail" aria-label="Key races at a glance"></section>
+
+    <section aria-labelledby="pc-h" id="polls">
+      <h2 class="slabel" id="pc-h">Poll closings <span>Central time, Tuesday night · a state is counted from when all its polls close</span></h2>
+      <div class="pc-grid" id="pollGrid"></div>
+    </section>
+
+    <section aria-labelledby="tv-h" id="watch">
+      <h2 class="slabel" id="tv-h">Watch live <span>Network coverage streaming free on YouTube</span></h2>
+      <div class="tvwrap">
+        <div class="tvtabs" role="tablist" aria-label="Channel" id="tvTabs"></div>
+        <div class="tvbox" id="tv"></div>
+        <a class="tvopen" id="tvOpen" href="https://www.youtube.com/" target="_blank" rel="noopener">Open on YouTube ↗</a>
+      </div>
+    </section>
 
     <section aria-labelledby="bop-h">
       <h2 class="slabel" id="bop-h">Balance of power <span id="bopNote">Pre-election forecast · results begin Nov. 3</span></h2>
@@ -175,7 +192,7 @@
     <div class="legal"><span>© 2026 Hilltop Election Desk. An independent project, not affiliated with Southern Methodist University.</span><span>Win chances are estimates, not race calls. Official winners are called by the Associated Press.</span></div>
   </div>
 </footer>
-<script src="assets/chrome.js?v=1793593258"></script>
-<script src="assets/app.js?v=1793593258"></script>
+<script src="assets/chrome.js?v=1793680039"></script>
+<script src="assets/app.js?v=1793680039"></script>
 </body>
 </html>

@@ -7,6 +7,18 @@
   const last=n=>n.split(" ").filter(w=>!/^(III|II|Jr\.?)$/.test(w)).slice(-1)[0];
   const pct=p=>p>=0.995?">99%":p<=0.005?"<1%":Math.round(p*100)+"%";
 
+
+  // splash / loading screen (once per visit)
+  (function(){
+    let seen=false;try{seen=sessionStorage.getItem("hed-splash")==="1";sessionStorage.setItem("hed-splash","1")}catch(e){}
+    if(seen||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+    const d=document.createElement("div");d.className="splash";d.setAttribute("aria-hidden","true");
+    d.innerHTML=`<svg class="lg" viewBox="0 0 48 48"><rect width="48" height="48" fill="#354CA1"/><path d="M0 38 C10 25 18 22 26 27 C32 31 38 30 48 22 V48 H0Z" fill="#fff" opacity=".95"/><path d="M0 44 C12 35 22 33 30 36 C37 38 42 37 48 33 V48 H0Z" fill="#CC0035"/><path d="M14 15.5 l5 5 l11-11" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="square"/></svg><div class="sw">Hilltop Election Desk</div><div class="sd">Tuesday, November 3, 2026 · Live from 5 p.m. Central</div><div class="sl"><i></i>Live results · Midterms 2026</div><div class="sbar"><i></i></div><div class="sm">Opening the newsroom…</div>`;
+    document.body.appendChild(d);const t0=Date.now();
+    const done=()=>{const w=Math.max(0,1100-(Date.now()-t0));setTimeout(()=>{d.classList.add("out");setTimeout(()=>d.remove(),500)},w)};
+    if(document.readyState==="complete")done();else window.addEventListener("load",done,{once:true});
+    setTimeout(done,3200);
+  })();
   // theme
   const root=document.documentElement;
   try{const t=localStorage.getItem("hed-theme");if(t)root.setAttribute("data-theme",t)}catch(e){}
