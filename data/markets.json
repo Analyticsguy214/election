@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793744994583,
+ "updatedAt": 1793745138158,
  "control": {
   "senate": {
    "kalshi": {
@@ -9,13 +9,13 @@
    },
    "polymarket": {
     "D": 0.745,
-    "R": 0.255,
+    "R": 0.265,
     "src": "which-party-will-win-the-senate-in-2026"
    }
   },
   "house": {
    "kalshi": {
-    "D": 0.931,
+    "D": 0.9315,
     "R": 0.0685,
     "src": "CONTROLH-2026"
    },
@@ -30,7 +30,7 @@
   "gov-az": {
    "kalshi": {
     "D": 0.9255,
-    "R": 0.077,
+    "R": 0.08149999999999999,
     "src": "GOVPARTYAZ-26"
    },
    "polymarket": {
@@ -41,8 +41,8 @@
   },
   "gov-fl": {
    "kalshi": {
-    "D": 0.305,
     "R": 0.685,
+    "D": 0.305,
     "src": "GOVPARTYFL-26"
    },
    "polymarket": {
@@ -86,7 +86,7 @@
   "gov-mi": {
    "kalshi": {
     "D": 0.9415,
-    "R": 0.0695,
+    "R": 0.07150000000000001,
     "I": 0.0005,
     "src": "GOVPARTYMI-26"
    },
@@ -119,8 +119,8 @@
   },
   "gov-oh": {
    "kalshi": {
-    "R": 0.20500000000000002,
     "D": 0.795,
+    "R": 0.21000000000000002,
     "src": "GOVPARTYOH-26"
    },
    "polymarket": {
@@ -131,8 +131,8 @@
   },
   "gov-wi": {
    "kalshi": {
-    "D": 0.855,
     "R": 0.155,
+    "D": 0.855,
     "src": "GOVPARTYWI-26"
    },
    "polymarket": {
@@ -155,13 +155,13 @@
   },
   "sen-fl": {
    "kalshi": {
-    "R": 0.895,
-    "D": 0.11499999999999999,
+    "R": 0.9005000000000001,
+    "D": 0.0995,
     "src": "SENATEFLS-26"
    },
    "polymarket": {
-    "D": 0.115,
-    "R": 0.885,
+    "D": 0.095,
+    "R": 0.895,
     "src": "florida-senate-election-winner"
    }
   },
@@ -179,7 +179,7 @@
   },
   "sen-ia": {
    "kalshi": {
-    "R": 0.485,
+    "R": 0.495,
     "D": 0.505,
     "src": "SENATEIA-26"
    },
@@ -191,8 +191,8 @@
   },
   "sen-ks": {
    "kalshi": {
-    "D": 0.645,
     "R": 0.355,
+    "D": 0.645,
     "src": "SENATEKS-26"
    },
    "polymarket": {
@@ -203,20 +203,20 @@
   },
   "sen-me": {
    "kalshi": {
-    "R": 0.315,
     "D": 0.695,
+    "R": 0.315,
     "src": "SENATEME-26"
    },
    "polymarket": {
     "D": 0.695,
-    "R": 0.305,
+    "R": 0.315,
     "src": "maine-senate-election-winner"
    }
   },
   "sen-mi": {
    "kalshi": {
-    "R": 0.245,
     "D": 0.755,
+    "R": 0.245,
     "src": "SENATEMI-26"
    },
    "polymarket": {
@@ -227,8 +227,8 @@
   },
   "sen-mn": {
    "kalshi": {
-    "D": 0.9075,
     "R": 0.0935,
+    "D": 0.908,
     "src": "SENATEMN-26"
    },
    "polymarket": {
@@ -239,8 +239,8 @@
   },
   "sen-nc": {
    "kalshi": {
-    "D": 0.9744999999999999,
-    "R": 0.027,
+    "D": 0.9755,
+    "R": 0.028,
     "src": "SENATENC-26"
    },
    "polymarket": {
@@ -251,9 +251,9 @@
   },
   "sen-ne": {
    "kalshi": {
+    "I": 0.275,
     "D": 0.003,
     "R": 0.715,
-    "I": 0.275,
     "src": "SENATENE-26"
    },
    "polymarket": {
@@ -266,12 +266,12 @@
   "sen-nh": {
    "kalshi": {
     "D": 0.9395,
-    "R": 0.061,
+    "R": 0.0605,
     "src": "SENATENH-26"
    },
    "polymarket": {
-    "D": 0.95,
-    "R": 0.055,
+    "D": 0.955,
+    "R": 0.045,
     "src": "new-hampshire-senate-election-winner"
    }
   },
@@ -398,8 +398,8 @@
   "tx-ltgov": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.275,
-    "R": 0.715,
+    "D": 0.28,
+    "R": 0.71,
     "src": "texas-lieutenant-governor-election-winner-2026"
    }
   },
@@ -589,7 +589,7 @@
   "h-mi-10": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.245,
+    "R": 0.24,
     "D": 0.755,
     "src": "mi-10-house-election-winner"
    }
@@ -645,7 +645,7 @@
   "h-ny-21": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.71,
+    "R": 0.705,
     "D": 0.285,
     "src": "ny-21-house-election-winner"
    }
@@ -812,13 +812,6 @@
   }
  },
  "history": [
-  {
-   "t": 1793467563739,
-   "sk": 0.715,
-   "sp": 0.705,
-   "hk": 0.9384999999999999,
-   "hp": 0.945
-  },
   {
    "t": 1793467703667,
    "sk": 0.715,
@@ -14810,6 +14803,13 @@
    "sk": 0.735,
    "sp": 0.745,
    "hk": 0.931,
+   "hp": 0.945
+  },
+  {
+   "t": 1793745138158,
+   "sk": 0.735,
+   "sp": 0.745,
+   "hk": 0.9315,
    "hp": 0.945
   }
  ],
