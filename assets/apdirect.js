@@ -51,6 +51,14 @@
     else if(prev)out.house=prev.house;
     if(data.S)for(const x of data.S.races){const w=x.outcome&&x.outcome.won&&x.outcome.won[0];if(!w)continue;const p=partyOf((x.candidate_metadata||{})[w]);if(p!=="O")out.senateCalledStates[nytKey(x).st]=p}
     for(const [o,d] of Object.entries(data))if(d&&d.partyControlData)out.control[o]=d.partyControlData;
+    // every race the AP is counting, tracked or not
+    const all=[];
+    for(const [o,d] of Object.entries(data))for(const x of (d&&d.races)||[]){const k=nytKey(x);if(k.st==="US")continue;const ru=ruOf(x);if(!ru)continue;const meta=x.candidate_metadata||{};
+      const cs=(ru.candidates||[]).map(c=>{const m=meta[c.nyt_id]||{};return{n:m.full_name||[m.first_name,m.last_name].filter(Boolean).join(" ")||c.nyt_id.split("-")[0],ln:m.last_name||m.full_name||c.nyt_id.split("-")[0],p:partyOf(m),v:(c.votes&&c.votes.total)||0,id:c.nyt_id}}).sort((a,b)=>b.v-a.v);
+      const tot=cs.reduce((a,c)=>a+c.v,0);const won=(x.outcome&&x.outcome.won)||[];const w=won.length?cs.find(c=>c.id===won[0]):null;
+      if(!tot&&!w)continue;
+      all.push({o,st:k.st,d:k.d,label:o==="S"?k.st+" Senate":o==="G"?k.st+" Governor":k.st+"-"+(k.d||"AL"),cs:cs.slice(0,2),tot,r:typeof ru.eevp==="number"?Math.min(1,ru.eevp/100):null,won:w?{n:w.ln,p:w.p}:null,unc:cs.length===1})}
+    out.all=all;
     return out;
   };
 })();

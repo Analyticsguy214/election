@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="build" content="1793747199">
+<meta name="build" content="1793747653">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Hilltop Election Desk · 2026 Midterm Results</title>
 <meta name="description" content="Live 2026 midterm results, win probabilities and prediction-market odds for Congress, governors, Texas and Dallas County.">
@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
-<link rel="stylesheet" href="assets/styles.css?v=1793747199">
+<link rel="stylesheet" href="assets/styles.css?v=1793747653">
 <style>body{margin:0}</style>
 </head>
 <body>
@@ -61,6 +61,12 @@
     <div class="notice" id="notice" hidden></div>
     <section class="rail" id="rail" aria-label="Key races at a glance"></section>
 
+    <section aria-labelledby="vin-h" id="votesin">
+      <h2 class="slabel" id="vin-h">Votes coming in <span id="vinNote">Every Senate, governor and House race the AP is counting · updates every 30 seconds</span></h2>
+      <div class="vin-tabs" role="tablist" aria-label="Office" id="vinTabs"></div>
+      <div class="vin-grid" id="vinGrid"></div>
+      <button type="button" class="vin-more" id="vinMore" hidden>Show all</button>
+    </section>
     <section aria-labelledby="pc-h" id="polls">
       <h2 class="slabel" id="pc-h">Poll closings <span>Central time, Tuesday night · a state is counted from when all its polls close</span></h2>
       <div class="pc-grid" id="pollGrid"></div>
@@ -195,8 +201,8 @@
     <div class="legal"><span>© 2026 Hilltop Election Desk. An independent project, not affiliated with Southern Methodist University.</span><span>Win chances are estimates, not race calls. Official winners are called by the Associated Press.</span></div>
   </div>
 </footer>
-<script src="assets/chrome.js?v=1793747199"></script>
-<script src="assets/apdirect.js?v=1793747199"></script>
-<script src="assets/app.js?v=1793747199"></script>
+<script src="assets/chrome.js?v=1793747653"></script>
+<script src="assets/apdirect.js?v=1793747653"></script>
+<script src="assets/app.js?v=1793747653"></script>
 </body>
 </html>

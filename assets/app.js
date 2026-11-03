@@ -518,7 +518,24 @@
     const grp=r.groups.includes("senate")?"Senate":r.groups.includes("governor")?"Governor":r.groups.includes("house")||r.groups.includes("dfw")?"U.S. House":"Texas";
     const title=r.id==="sen-tx"?"Texas U.S. Senate":r.id==="tx-gov"?"Texas Governor":r.groups.includes("texas")?"Texas "+r.title:r.groups.includes("senate")?r.title+" Senate":r.groups.includes("governor")?r.title+" Governor":r.title;
     window.HEDcard.openRace(r,{kicker:grp+" · 2026",title,chance:m.probs?m.probs[0]:null,note:m.mode==="pre"?"Pre-election chance to win from the Hilltop forecast (Decision Desk HQ, ratings, Kalshi and Polymarket).":m.mode==="live"?"Win chance from the Hilltop live model: "+last((m.probs[0]>=.5?r.cands[0]:r.cands[1]).n)+" "+pct(Math.max(m.probs[0],1-m.probs[0]))+".":null})});
-  function renderAll(){setTimeout(()=>window.HEDfollowSync&&window.HEDfollowSync(),0);renderStatus();renderRail();renderPolls();renderBop();renderOutcomes();renderProj();renderEV();renderCounties();renderMap();renderSections();renderChart()}
+  // ---------- votes coming in (all AP races) ----------
+  let vinTab="all",vinAll=false;
+  function renderVotesIn(){
+    const g=$("vinGrid");if(!g)return;const NL=window.HED_NL;const all=(NL&&NL.all)||[];
+    const C={D:"var(--dem)",R:"var(--rep)",O:"var(--ind)"};
+    const cnt={all:all.length,S:0,G:0,H:0};all.forEach(x=>cnt[x.o]++);
+    $("vinTabs").innerHTML=[["all","All"],["S","Senate"],["G","Governor"],["H","House"]].map(([k,n])=>`<button type="button" role="tab" data-vin="${k}" aria-selected="${vinTab===k}">${n} <span>${cnt[k]}</span></button>`).join("");
+    let xs=all.filter(x=>vinTab==="all"||x.o===vinTab).filter(x=>!x.unc||x.tot>0);
+    const ord={S:0,G:1,H:2};xs.sort((a,b)=>(ord[a.o]-ord[b.o])||((b.r||0)-(a.r||0))||(b.tot-a.tot));
+    if(!all.length){g.innerHTML=`<p class="vin-empty">${NL&&NL.direct?"No votes reported yet. The first polls close at 5 p.m. CT in parts of Indiana and Kentucky; counts appear here within 30 seconds of the AP posting them.":"Waiting for the AP feed…"}</p>`;$("vinMore").hidden=true;return}
+    const lim=vinAll?xs.length:24;
+    g.innerHTML=xs.slice(0,lim).map(x=>{const [a,b]=x.cs;const tot=x.tot||1;const sa=a?a.v/tot*100:0,sb=b?b.v/tot*100:0;
+      const st=x.won?`<b style="color:${C[x.won.p]}">✓ ${esc(x.won.n)} wins</b>`:x.r!=null?`${Math.round(x.r*100)}% in`:"Counting";
+      return`<div class="vin-c"><div class="vin-h"><span>${esc(x.label)}</span><span>${st}</span></div>${[a,b].filter(Boolean).map((c,i)=>`<div class="vin-r"><i style="background:${C[c.p]}"></i><span class="nm">${esc(c.ln)}</span><span class="pc">${(i?sb:sa).toFixed(1)}%</span><span class="vv">${c.v.toLocaleString("en-US")}</span></div>`).join("")}<div class="vin-b"><i style="width:${sa}%;background:${a?C[a.p]:"transparent"}"></i><i style="flex:1"></i><i style="width:${sb}%;background:${b?C[b.p]:"transparent"}"></i></div></div>`}).join("");
+    const m=$("vinMore");m.hidden=xs.length<=24;m.textContent=vinAll?"Show fewer":`Show all ${xs.length}`;
+  }
+  document.addEventListener("click",e=>{const b=e.target.closest("[data-vin]");if(b){vinTab=b.dataset.vin;vinAll=false;renderVotesIn();return}if(e.target.closest("#vinMore")){vinAll=!vinAll;renderVotesIn()}});
+  function renderAll(){setTimeout(()=>window.HEDfollowSync&&window.HEDfollowSync(),0);renderStatus();renderRail();try{renderVotesIn()}catch(e){console.error(e)}renderPolls();renderBop();renderOutcomes();renderProj();renderEV();renderCounties();renderMap();renderSections();renderChart()}
   document.querySelectorAll("nav.sections button").forEach(t=>t.addEventListener("click",()=>{group=t.dataset.g;try{localStorage.setItem("hed-tab",group)}catch(e){}renderSections();document.getElementById("sections").scrollIntoView({behavior:"smooth",block:"start"})}));
   setInterval(renderStatus,30000);
   let rt;window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{renderChart();renderDallasDaily()},200)});
@@ -544,7 +561,7 @@
       const [r,m,k,cr,tl,nl]=await Promise.all([fetch(BASE+"races.json"+q,{cache:"no-store"}),fetch(BASE+"meta.json"+q,{cache:"no-store"}),fetch(BASE+"markets.json"+q,{cache:"no-store"}),fetch(BASE+"county-results.json"+q,{cache:"no-store"}).catch(()=>null),fetch(BASE+"tx-live.json"+q,{cache:"no-store"}).catch(()=>null),fetch(BASE+"national-live.json"+q,{cache:"no-store"}).catch(()=>null)]);
       if(!r.ok||!m.ok)throw new Error("HTTP");
       const nr=await r.json(),nm=await m.json(),nk=k.ok?await k.json():MK;let ncr=cr&&cr.ok?await cr.json():CR;
-      const ntl=tl&&tl.ok?await tl.json():null;let nnl=nl&&nl.ok?await nl.json():null;if(window.HEDap){try{const d=await window.HEDap(nr,nnl);if(d)nnl=d}catch(e){}}window.HED_NL=nnl;overlayNational(nr,nm,nnl);
+      const ntl=tl&&tl.ok?await tl.json():null;let nnl=nl&&nl.ok?await nl.json():null;if(window.HEDap){try{const d=await window.HEDap(nr,nnl);if(d)nnl=d}catch(e){}}window.HED_NL=nnl;try{renderVotesIn()}catch(e){}overlayNational(nr,nm,nnl);
       if(ntl&&ntl.races){ // Texas SOS feed: overlay statewide votes and county results
         meta=nm;const T=txTurnout();const exp=T?T.total:null;
         nr.forEach(x=>{const s=ntl.races[x.id]&&ntl.races[x.id].statewide;if(!s||!s.v)return;const lt=s.v.reduce((a,b)=>a+(b||0),0),rt=(x.votes||[]).reduce((a,b)=>a+(b||0),0);
