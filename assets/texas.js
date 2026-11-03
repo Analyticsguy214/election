@@ -294,7 +294,7 @@
     if(!races.length)return;A={};STATEWIDE.concat(HOUSE).forEach(id=>{const r=R(id);if(r)A[id]=analyze(r)});
     if(!A[sel])sel="sen-tx";const a=A[sel];
     renderStrip(A);renderList(A);renderPanel(a);renderMap(a);renderVotesLeft(a);renderFresh();
-    const src=$("sources");if(meta&&meta.sources){src.innerHTML="";[{title:"Texas Secretary of State election results",url:"https://results.texas-election.com/"}].concat(meta.sources).forEach(s=>{const li=document.createElement("li");const x=document.createElement("a");x.href=s.url;x.target="_blank";x.rel="noopener";x.textContent=s.title;li.appendChild(x);src.appendChild(li)})}
+    const src=$("sources");if(meta&&meta.sources){src.innerHTML="";[{title:"Texas Secretary of State election night results",url:"https://goelect.txelections.civixapps.com/ivis-enr-ui/races"}].concat(meta.sources).forEach(s=>{const li=document.createElement("li");const x=document.createElement("a");x.href=s.url;x.target="_blank";x.rel="noopener";x.textContent=s.title;li.appendChild(x);src.appendChild(li)})}
   }
   document.addEventListener("click",e=>{if(!e.target.closest("#rpShare")||!window.HEDcard)return;const a=A[sel];if(!a)return;const race={...a.race,votes:a.counted||null,r:a.frac||0};
     window.HEDcard.openRace(race,{kicker:a.isSW?"Texas · 2026":"Dallas County · U.S. House",title:a.isSW?"Texas "+(NAMES[a.id]||a.race.title):a.race.title+" U.S. House",sub:a.isSW?(a.nRep||0)+" of 254 counties reporting":a.race.sub,chance:a.pD,note:a.margin!=null?(a.mode==="live"?"Hilltop live projection: ":"Hilltop forecast: ")+mfmt(a.margin)+(a.mode==="live"?" · win chance "+last((a.pD>=.5?a.race.cands[0]:a.race.cands[1]).n)+" "+pct(Math.max(a.pD,1-a.pD)):""):null})});
