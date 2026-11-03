@@ -1,0 +1,21 @@
+name: Probe Civix ENR
+on: workflow_dispatch
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: |
+          cat > /tmp/p.mjs <<'JS'
+          const B="https://goelect.txelections.civixapps.com";const UA={"user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/130","accept":"*/*"};
+          const T=async(u,n=600)=>{try{const r=await fetch(u,{headers:UA,redirect:"follow"});const t=await r.text();console.log("GET",r.status,r.headers.get("content-type"),t.length,u,"::",t.slice(0,n).replace(/\s+/g," "));return t}catch(e){console.log("ERR",u,e.message);return""}};
+          const home=await T(B+"/ivis-enr-ui/races",800);
+          const js=[...new Set((home.match(/(?:src|href)="([^"]+\.js)"/g)||[]).map(s=>s.replace(/^(?:src|href)="|"$/g,"")))];console.log("JS",js.join(" "));
+          for(const j of js){const u=j.startsWith("http")?j:B+(j.startsWith("/")?"":"/ivis-enr-ui/")+j;const t=await (await fetch(u,{headers:UA})).text();
+            const urls=[...new Set(t.match(/["'`](?:https?:\/\/[^"'`\s]{3,120}|\/[a-zA-Z0-9_\-\/]{2,80}(?:api|enr|election|race|result|county|contest)[a-zA-Z0-9_\-\/{}$.?=&]*)["'`]/gi)||[])].slice(0,80);
+            console.log("BUNDLE",u,t.length);console.log(urls.join("  "));
+            for(const k of ["apiUrl","baseUrl","API_URL","environment","ivis-enr-api","/api/"]){let i=t.indexOf(k),n=0;while(i>=0&&n<3){console.log("CTX",k,"::",t.slice(Math.max(0,i-200),i+300).replace(/\s+/g," "));i=t.indexOf(k,i+k.length);n++}}}
+          for(const p of ["/ivis-enr-api/elections","/ivis-enr-api/api/elections","/ivis-enr-api/election","/api/elections","/ivis-enr-api/v1/elections","/ivis-enr-api/getElections","/ivis-enr-api/public/elections"])await T(B+p,400);
+          JS
+          node /tmp/p.mjs
