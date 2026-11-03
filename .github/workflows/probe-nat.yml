@@ -1,0 +1,34 @@
+name: Probe national results feeds
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: |
+          mkdir -p probe
+          cat > /tmp/p.mjs <<'JS'
+          import fs from "node:fs";
+          const UA={"user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/130 Safari/537.36","accept":"*/*"};
+          const out=[];const log=(...a)=>{const s=a.join(" ");out.push(s);console.log(s.slice(0,300))};
+          async function T(u,n=700){try{const r=await fetch(u,{headers:UA});const t=await r.text();log("GET",r.status,r.headers.get("content-type"),t.length,u,"::",t.slice(0,n).replace(/\s+/g," "));return t}catch(e){log("ERR",u,e.message);return ""}}
+          // DDHQ
+          const h=await T("https://votes.decisiondeskhq.com/races/2026-11-03/texas-us-senate-general-election",300);
+          const nd=h.match(/<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/);if(nd){fs.writeFileSync("probe/ddhq_next.json",nd[1].slice(0,200000));log("NEXT_DATA",nd[1].length,nd[1].slice(0,1500))}
+          const apis=[...new Set((h.match(/https?:\/\/[a-z0-9.-]*(?:decisiondeskhq|ddhq)[a-z0-9./?=&_-]*/gi)||[]))].slice(0,40);log("DDHQ urls",apis.join(" "));
+          const js=[...new Set((h.match(/\/_next\/static\/[^"']+\.js/g)||[]))].slice(0,30);
+          for(const j of js){const t=await (await fetch("https://votes.decisiondeskhq.com"+j,{headers:UA})).text();const m=[...new Set(t.match(/https?:\/\/[a-z0-9.-]+\.[a-z]{2,}[a-z0-9\/._-]*(?:api|graphql|results|race)[a-z0-9\/._?=&-]*/gi)||[])];if(m.length)log("JS",j,m.slice(0,15).join(" "))}
+          // NYT
+          for(const u of ["https://static01.nyt.com/elections-assets/pages/data/2024-11-05/results-pennsylvania-president.json","https://static01.nyt.com/elections-assets/pages/data/2024-11-05/results-texas-us-senate.json","https://static01.nyt.com/elections-assets/pages/data/2026-11-03/results-texas-us-senate.json","https://static01.nyt.com/elections-assets/pages/data/2026-11-03/results-north-carolina-us-senate.json","https://static01.nyt.com/elections-assets/pages/data/2026-11-03/results-senate.json"])await T(u,500);
+          const nyp=await T("https://www.nytimes.com/interactive/2026/11/03/us/elections/results-texas-senate.html",200);
+          const nj=[...new Set(nyp.match(/https:\/\/static01\.nyt\.com\/elections-assets\/[^"'\s]+\.json/g)||[])];log("NYT page json",nj.slice(0,20).join(" "));
+          fs.writeFileSync("probe/out.txt",out.join("\n"));
+          JS
+          node /tmp/p.mjs
+      - run: |
+          git config user.name "hilltop-bot"; git config user.email "hilltop-bot@users.noreply.github.com"
+          git add probe; git commit -qm "Probe national feeds" && (git push -q || (git pull -q --rebase && git push -q))
