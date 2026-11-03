@@ -150,6 +150,7 @@
   function statusOf(a){
     const race=a.race;
     if(race.called!=null){const c=race.cands[race.called];return{cls:"won-"+c.p,txt:last(c.n)+" wins ✓ AP"}}
+    const lr=LIVE&&LIVE.races&&LIVE.races[race.id];if(lr&&lr.final&&a.counted){const w=(a.counted[0]||0)>=(a.counted[1]||0)?0:1;const c=race.cands[w];return{cls:"won-"+c.p,txt:last(c.n)+" · unofficial final (SOS)"}}
     if(a.hc!=null){const c=race.cands[a.hc];return{cls:"hc",txt:"◆ Hilltop projects "+last(c.n),col:PC[c.p]}}
     if(a.mode==="live"){const L=a.pD>=0.5?0:1,p=L===0?a.pD:1-a.pD,c=race.cands[L];if(p>=0.9)return{cls:"lean",txt:"Likely "+last(c.n),col:PC[c.p]};if(p>=0.7)return{cls:"lean",txt:"Leaning "+last(c.n),col:PC[c.p]};return{cls:"",txt:"Too close to call"}}
     const st=(meta&&meta.status)||"pre";return{cls:"",txt:st==="pre"?"Polls close 7 p.m.":"Too early to call"};
@@ -174,6 +175,7 @@
     $("raceList").innerHTML=h;
   }
   function renderPanel(a){
+    {const fb=$("rpFollow");if(fb){fb.dataset.follow=a.race.id;window.HEDfollowSync&&window.HEDfollowSync()}}
     const race=a.race;const c0=race.cands[0],c1=race.cands[1];const tot=a.tot||0;
     $("rpName").textContent=NAMES[race.id]||race.title+" · U.S. House";
     $("rpIn").textContent=tot?Math.round(Math.min(1,a.frac||0)*100)+"%":"0%";
@@ -294,6 +296,8 @@
     renderStrip(A);renderList(A);renderPanel(a);renderMap(a);renderVotesLeft(a);renderFresh();
     const src=$("sources");if(meta&&meta.sources){src.innerHTML="";[{title:"Texas Secretary of State election results",url:"https://results.texas-election.com/"}].concat(meta.sources).forEach(s=>{const li=document.createElement("li");const x=document.createElement("a");x.href=s.url;x.target="_blank";x.rel="noopener";x.textContent=s.title;li.appendChild(x);src.appendChild(li)})}
   }
+  document.addEventListener("click",e=>{if(!e.target.closest("#rpShare")||!window.HEDcard)return;const a=A[sel];if(!a)return;const race={...a.race,votes:a.counted||null,r:a.frac||0};
+    window.HEDcard.openRace(race,{kicker:a.isSW?"Texas · 2026":"Dallas County · U.S. House",title:a.isSW?"Texas "+(NAMES[a.id]||a.race.title):a.race.title+" U.S. House",sub:a.isSW?(a.nRep||0)+" of 254 counties reporting":a.race.sub,chance:a.pD,note:a.margin!=null?(a.mode==="live"?"Hilltop live projection: ":"Hilltop forecast: ")+mfmt(a.margin)+(a.mode==="live"?" · win chance "+last((a.pD>=.5?a.race.cands[0]:a.race.cands[1]).n)+" "+pct(Math.max(a.pD,1-a.pD)):""):null})});
   function select(id){sel=id;try{history.replaceState(null,"","#"+id)}catch(e){location.hash=id}renderAll()}
   document.addEventListener("click",e=>{
     const b=e.target.closest("[data-id].rl,[data-id].chip");if(b){select(b.dataset.id);if(window.innerWidth<760)$("rpName").scrollIntoView({behavior:"smooth"});return}

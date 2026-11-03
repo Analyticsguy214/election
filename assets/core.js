@@ -22,9 +22,9 @@
   const last=n=>n.split(" ").filter(w=>!/^(III|II|Jr\.?)$/.test(w)).slice(-1)[0];
   // live probability that cands[0] wins (called / counted / forecast)
   function liveP(race,MK,txLive,expTx){
-    if(race.called!=null)return{p:race.cands[race.called].p===race.cands[0].p?1:0,mode:"called"};
     let v=race.votes;const s=txLive&&txLive.races&&txLive.races[race.id]&&txLive.races[race.id].statewide;
     if(s&&s.v){const lt=s.v.reduce((a,b)=>a+(b||0),0),rt=(v||[]).reduce((a,b)=>a+(b||0),0);if(lt>0&&lt>=rt)v=[s.v[0],s.v[1]]}
+    if(race.called!=null){const t=v?v.reduce((a,b)=>a+(b||0),0):0;return{p:race.called===0?1:0,mode:"called",share:t?v:null,r:race.r||1}}
     const pr=blend(sources(race,MK),{});const tot=v?v.reduce((a,b)=>a+(b||0),0):0;
     if(!tot)return{p:pr,mode:pr==null?"none":"pre"};
     let r=race.r||0;if(!r&&expTx&&race.groups.includes("texas"))r=Math.min(.99,tot/expTx);r=Math.max(.01,Math.min(1,r));

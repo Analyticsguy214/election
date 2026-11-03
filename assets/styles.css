@@ -336,3 +336,5 @@ footer.site summary{cursor:pointer;color:#fff;font-weight:600;font-size:13px}
 .splash .sm{font:600 12px var(--f-sans);letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
 @keyframes sload{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
 @media (prefers-reduced-motion:reduce){.splash .sbar i{animation:none;width:100%}.splash{transition:none}}
+
+.ract{display:flex;gap:6px;justify-content:flex-end;margin-top:8px}

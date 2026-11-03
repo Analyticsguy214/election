@@ -81,6 +81,10 @@ for (const [fips, c] of Object.entries(county)) {
 // fill statewide from counties if the statewide file lacked the race
 for (const o of Object.values(out.races)) if (!o.statewide) { const s = blank(); for (const c of Object.values(o.counties)) for (const k of ["v", "ev", "ed"]) c[k].forEach((x, i) => s[k][i] += x); o.statewide = s; }
 
+// "Unofficial final": every precinct in, and a margin of at least 1 point
+const pr = home.PrecinctsReporting || {};
+const allIn = pr.PT && pr.PR >= pr.PT;
+for (const o of Object.values(out.races)) { const s = o.statewide; const two = s.v[0] + s.v[1]; o.final = !!(allIn && two > 0 && Math.abs(s.v[0] - s.v[1]) / two >= 0.01); }
 // Use the SOS clock as updatedAt (Central time); fall back to fetch time.
 let t = Date.parse((home.LastUpdatedTime || "") + " GMT-0600"); if (isNaN(t)) t = Date.now();
 out.updatedAt = t;

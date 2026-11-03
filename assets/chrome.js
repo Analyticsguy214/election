@@ -70,7 +70,112 @@
       if(c){h+=ctl("Senate control",c.senate)+ctl("House control",c.house)}
       KEY.forEach(id=>{const r=rs.find(x=>x.id===id);if(r)h+=tickerItem(r,mk,tp)});
       el.innerHTML=h;
+      if(window.HEDcheckCalls)window.HEDcheckCalls(rs);
     }catch(e){}
   }
   ticker();setInterval(ticker,30000);
+})();
+
+// ===== Share cards + call alerts (all pages) =====
+(function(){
+  "use strict";
+  const COL={D:"#1f62c4",R:"#cf2a36",I:"#9a7614",O:"#6b7286"};
+  const last=n=>String(n).split(" ").filter(w=>!/^(III|II|Jr\.?)$/.test(w)).slice(-1)[0];
+  const css=document.createElement("style");css.textContent=`
+  .cardbtn,.followbtn{background:none;border:1px solid var(--rule);color:var(--fg-2);font:600 11.5px var(--f-sans);padding:3px 8px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+  .cardbtn:hover,.followbtn:hover{border-color:var(--fg);color:var(--fg)}
+  .followbtn[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+  .hed-modal{position:fixed;inset:0;z-index:90;background:rgba(10,14,28,.72);display:flex;align-items:center;justify-content:center;padding:20px}
+  .hed-modal .box{background:var(--bg);color:var(--fg);max-width:min(460px,100%);width:100%;max-height:100%;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+  .hed-modal img{width:100%;height:auto;border:1px solid var(--rule)}
+  .hed-modal .row{display:flex;gap:8px;flex-wrap:wrap}
+  .hed-modal .row button,.hed-modal .row a{flex:1;min-width:120px;text-align:center;font:700 13px var(--f-sans);padding:10px;border:1.5px solid var(--fg);background:var(--bg);color:var(--fg);cursor:pointer;text-decoration:none}
+  .hed-modal .row .pri{background:var(--smu-red);border-color:var(--smu-red);color:#fff}
+  .alertmenu{position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:32px;z-index:40;background:var(--bg);color:var(--fg);border:1px solid var(--rule-strong);padding:12px;width:260px;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+  .alertmenu label{display:flex;gap:8px;align-items:center;padding:4px 0;cursor:pointer}
+  .alertmenu p{margin:6px 0 0;font-size:11.5px;color:var(--muted)}
+  .util{position:relative}`;document.head.appendChild(css);
+
+  // ---- share card (1080x1350, works for X and Instagram) ----
+  function wrapText(ctx,text,x,y,maxW,lh){const w=text.split(" ");let line="",lines=[];for(const t of w){const test=line?line+" "+t:t;if(ctx.measureText(test).width>maxW&&line){lines.push(line);line=t}else line=test}lines.push(line);lines.forEach((l,i)=>ctx.fillText(l,x,y+i*lh));return lines.length}
+  async function draw(spec){
+    try{await document.fonts.ready}catch(e){}
+    const W=1080,H=1350,c=document.createElement("canvas");c.width=W;c.height=H;const x=c.getContext("2d");
+    const SERIF='"Source Serif 4", Georgia, serif',SANS='"Libre Franklin", "Helvetica Neue", Arial, sans-serif';
+    x.fillStyle="#ffffff";x.fillRect(0,0,W,H);
+    x.fillStyle="#1b2a63";x.fillRect(0,0,W,150);x.fillStyle="#CC0035";x.fillRect(0,150,W,10);
+    // logo
+    x.save();x.translate(60,35);x.scale(80/48,80/48);x.fillStyle="#354CA1";x.fillRect(0,0,48,48);x.fillStyle="#fff";x.beginPath();x.moveTo(0,38);x.bezierCurveTo(10,25,18,22,26,27);x.bezierCurveTo(32,31,38,30,48,22);x.lineTo(48,48);x.lineTo(0,48);x.fill();x.fillStyle="#CC0035";x.beginPath();x.moveTo(0,44);x.bezierCurveTo(12,35,22,33,30,36);x.bezierCurveTo(37,38,42,37,48,33);x.lineTo(48,48);x.lineTo(0,48);x.fill();x.strokeStyle="#fff";x.lineWidth=4;x.beginPath();x.moveTo(14,15.5);x.lineTo(19,20.5);x.lineTo(30,9.5);x.stroke();x.restore();
+    x.fillStyle="#fff";x.font=`700 46px ${SERIF}`;x.fillText("Hilltop Election Desk",165,92);x.font=`700 20px ${SANS}`;x.fillStyle="#ff8fa3";x.fillText("2026 MIDTERMS · NOV. 3",167,125);
+    // kicker + title
+    x.fillStyle="#CC0035";x.font=`800 28px ${SANS}`;x.fillText((spec.kicker||"").toUpperCase(),60,240);
+    x.fillStyle="#111522";x.font=`700 78px ${SERIF}`;const tl=wrapText(x,spec.title||"",60,330,W-120,86);
+    let y=330+tl*86+10;x.fillStyle="#3b4255";x.font=`500 30px ${SANS}`;if(spec.sub){x.fillText(spec.sub,60,y);y+=60}else y+=20;
+    // candidates
+    const cs=(spec.cands||[]).slice(0,3);
+    for(const cd of cs){
+      const col=COL[cd.p]||COL.O;x.fillStyle=col;x.fillRect(60,y,12,150);
+      x.fillStyle="#111522";x.font=`700 40px ${SANS}`;x.fillText(cd.n+(cd.won?"  ✓":""),96,y+48);
+      x.fillStyle="#6b7286";x.font=`500 26px ${SANS}`;x.fillText(cd.sub||"",96,y+88);
+      x.fillStyle=col;x.font=`800 96px ${SANS}`;x.textAlign="right";x.fillText(cd.big||"",W-60,y+100);x.textAlign="left";
+      x.fillStyle="#e3e5ec";x.fillRect(96,y+118,W-156,22);x.fillStyle=col;x.fillRect(96,y+118,(W-156)*Math.max(0,Math.min(1,cd.frac||0)),22);
+      y+=190;
+    }
+    // status pill
+    if(spec.status){x.font=`800 32px ${SANS}`;const tw=x.measureText(spec.status).width;const sc=spec.statusColor||"#111522";x.fillStyle=spec.statusSolid?sc:"#fff";x.strokeStyle=sc;x.lineWidth=4;x.fillRect(60,y,tw+48,70);x.strokeRect(60,y,tw+48,70);x.fillStyle=spec.statusSolid?"#fff":sc;x.fillText(spec.status,84,y+47);y+=110}
+    if(spec.note){x.fillStyle="#3b4255";x.font=`500 28px ${SANS}`;wrapText(x,spec.note,60,y,W-120,38)}
+    // footer
+    x.fillStyle="#f6f7fb";x.fillRect(0,H-120,W,120);x.fillStyle="#111522";x.font=`700 30px ${SANS}`;x.fillText("analyticsguy214.github.io/election",60,H-52);
+    x.fillStyle="#6b7286";x.font=`500 24px ${SANS}`;x.textAlign="right";x.fillText(new Date().toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit",timeZone:"America/Chicago"})+" CT",W-60,H-52);x.textAlign="left";
+    return c;
+  }
+  async function openCard(spec){
+    const c=await draw(spec);const url=c.toDataURL("image/png");const blob=await new Promise(r=>c.toBlob(r,"image/png"));
+    const fname=("hilltop-"+(spec.slug||"race")+".png").replace(/[^a-z0-9.-]/gi,"-").toLowerCase();
+    const m=document.createElement("div");m.className="hed-modal";m.setAttribute("role","dialog");m.setAttribute("aria-label","Share this race");
+    const text=spec.shareText||((spec.title||"")+" · Hilltop Election Desk");
+    m.innerHTML=`<div class="box"><img alt="Result card for ${String(spec.title).replace(/"/g,"")}" src="${url}"><div class="row"><button class="pri" type="button" data-a="share">Share image</button><a href="${url}" download="${fname}">Download</a></div><div class="row"><button type="button" data-a="x">Post on X</button><button type="button" data-a="close">Close</button></div></div>`;
+    document.body.appendChild(m);
+    m.addEventListener("click",async e=>{const a=e.target.dataset&&e.target.dataset.a;if(e.target===m||a==="close"){m.remove();return}
+      if(a==="x"){window.open("https://twitter.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(location.href.split("#")[0]),"_blank","noopener");return}
+      if(a==="share"){const f=new File([blob],fname,{type:"image/png"});if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:spec.title,text})}catch(x){}}else{const l=document.createElement("a");l.href=url;l.download=fname;document.body.appendChild(l);l.click();l.remove()}}});
+    document.addEventListener("keydown",function esc(e){if(e.key==="Escape"){m.remove();document.removeEventListener("keydown",esc)}});
+  }
+  // Build a card from a race object (+ optional win chance for cands[0])
+  function raceSpec(race,opt){opt=opt||{};const tot=race.votes?race.votes.reduce((a,b)=>a+(b||0),0):0;const ch=opt.chance;
+    const cands=race.cands.slice(0,2).map((cd,i)=>{const v=tot?(race.votes[i]||0):null;const sh=tot?v/tot:null;const p=ch==null?null:(i===0?ch:1-ch);
+      return{n:cd.n,p:cd.p,won:race.called===i,sub:(cd.p==="D"?"Democrat":cd.p==="R"?"Republican":"Independent")+(cd.inc?" · incumbent":"")+(tot?" · "+v.toLocaleString("en-US")+" votes":""),big:tot?(sh*100).toFixed(1)+"%":p!=null?Math.round(p*100)+"%":"",frac:tot?sh:(p||0)}});
+    let status,sc,solid=false;
+    if(race.called!=null){const w=race.cands[race.called];status=last(w.n)+" wins · AP call";sc=COL[w.p];solid=true}
+    else if(tot){status=Math.round((race.r||0)*100)+"% of votes counted";sc="#111522"}
+    else{status="Forecast · chance to win";sc="#111522"}
+    return{kicker:opt.kicker||"2026 results",title:opt.title||race.title,sub:opt.sub||race.sub,cands,status,statusColor:sc,statusSolid:solid,note:opt.note,slug:race.id,shareText:opt.shareText};
+  }
+  window.HEDcard={open:openCard,raceSpec,openRace:(race,opt)=>openCard(raceSpec(race,opt))};
+
+  // ---- call alerts ----
+  const LS={get:(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+  let follow=new Set(LS.get("hed-follow",[]));let mode=LS.get("hed-alert","followed");
+  function syncFollowButtons(){document.querySelectorAll("[data-follow]").forEach(b=>{const on=follow.has(b.dataset.follow);b.setAttribute("aria-pressed",String(on));b.textContent=on?"🔔 Following":"🔔 Follow";b.title=on?"You'll get an alert when this race is called":"Get an alert when this race is called"})}
+  window.HEDfollowSync=syncFollowButtons;
+  async function askPerm(){if(!("Notification" in window))return"unsupported";if(Notification.permission==="default"){try{return await Notification.requestPermission()}catch(e){return"denied"}}return Notification.permission}
+  function toastMsg(t){let el=document.querySelector(".toast");if(!el){el=document.createElement("div");el.className="toast";el.setAttribute("role","status");document.body.appendChild(el)}el.textContent=t;el.hidden=false;clearTimeout(toastMsg.h);toastMsg.h=setTimeout(()=>{el.hidden=true},6000)}
+  function notify(title,body,tag){if("Notification" in window&&Notification.permission==="granted"){try{new Notification(title,{body,tag,icon:"og.png"})}catch(e){}}toastMsg(title+" · "+body)}
+  document.addEventListener("click",async e=>{
+    const b=e.target.closest("[data-follow]");if(b){e.preventDefault();const id=b.dataset.follow;if(follow.has(id))follow.delete(id);else{follow.add(id);if(mode==="off"){mode="followed";LS.set("hed-alert",mode)}const p=await askPerm();if(p==="denied")toastMsg("Following. Browser notifications are blocked, so alerts will show on this page only.")}LS.set("hed-follow",[...follow]);syncFollowButtons();return}
+    const ab=e.target.closest("#alertBtn");if(ab){const ex=document.querySelector(".alertmenu");if(ex){ex.remove();return}const m=document.createElement("div");m.className="alertmenu";m.innerHTML=`<b>Race-call alerts</b>${[["off","Off"],["followed","Races I follow (🔔)"],["all","Every Senate, governor and Texas call"]].map(([v,l])=>`<label><input type="radio" name="hedalert" value="${v}" ${mode===v?"checked":""}> ${l}</label>`).join("")}<p>Alerts appear while this site is open in a tab. Allow notifications to get them even when the tab is in the background.</p>`;ab.closest(".util").appendChild(m);
+      m.addEventListener("change",async ev=>{mode=ev.target.value;LS.set("hed-alert",mode);if(mode!=="off"){const p=await askPerm();if(p==="denied")toastMsg("Notifications are blocked in this browser; alerts will show on the page instead.")}});return}
+    if(!e.target.closest(".alertmenu")){const ex=document.querySelector(".alertmenu");if(ex)ex.remove()}
+  });
+  function injectAlertBtn(){const u=document.querySelector(".util .utilr");if(!u||document.getElementById("alertBtn"))return;const b=document.createElement("button");b.id="alertBtn";b.type="button";b.textContent="🔔 Alerts";u.insertBefore(b,u.firstChild)}
+  injectAlertBtn();
+  const NAMES={"sen":"Senate","gov":"governor","tx":"Texas","h":"House"};
+  window.HEDcheckCalls=function(races){
+    if(!races||!races.length)return;const seen=LS.get("hed-seen-calls",null);const now={};races.forEach(r=>{if(r.called!=null)now[r.id]=r.called});
+    if(seen===null){LS.set("hed-seen-calls",now);return}
+    for(const [id,idx] of Object.entries(now)){if(seen[id]===idx)continue;const r=races.find(x=>x.id===id);const want=mode==="all"?!/^h-/.test(id)||follow.has(id):mode==="followed"?follow.has(id):false;
+      if(want){const w=r.cands[idx];const flip=(r.held&&r.held!=="O"&&r.held!==w.p)?" (flip)":"";notify(`AP call: ${w.n} wins`,`${r.title}${/^sen-/.test(id)?" Senate":/^gov-/.test(id)?" governor":""}${flip}`,id)}}
+    LS.set("hed-seen-calls",now);
+  };
+  setTimeout(syncFollowButtons,1500);
 })();

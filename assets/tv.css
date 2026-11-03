@@ -1,0 +1,53 @@
+/* Big-screen mode: one dark screen sized to the viewport, built for a TV across the room. */
+body.tvmode{margin:0;background:#0b1024;color:#eef0f6;height:100%;overflow:hidden;--bg:#0b1024;--panel:#141b38;--fg:#eef0f6;--fg-2:#c4c9d8;--muted:#929ab0;--rule:#2a3462;--rule-strong:#eef0f6;--dem:#5b8ef0;--dem-2:#35558f;--dem-3:#1e2b47;--rep:#f0606b;--rep-2:#8e3a42;--rep-3:#40212a;--ind:#d8b14e;--ind-2:#6b5726;--neutral:#2a3041;--neutral-2:#3a4256;color-scheme:dark}
+html:has(body.tvmode){height:100%}
+.tv{height:100vh;height:100dvh;display:grid;grid-template-rows:auto 1fr auto;padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+.tv-top{display:flex;align-items:center;gap:1.4vw;padding:1.1vh 2vw;background:#1b2a63;border-bottom:.45vh solid #CC0035}
+.tv-logo{display:flex;align-items:center;gap:.9vw;color:#fff;text-decoration:none}
+.tv-logo svg{width:clamp(30px,3.4vw,64px);height:auto}
+.tv-logo b{display:block;font-family:var(--f-serif);font-size:clamp(18px,1.9vw,38px);line-height:1}
+.tv-logo small{display:block;font:700 clamp(10px,.75vw,15px) var(--f-sans);letter-spacing:.18em;text-transform:uppercase;color:#ff8fa3;margin-top:.4vh}
+.tv-top .live{font-size:clamp(11px,.9vw,18px);padding:.4vh .7vw}
+.tv-clock{margin-left:auto;font:800 clamp(18px,1.9vw,40px) var(--f-sans);font-variant-numeric:tabular-nums}
+.tv-btns{display:flex;gap:.6vw}
+.tv-btns button,.tv-btns a{background:none;border:1px solid rgba(255,255,255,.4);color:#fff;font:600 clamp(11px,.8vw,16px) var(--f-sans);padding:.6vh .8vw;cursor:pointer;text-decoration:none}
+.tv-grid{display:grid;grid-template-columns:24fr 44fr 32fr;gap:1.4vw;padding:1.6vh 2vw;min-height:0}
+.tv-left,.tv-mid,.tv-right{min-width:0;min-height:0;display:flex;flex-direction:column;gap:1.4vh}
+.tv-card{flex:1;background:#141b38;border-top:.5vh solid #eef0f6;padding:1.4vh 1.2vw;display:flex;flex-direction:column;min-height:0}
+.tv-card .k{font:800 clamp(10px,.8vw,16px) var(--f-sans);letter-spacing:.14em;text-transform:uppercase;color:#ff8fa3}
+.tv-card h3{font-family:var(--f-serif);font-size:clamp(16px,1.6vw,34px);margin:.4vh 0 0}
+.tv-card svg.needle{width:100%;max-height:22vh;margin:.6vh 0}
+.tv-card .nums{display:flex;justify-content:space-between;align-items:flex-end}
+.tv-card .n{font-weight:800;font-size:clamp(24px,3vw,64px);line-height:1;font-variant-numeric:tabular-nums}
+.tv-card .l{font-size:clamp(10px,.8vw,16px);color:#c4c9d8;font-weight:600}
+.tv-card .seatbar{display:flex;height:2.2vh;margin-top:1vh;background:#2a3041;position:relative}
+.tv-card .seatbar i{display:block;height:100%}
+.tv-card .seatbar .mk{position:absolute;top:-.6vh;bottom:-.6vh;border-left:2px solid #fff}
+.tv-card .f{font-size:clamp(10px,.75vw,15px);color:#929ab0;margin-top:.8vh}
+.tv-midhead{display:flex;justify-content:space-between;align-items:baseline;gap:1vw;border-bottom:2px solid #eef0f6;padding-bottom:.6vh}
+.tv-midhead h2{font-family:var(--f-serif);font-size:clamp(18px,1.9vw,40px);margin:0}
+.tv-dots{display:flex;gap:.4vw}
+.tv-dots i{width:.7vw;height:.7vw;min-width:7px;min-height:7px;border-radius:50%;background:#3a4256}
+.tv-dots i.on{background:#ff6b81}
+.tv-panel{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;transition:opacity .5s ease}
+.tv-panel.fade{opacity:0}
+.tv-panel svg{width:100%;height:100%;max-height:100%}
+.tv-panel svg text{font:700 11px var(--f-sans)}
+.tv-legend{display:flex;flex-wrap:wrap;gap:.4vh 1.2vw;justify-content:center;font-size:clamp(10px,.75vw,15px);color:#c4c9d8}
+.tv-legend i{display:inline-block;width:.8vw;height:.8vw;min-width:9px;min-height:9px;transform:rotate(45deg);margin-right:.4vw}
+.tv-races{flex:1;min-height:0;display:grid;grid-template-rows:repeat(6,minmax(0,1fr));gap:1vh;transition:opacity .5s ease}
+.tv-races.fade{opacity:0}
+.tr{background:#141b38;padding:.8vh .9vw;display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto auto;gap:.3vh .8vw;min-height:0;border-left:.4vw solid #3a4256}
+.tr .tn{font:800 clamp(11px,.85vw,17px) var(--f-sans);letter-spacing:.06em;text-transform:uppercase;color:#c4c9d8}
+.tr .ts{font:700 clamp(10px,.75vw,15px) var(--f-sans);text-align:right;white-space:nowrap}
+.tr .c{display:flex;justify-content:space-between;font-size:clamp(13px,1.15vw,24px);font-weight:700;grid-column:1/-1;font-variant-numeric:tabular-nums}
+.tr .bar{grid-column:1/-1;display:flex;height:.8vh;background:#2a3041}
+.tr .bar i{display:block;height:100%}
+.tv-ticker{display:flex;align-items:stretch;background:#141b38;border-top:1px solid #2a3462;height:6.4vh;min-height:40px}
+.tv-ticker .tlab{flex:none;display:flex;align-items:center;padding:0 1.2vw;background:#CC0035;color:#fff;font:800 clamp(11px,.85vw,17px) var(--f-sans);letter-spacing:.14em;text-transform:uppercase}
+.tv-marq{flex:1;overflow:hidden;position:relative}
+.tv-track{position:absolute;top:0;bottom:0;left:0;display:flex;align-items:center;white-space:nowrap;animation:tvscroll 90s linear infinite;font-size:clamp(13px,1.1vw,22px);font-weight:600}
+.tv-track span{padding:0 2vw;border-right:1px solid #2a3462}
+@keyframes tvscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.tv-track{animation:none}}
+@media (max-width:900px),(max-height:520px){body.tvmode{overflow:auto}.tv{height:auto}.tv-grid{grid-template-columns:1fr}.tv-panel{min-height:50vh}.tv-races{grid-template-rows:none}.tv-card{min-height:34vh}}

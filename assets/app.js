@@ -197,7 +197,7 @@
     {const [k,p]=mkP(race);const c0=race.cands[0];if(k!=null||p!=null)foot+=`<div class="mline"><span class="mlbl">Markets</span>${k!=null?`<span>Kalshi: ${esc(last(c0.n))} <b>${pct(k)}</b></span>`:""}${p!=null?`<span>Polymarket: ${esc(last(c0.n))} <b>${pct(p)}</b></span>`:""}</div>`}
     if(race.groups.includes("texas")&&race.called==null){const P=project(race);if(P.total&&P.mode!=="none"){foot+=`<div class="mline"><span class="mlbl">Projected</span><span>${esc(last(race.cands[0].n))} ≈ <b>${fmtM(P.total*P.s0/100)}</b> (${P.s0.toFixed(1)}%)</span><span>${esc(last(race.cands[1].n))} ≈ <b>${fmtM(P.total*P.s1/100)}</b> (${P.s1.toFixed(1)}%)</span></div>`}}
     if(race.note)foot+=`<div class="note">${esc(race.note)}</div>`;
-    art.innerHTML=head+`<table><thead>${thead}</thead><tbody>${rows}</tbody></table>`+foot;
+    art.innerHTML=head+`<table><thead>${thead}</thead><tbody>${rows}</tbody></table>`+foot+`<div class="ract"><button class="cardbtn" type="button" data-card="${race.id}">↗ Share</button><button class="followbtn" type="button" data-follow="${race.id}">🔔 Follow</button></div>`;
     return art;
   }
   function renderSections(){
@@ -493,7 +493,11 @@
       h+=railCard("texas.html#"+id,k,tot?"Live":"Forecast",t,A,B,tot?(r.votes[0]||0)/(((r.votes[0]||0)+(r.votes[1]||0))||1):p,status,p)});
     el.innerHTML=h;
   }
-  function renderAll(){renderStatus();renderRail();renderPolls();if(!renderAll.tv){renderAll.tv=1;renderTV(false)}renderBop();renderOutcomes();renderProj();renderEV();renderCounties();renderMap();renderSections();renderChart()}
+  document.addEventListener("click",e=>{const b=e.target.closest("[data-card]");if(!b||!window.HEDcard)return;const r=races.find(x=>x.id===b.dataset.card);if(!r)return;const m=model(r);
+    const grp=r.groups.includes("senate")?"Senate":r.groups.includes("governor")?"Governor":r.groups.includes("house")||r.groups.includes("dfw")?"U.S. House":"Texas";
+    const title=r.id==="sen-tx"?"Texas U.S. Senate":r.id==="tx-gov"?"Texas Governor":r.groups.includes("texas")?"Texas "+r.title:r.groups.includes("senate")?r.title+" Senate":r.groups.includes("governor")?r.title+" Governor":r.title;
+    window.HEDcard.openRace(r,{kicker:grp+" · 2026",title,chance:m.probs?m.probs[0]:null,note:m.mode==="pre"?"Pre-election chance to win from the Hilltop forecast (Decision Desk HQ, ratings, Kalshi and Polymarket).":m.mode==="live"?"Win chance from the Hilltop live model: "+last((m.probs[0]>=.5?r.cands[0]:r.cands[1]).n)+" "+pct(Math.max(m.probs[0],1-m.probs[0]))+".":null})});
+  function renderAll(){setTimeout(()=>window.HEDfollowSync&&window.HEDfollowSync(),0);renderStatus();renderRail();renderPolls();if(!renderAll.tv){renderAll.tv=1;renderTV(false)}renderBop();renderOutcomes();renderProj();renderEV();renderCounties();renderMap();renderSections();renderChart()}
   document.querySelectorAll("nav.sections button").forEach(t=>t.addEventListener("click",()=>{group=t.dataset.g;try{localStorage.setItem("hed-tab",group)}catch(e){}renderSections();document.getElementById("sections").scrollIntoView({behavior:"smooth",block:"start"})}));
   setInterval(renderStatus,30000);
   let rt;window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{renderChart();renderDallasDaily()},200)});

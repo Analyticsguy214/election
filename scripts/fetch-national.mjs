@@ -30,6 +30,9 @@ function nytKey(x) { // from nyt_id like "NC-G-H-1-2026-11-03", "OH-S_W-S-2026-1
 
 const files = { S: "results-senate.json", G: "results-governor.json", H: "results-house.json" };
 const data = {}; for (const [o, f] of Object.entries(files)) { try { data[o] = await J(f); } catch (e) { console.log("miss", f, e.message); } }
+// Texas state page (has the down-ballot statewide offices); appears on election day
+let txState = null; try { txState = await J("results-texas.json"); } catch (e) { console.log("no Texas state file yet"); }
+const TXOFF = [["tx-ltgov", /^lieutenant governor/i], ["tx-ag", /^attorney general/i], ["tx-comp", /^comptroller/i], ["tx-land", /land/i], ["tx-agri", /agricultur/i], ["tx-rrc", /^railroad/i]];
 
 const out = { source: "Associated Press via The New York Times", fetchedAt: Date.now(), date: DATE, races: {}, house: null, senateCalledStates: {}, control: {} };
 const index = {};
@@ -58,6 +61,11 @@ for (const race of races) {
   const lastSnap = hist[hist.length - 1];
   if (tot > 0 && (!lastSnap || lastSnap.v.join() !== s.v.join() || lastSnap.called !== s.called)) hist.push({ t: Date.now(), v: s.v, r: s.r, called: s.called });
   out.races[race.id] = { ...s, snaps: hist.slice(-400) };
+}
+if (txState) for (const x of txState.races || []) {
+  const hit = TXOFF.find(([, re]) => re.test(x.office || "")); if (!hit || /unexpired/i.test(JSON.stringify(x.seat_description || ""))) continue;
+  const race = races.find(r => r.id === hit[0]); if (!race) continue; const s = summarize(race, x); if (!s) continue;
+  const p = prev.races && prev.races[race.id]; out.races[race.id] = { ...s, snaps: (p && p.snaps) || [] };
 }
 // House seats called nationwide + safe Senate states called
 if (data.H) { let D = 0, R = 0; for (const x of data.H.races) { const w = x.outcome && x.outcome.won && x.outcome.won[0]; if (!w) continue; const p = partyOf((x.candidate_metadata || {})[w]); if (p === "D") D++; else if (p === "R") R++; } out.house = { cD: D, cR: R }; }

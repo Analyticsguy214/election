@@ -66,18 +66,20 @@
   function renderTable(){
     let list;if(ch==="senate")list=D.races.filter(r=>r.groups.includes("senate"));else if(ch==="gov")list=D.races.filter(r=>r.groups.includes("governor"));else list=D.races.filter(r=>r.groups.includes("house"));
     $("listSub").textContent=ch==="house"?"50 battleground seats":ch==="gov"?"Tracked governor races":"14 competitive seats";
-    $("rtable").innerHTML=`<thead><tr><th class="l">Race</th><th class="l">Democrat</th><th class="l">Republican / other</th><th>Rating</th><th>Status</th><th>Chance</th></tr></thead><tbody>`+list.map(r=>{const c=cls(r);const L=c.L||{};const v=L.share;const tot=v?v.reduce((a,b)=>a+(b||0),0):0;
+    $("rtable").innerHTML=`<thead><tr><th class="l">Race</th><th class="l">Democrat</th><th class="l">Republican / other</th><th>Rating</th><th>Status</th><th>Chance</th><th></th></tr></thead><tbody>`+list.map(r=>{const c=cls(r);const L=c.L||{};const v=L.share;const tot=v?v.reduce((a,b)=>a+(b||0),0):0;
       const nm=(x,i)=>`${esc(x.n)}${x.inc?" (inc.)":""}${tot?` <b>${((v[i]||0)/tot*100).toFixed(1)}%</b>`:""}`;
       const st=c.level==="won"?`<span class="pill ${c.party}">✓ ${esc(last(r.cands[r.called].n))} · AP</span>`:L.mode==="live"?`<span class="pill">${Math.round((L.r||0)*100)}% in</span>`:`<span class="pill">Not called</span>`;
-      return`<tr><td class="l"><b>${esc(ch==="gov"&&r.id==="tx-gov"?"Texas":r.title)}</b></td><td class="l" style="color:var(--dem)">${nm(r.cands[0],0)}</td><td class="l" style="color:${PC[r.cands[1].p]}">${nm(r.cands[1],1)}</td><td>${esc(r.rating||"")}</td><td>${st}</td><td class="mg" style="color:${c.lead?PC[c.lead.p]:"var(--fg)"}">${c.level==="won"?"—":c.p!=null?esc(last(c.lead.n))+" "+pct(c.p):"—"}</td></tr>`}).join("")+"</tbody>";
+      return`<tr><td class="l"><b>${esc(ch==="gov"&&r.id==="tx-gov"?"Texas":r.title)}</b></td><td class="l" style="color:var(--dem)">${nm(r.cands[0],0)}</td><td class="l" style="color:${PC[r.cands[1].p]}">${nm(r.cands[1],1)}</td><td>${esc(r.rating||"")}</td><td>${st}</td><td class="mg" style="color:${c.lead?PC[c.lead.p]:"var(--fg)"}">${c.level==="won"?"—":c.p!=null?esc(last(c.lead.n))+" "+pct(c.p):"—"}</td><td><button class="cardbtn" type="button" data-mcard="${r.id}">↗</button> <button class="followbtn" type="button" data-follow="${r.id}">🔔</button></td></tr>`}).join("")+"</tbody>";
   }
   function renderAll(){
     document.querySelectorAll("#mapTabs button").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.ch===ch)));
     const st=(D.meta&&D.meta.status)||"pre";$("livePill").className="live"+(st==="live"?"":" off");$("liveText").textContent=st==="live"?"Live":st==="final"?"Results":"Pre-election";
     $("fresh").innerHTML=st==="pre"?"<b>Before the count.</b> Until votes are counted, shading shows the pre-election forecast.":`<b>Updated</b> ${H.ago(Math.max(D.meta.updatedAt||0,(D.tx&&D.tx.fetchedAt)||0))}`;
-    renderTally();renderMap();renderTable();
+    renderTally();renderMap();renderTable();window.HEDfollowSync&&window.HEDfollowSync();
     const src=$("sources");if(src&&D.meta.sources){src.innerHTML="";D.meta.sources.forEach(s=>{const li=document.createElement("li");const a=document.createElement("a");a.href=s.url;a.target="_blank";a.rel="noopener";a.textContent=s.title;li.appendChild(a);src.appendChild(li)})}
   }
+  document.addEventListener("click",e=>{const b=e.target.closest("[data-mcard]");if(!b||!window.HEDcard||!D)return;const r=D.races.find(x=>x.id===b.dataset.mcard);if(!r)return;const L=H.liveP(r,D.MK,D.tx,D.exp);const rr={...r};if(L.share){rr.votes=L.share;rr.r=L.r}
+    window.HEDcard.openRace(rr,{kicker:(ch==="senate"?"Senate":ch==="gov"?"Governor":"U.S. House")+" · 2026",title:ch==="house"?r.title:r.title+(ch==="senate"?" Senate":" Governor"),chance:L.p})});
   document.addEventListener("click",e=>{const b=e.target.closest("#mapTabs button");if(b){ch=b.dataset.ch;try{history.replaceState(null,"","#"+ch)}catch(x){}renderAll()}});
   async function load(){try{D=await H.loadAll();D.meta.senateCalledMap=D.meta.senateCalledStates||{};D.exp=H.expTexas(D.meta,D.MK);$("notice").hidden=true;renderAll()}catch(e){const n=$("notice");n.hidden=false;n.textContent="Having trouble reaching the results server. Retrying automatically."}}
   load();setInterval(load,30000);
