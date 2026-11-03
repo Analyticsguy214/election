@@ -3,17 +3,22 @@
 import fs from "node:fs";
 const UA = { "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36", "accept-language": "en-US,en;q=0.9", cookie: "CONSENT=YES+1; SOCS=CAI" };
 const CH = JSON.parse(fs.readFileSync("data/tv-channels.json", "utf8"));
+const prevAll = fs.existsSync(process.env.OUT || "data/tv-live.json") ? JSON.parse(fs.readFileSync(process.env.OUT || "data/tv-live.json", "utf8")) : { channels: {} };
 async function check(c) {
   const r = await fetch(`https://www.youtube.com/channel/${c.id}/live`, { headers: UA, redirect: "follow" });
   const h = await r.text();
-  const live = /"isLiveNow":true/.test(h);
   const vid = (h.match(/<link rel="canonical" href="https:\/\/www\.youtube\.com\/watch\?v=([\w-]{11})"/) || [])[1] || null;
+  const blocked = !vid && /not a bot|unusual traffic|consent\.youtube/i.test(h);
+  const p = prevAll.channels && prevAll.channels[c.id];
+  if (blocked || r.status >= 400) return p ? { ...p, stale: true } : { id: c.id, live: false, video: null, upcoming: null, title: null, stale: true };
+  const upcoming = /"isUpcoming":true/.test(h);
+  const live = !!vid && !upcoming && (/"isLiveNow":true/.test(h) || /"isLive":true/.test(h));
   const sched = (h.match(/"scheduledStartTime":"(\d+)"/) || [])[1];
   const title = (h.match(/<meta name="title" content="([^"]*)"/) || [])[1] || null;
-  return { id: c.id, live: live && !!vid, video: vid, upcoming: !live && sched && +sched * 1000 > Date.now() - 3600e3 ? +sched * 1000 : null, title: vid ? title : null, status: r.status };
+  return { id: c.id, live, video: live ? vid : null, upcoming: !live && sched && +sched * 1000 > Date.now() - 3600e3 ? +sched * 1000 : null, title: live ? title : null };
 }
 const out = { checkedAt: Date.now(), channels: {} };
-for (const c of CH) { try { out.channels[c.id] = await check(c); } catch (e) { out.channels[c.id] = { id: c.id, live: false, error: e.message }; } }
+for (const c of CH) { await new Promise(r => setTimeout(r, 1500)); try { out.channels[c.id] = await check(c); } catch (e) { out.channels[c.id] = { id: c.id, live: false, error: e.message }; } }
 if (process.env.PROBE) for (const c of CH) console.log("TV", c.name.padEnd(22), JSON.stringify(out.channels[c.id]));
 const OUT = process.env.OUT || "data/tv-live.json";
 const prev = fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, "utf8")) : null;
