@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793686364153,
+ "updatedAt": 1793686504003,
  "control": {
   "senate": {
    "kalshi": {
@@ -16,7 +16,7 @@
   "house": {
    "kalshi": {
     "D": 0.9375,
-    "R": 0.064,
+    "R": 0.0635,
     "src": "CONTROLH-2026"
    },
    "polymarket": {
@@ -30,7 +30,7 @@
   "gov-az": {
    "kalshi": {
     "D": 0.9225000000000001,
-    "R": 0.0795,
+    "R": 0.079,
     "src": "GOVPARTYAZ-26"
    },
    "polymarket": {
@@ -53,8 +53,8 @@
   },
   "gov-ga": {
    "kalshi": {
-    "D": 0.705,
     "R": 0.295,
+    "D": 0.705,
     "src": "GOVPARTYGA-26"
    },
    "polymarket": {
@@ -65,8 +65,8 @@
   },
   "gov-ia": {
    "kalshi": {
-    "R": 0.14500000000000002,
     "D": 0.855,
+    "R": 0.14500000000000002,
     "src": "GOVPARTYIA-26"
    },
    "polymarket": {
@@ -100,7 +100,7 @@
   "gov-nh": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.139,
+    "D": 0.1385,
     "R": 0.85,
     "src": "new-hampshire-governor-winner-2026"
    }
@@ -131,8 +131,8 @@
   },
   "gov-wi": {
    "kalshi": {
-    "D": 0.855,
     "R": 0.14500000000000002,
+    "D": 0.855,
     "src": "GOVPARTYWI-26"
    },
    "polymarket": {
@@ -143,8 +143,8 @@
   },
   "sen-ak": {
    "kalshi": {
-    "D": 0.705,
     "R": 0.305,
+    "D": 0.705,
     "src": "SENATEAK-26"
    },
    "polymarket": {
@@ -173,14 +173,14 @@
    },
    "polymarket": {
     "D": 0.9675,
-    "R": 0.028,
+    "R": 0.0275,
     "src": "georgia-senate-election-winner"
    }
   },
   "sen-ia": {
    "kalshi": {
-    "R": 0.485,
     "D": 0.525,
+    "R": 0.485,
     "src": "SENATEIA-26"
    },
    "polymarket": {
@@ -203,8 +203,8 @@
   },
   "sen-me": {
    "kalshi": {
-    "R": 0.265,
     "D": 0.735,
+    "R": 0.265,
     "src": "SENATEME-26"
    },
    "polymarket": {
@@ -227,20 +227,20 @@
   },
   "sen-mn": {
    "kalshi": {
-    "R": 0.0935,
     "D": 0.9085000000000001,
+    "R": 0.093,
     "src": "SENATEMN-26"
    },
    "polymarket": {
     "D": 0.915,
-    "R": 0.08,
+    "R": 0.085,
     "src": "minnesota-senate-election-winner"
    }
   },
   "sen-nc": {
    "kalshi": {
-    "D": 0.9735,
     "R": 0.027,
+    "D": 0.9735,
     "src": "SENATENC-26"
    },
    "polymarket": {
@@ -251,9 +251,9 @@
   },
   "sen-ne": {
    "kalshi": {
-    "I": 0.315,
     "D": 0.0045000000000000005,
     "R": 0.665,
+    "I": 0.315,
     "src": "SENATENE-26"
    },
    "polymarket": {
@@ -277,20 +277,20 @@
   },
   "sen-oh": {
    "kalshi": {
-    "R": 0.28500000000000003,
     "D": 0.715,
+    "R": 0.28500000000000003,
     "src": "SENATEOHS-26"
    },
    "polymarket": {
-    "D": 0.725,
-    "R": 0.275,
+    "D": 0.715,
+    "R": 0.285,
     "src": "ohio-senate-election-winner"
    }
   },
   "sen-sc": {
    "kalshi": {
-    "D": 0.325,
     "R": 0.675,
+    "D": 0.325,
     "src": "SENATESC-26"
    },
    "polymarket": {
@@ -470,8 +470,8 @@
   "h-co-04": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.66,
-    "D": 0.35,
+    "R": 0.665,
+    "D": 0.345,
     "src": "co-04-house-election-winner"
    }
   },
@@ -518,7 +518,7 @@
   "h-fl-25": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.16,
+    "R": 0.165,
     "D": 0.835,
     "src": "fl-25-house-election-winner"
    }
@@ -543,7 +543,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.275,
-    "D": 0.72,
+    "D": 0.715,
     "src": "ia-02-house-election-winner"
    }
   },
@@ -805,20 +805,13 @@
   "h-wi-03": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.11,
+    "R": 0.115,
     "D": 0.885,
     "src": "wi-03-house-election-winner"
    }
   }
  },
  "history": [
-  {
-   "t": 1793413852622,
-   "sk": 0.705,
-   "sp": 0.705,
-   "hk": 0.9355,
-   "hp": 0.935
-  },
   {
    "t": 1793413985397,
    "sk": 0.705,
@@ -14811,6 +14804,13 @@
    "sp": 0.775,
    "hk": 0.9375,
    "hp": 0.945
+  },
+  {
+   "t": 1793686504003,
+   "sk": 0.755,
+   "sp": 0.775,
+   "hk": 0.9375,
+   "hp": 0.945
   }
  ],
  "outside": {
@@ -14857,7 +14857,6 @@
   "kalshi miss events KXHOUSETX24-26 404 https://api.elections.kalshi.com/trade-api/v2/events/KXHOUSETX24-26?with_nested_markets=true",
   "kalshi miss events HOUSETX30-26 404 https://api.elections.kalshi.com/trade-api/v2/events/HOUSETX30-26?with_nested_markets=true",
   "kalshi miss events KXHOUSETX30-26 404 https://api.elections.kalshi.com/trade-api/v2/events/KXHOUSETX30-26?with_nested_markets=true",
-  "kalshi miss KXHOUSETX30-26 429 https://api.elections.kalshi.com/trade-api/v2/markets?event_ticker=KXHOUSETX30-26&limit=50",
   "kalshi miss events HOUSETX32-26 404 https://api.elections.kalshi.com/trade-api/v2/events/HOUSETX32-26?with_nested_markets=true",
   "kalshi miss KXHOUSETX32-26 429 https://api.elections.kalshi.com/trade-api/v2/markets?event_ticker=KXHOUSETX32-26&limit=50",
   "kalshi miss events HOUSETX33-26 404 https://api.elections.kalshi.com/trade-api/v2/events/HOUSETX33-26?with_nested_markets=true",
