@@ -1,0 +1,9 @@
+name: probe-cors
+on: workflow_dispatch
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          for u in https://static01.nyt.com/elections-assets/pages/data/2026-11-03/results-senate.json https://goelect.txelections.civixapps.com/api-ivis-system/api/s3/enr/election/53815; do
+            echo "== $u"; curl -sS -D - -o /dev/null -H "Origin: https://analyticsguy214.github.io" "$u" | grep -iE "^(HTTP|access-control|cache-control|age|content-length|last-modified)"; done
