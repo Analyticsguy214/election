@@ -1,0 +1,11 @@
+name: Probe TX statewide calls
+on: workflow_dispatch
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          B=https://static01.nyt.com/elections-assets/pages/data
+          for f in 2026-11-03/results-texas.json 2026-11-03/results-texas-lieutenant-governor.json 2026-11-03/results-texas-attorney-general.json 2026-11-03/results-texas-state-offices.json 2026-11-03/results-texas-statewide.json 2026-11-03/results-attorney-general.json 2026-11-03/results-lieutenant-governor.json 2024-11-05/results-texas.json 2024-11-05/results-texas-railroad-commissioner.json 2026-11-03/results-texas-railroad-commissioner.json 2026-11-03/results-texas-comptroller.json; do
+            code=$(curl -s -o /tmp/x -w "%{http_code} %{size_download}" "$B/$f"); echo "TRY $f $code $(head -c 300 /tmp/x | tr -d '\n' | grep -o '"nyt_id":"[^"]*"' | head -3 | tr '\n' ' ')"; done
+          curl -s "$B/2026-11-03/results-texas.json" -o /tmp/tx.json && node -e 'try{const d=require("/tmp/tx.json");console.log("TXFILE",d.races.length,d.races.map(r=>r.nyt_id+"|"+r.office).join("  ").slice(0,3000))}catch(e){console.log("no tx file")}'
