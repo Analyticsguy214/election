@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793729557951,
+ "updatedAt": 1793729727978,
  "control": {
   "senate": {
    "kalshi": {
@@ -16,7 +16,7 @@
   "house": {
    "kalshi": {
     "D": 0.9295,
-    "R": 0.07050000000000001,
+    "R": 0.0715,
     "src": "CONTROLH-2026"
    },
    "polymarket": {
@@ -41,8 +41,8 @@
   },
   "gov-fl": {
    "kalshi": {
-    "D": 0.335,
     "R": 0.665,
+    "D": 0.335,
     "src": "GOVPARTYFL-26"
    },
    "polymarket": {
@@ -65,8 +65,8 @@
   },
   "gov-ia": {
    "kalshi": {
-    "D": 0.87,
     "R": 0.13,
+    "D": 0.87,
     "src": "GOVPARTYIA-26"
    },
    "polymarket": {
@@ -87,7 +87,7 @@
    "kalshi": {
     "I": 0.0005,
     "D": 0.9315,
-    "R": 0.073,
+    "R": 0.07050000000000001,
     "src": "GOVPARTYMI-26"
    },
    "polymarket": {
@@ -107,8 +107,8 @@
   },
   "gov-nv": {
    "kalshi": {
-    "D": 0.775,
-    "R": 0.225,
+    "R": 0.215,
+    "D": 0.785,
     "src": "GOVPARTYNV-26"
    },
    "polymarket": {
@@ -119,8 +119,8 @@
   },
   "gov-oh": {
    "kalshi": {
+    "R": 0.185,
     "D": 0.815,
-    "R": 0.175,
     "src": "GOVPARTYOH-26"
    },
    "polymarket": {
@@ -131,8 +131,8 @@
   },
   "gov-wi": {
    "kalshi": {
-    "R": 0.155,
     "D": 0.855,
+    "R": 0.155,
     "src": "GOVPARTYWI-26"
    },
    "polymarket": {
@@ -143,13 +143,13 @@
   },
   "sen-ak": {
    "kalshi": {
-    "R": 0.295,
     "D": 0.705,
+    "R": 0.295,
     "src": "SENATEAK-26"
    },
    "polymarket": {
     "R": 0.0005,
-    "D": 0.705,
+    "D": 0.695,
     "src": "alaska-senate-election-winner"
    }
   },
@@ -179,8 +179,8 @@
   },
   "sen-ia": {
    "kalshi": {
-    "D": 0.495,
     "R": 0.505,
+    "D": 0.495,
     "src": "SENATEIA-26"
    },
    "polymarket": {
@@ -203,8 +203,8 @@
   },
   "sen-me": {
    "kalshi": {
-    "D": 0.675,
     "R": 0.325,
+    "D": 0.675,
     "src": "SENATEME-26"
    },
    "polymarket": {
@@ -215,8 +215,8 @@
   },
   "sen-mi": {
    "kalshi": {
-    "R": 0.225,
     "D": 0.765,
+    "R": 0.225,
     "src": "SENATEMI-26"
    },
    "polymarket": {
@@ -227,8 +227,8 @@
   },
   "sen-mn": {
    "kalshi": {
-    "R": 0.0965,
     "D": 0.9045000000000001,
+    "R": 0.0965,
     "src": "SENATEMN-26"
    },
    "polymarket": {
@@ -239,8 +239,8 @@
   },
   "sen-nc": {
    "kalshi": {
-    "R": 0.027,
     "D": 0.9744999999999999,
+    "R": 0.0275,
     "src": "SENATENC-26"
    },
    "polymarket": {
@@ -251,14 +251,14 @@
   },
   "sen-ne": {
    "kalshi": {
-    "I": 0.295,
     "D": 0.004,
+    "I": 0.295,
     "R": 0.695,
     "src": "SENATENE-26"
    },
    "polymarket": {
     "D": 0.002,
-    "R": 0.695,
+    "R": 0.705,
     "I": 0.305,
     "src": "nebraska-senate-election-winner"
    }
@@ -301,8 +301,8 @@
   },
   "sen-tx": {
    "kalshi": {
-    "R": 0.28500000000000003,
     "D": 0.715,
+    "R": 0.28500000000000003,
     "src": "SENATETX-26"
    },
    "polymarket": {
@@ -381,13 +381,13 @@
   },
   "tx-gov": {
    "kalshi": {
-    "D": 0.335,
     "R": 0.665,
+    "D": 0.335,
     "src": "GOVPARTYTX-26"
    },
    "polymarket": {
     "D": 0.365,
-    "R": 0.6395,
+    "R": 0.639,
     "src": "texas-governor-winner-2026"
    }
   },
@@ -398,8 +398,8 @@
   "tx-ltgov": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.345,
-    "R": 0.585,
+    "D": 0.34,
+    "R": 0.655,
     "src": "texas-lieutenant-governor-election-winner-2026"
    }
   },
@@ -510,7 +510,7 @@
   "h-fl-22": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.345,
+    "R": 0.34,
     "D": 0.655,
     "src": "fl-22-house-election-winner"
    }
@@ -518,7 +518,7 @@
   "h-fl-25": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.165,
+    "R": 0.17,
     "D": 0.83,
     "src": "fl-25-house-election-winner"
    }
@@ -812,13 +812,6 @@
   }
  },
  "history": [
-  {
-   "t": 1793454063543,
-   "sk": 0.705,
-   "sp": 0.715,
-   "hk": 0.9384999999999999,
-   "hp": 0.945
-  },
   {
    "t": 1793454196159,
    "sk": 0.705,
@@ -14807,6 +14800,13 @@
   },
   {
    "t": 1793729557951,
+   "sk": 0.725,
+   "sp": 0.745,
+   "hk": 0.9295,
+   "hp": 0.945
+  },
+  {
+   "t": 1793729727978,
    "sk": 0.725,
    "sp": 0.745,
    "hk": 0.9295,
