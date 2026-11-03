@@ -37,7 +37,9 @@ jobs:
           git config user.name "hilltop-bot"; git config user.email "hilltop-bot@users.noreply.github.com"
           # active from Nov 3 11 a.m. CT through Nov 5 6 a.m. CT
           now=$(date -u +%s); start=$(date -u -d "2026-11-03T17:00:00Z" +%s); stop=$(date -u -d "2026-11-05T12:00:00Z" +%s)
-          if [ $now -lt $start ] || [ $now -gt $stop ]; then echo "Outside election-night window"; exit 0; fi
+          if [ $now -gt $stop ]; then echo "Election night is over"; exit 0; fi
+          if [ $now -lt $start ]; then w=$((start-now)); [ $w -gt 19800 ] && w=19800; echo "Waiting $w s for the window"; sleep $w; now=$(date -u +%s); fi
+          if [ $now -lt $start ]; then gh workflow run tx-results.yml --ref main; exit 0; fi
           END=$((SECONDS+20400))
           while [ $SECONDS -lt $END ] && [ $(date -u +%s) -lt $stop ]; do
             git pull -q --rebase --autostash || true
