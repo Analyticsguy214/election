@@ -8,5 +8,5 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 20 }
       - run: |
-          ls data/*early* data/*ev* 2>/dev/null; true
+          node scripts/probe-turnout.mjs
           PROBE=1 OUT=/tmp/tv.json node scripts/fetch-tv.mjs
