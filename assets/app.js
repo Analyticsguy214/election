@@ -490,7 +490,7 @@
     const others=TV.filter(([,c])=>{const x=tvLive(c);return x&&x.live&&c!==id}).map(([n])=>n);
     if(TVS&&!(L&&L.live)){
       const when=L&&L.upcoming?`Its stream is scheduled for ${new Date(L.upcoming).toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit",timeZone:"America/Chicago"})} CT.`:"Its stream goes up when its election coverage starts. This page checks every 2 minutes, and a Watch button appears here as soon as it goes live.";
-      el.innerHTML=`<div class="tvoff"><b>${nm} isn't live yet</b><span>${when}</span>${others.length?`<span>Live now: ${others.join(", ")}</span>`:""}</div>`;tvPlaying=false;return}
+      el.innerHTML=`<div class="tvoff"><b>${nm} isn't live yet</b><span>${when}</span>${others.length?`<span>Live now: ${others.join(", ")}</span>`:""}<a class="tvtry" href="https://www.youtube.com/channel/${id}/live" target="_blank" rel="noopener">Check on YouTube ↗</a></div>`;tvPlaying=false;return}
     el.innerHTML=`<button class="tvplay" type="button" id="tvPlay"><span class="tri"></span><span>Watch ${nm} live</span><small>${L&&L.title?L.title.replace(/</g,"&lt;"):"Streams on YouTube."}</small></button>`;
   }
   document.addEventListener("click",e=>{const b=e.target.closest("[data-tv]");if(b){tvSel=+b.dataset.tv;try{localStorage.setItem("hed-tv",tvSel)}catch(x){}renderTV(tvPlaying||!!$("tv").querySelector("iframe"));return}if(e.target.closest("#tvPlay"))renderTV(true)});

@@ -6,8 +6,7 @@ const CH = JSON.parse(fs.readFileSync("data/tv-channels.json", "utf8"));
 async function check(c) {
   const r = await fetch(`https://www.youtube.com/channel/${c.id}/live`, { headers: UA, redirect: "follow" });
   const h = await r.text();
-  const upcomingFlag = /"isUpcoming":true/.test(h) || /"upcomingEventData"/.test(h);
-  const live = /"isLiveNow":true/.test(h) && !upcomingFlag;
+  const live = /"isLiveNow":true/.test(h);
   const vid = (h.match(/<link rel="canonical" href="https:\/\/www\.youtube\.com\/watch\?v=([\w-]{11})"/) || [])[1] || null;
   const sched = (h.match(/"scheduledStartTime":"(\d+)"/) || [])[1];
   const title = (h.match(/<meta name="title" content="([^"]*)"/) || [])[1] || null;

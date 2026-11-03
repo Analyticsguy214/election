@@ -355,3 +355,5 @@ footer.site summary{cursor:pointer;color:#fff;font-weight:600;font-size:13px}
 .tvtabs{width:auto;border:0;gap:6px;overflow:visible}
 .tvtabs button,.tvtabs button:last-child{border:1px solid var(--rule)}
 .tvtabs button[aria-selected="true"] .tvdot{background:#ff5a75}
+
+.tvoff .tvtry{color:#fff;border:1px solid rgba(255,255,255,.5);padding:6px 12px;text-decoration:none;font-weight:700;font-size:13px;margin-top:4px}
