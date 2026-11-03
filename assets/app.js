@@ -544,7 +544,7 @@
       const [r,m,k,cr,tl,nl]=await Promise.all([fetch(BASE+"races.json"+q,{cache:"no-store"}),fetch(BASE+"meta.json"+q,{cache:"no-store"}),fetch(BASE+"markets.json"+q,{cache:"no-store"}),fetch(BASE+"county-results.json"+q,{cache:"no-store"}).catch(()=>null),fetch(BASE+"tx-live.json"+q,{cache:"no-store"}).catch(()=>null),fetch(BASE+"national-live.json"+q,{cache:"no-store"}).catch(()=>null)]);
       if(!r.ok||!m.ok)throw new Error("HTTP");
       const nr=await r.json(),nm=await m.json(),nk=k.ok?await k.json():MK;let ncr=cr&&cr.ok?await cr.json():CR;
-      const ntl=tl&&tl.ok?await tl.json():null;const nnl=nl&&nl.ok?await nl.json():null;overlayNational(nr,nm,nnl);
+      const ntl=tl&&tl.ok?await tl.json():null;let nnl=nl&&nl.ok?await nl.json():null;if(window.HEDap){try{const d=await window.HEDap(nr,nnl);if(d)nnl=d}catch(e){}}window.HED_NL=nnl;overlayNational(nr,nm,nnl);
       if(ntl&&ntl.races){ // Texas SOS feed: overlay statewide votes and county results
         meta=nm;const T=txTurnout();const exp=T?T.total:null;
         nr.forEach(x=>{const s=ntl.races[x.id]&&ntl.races[x.id].statewide;if(!s||!s.v)return;const lt=s.v.reduce((a,b)=>a+(b||0),0),rt=(x.votes||[]).reduce((a,b)=>a+(b||0),0);
@@ -552,7 +552,7 @@
         const sc=ntl.races["sen-tx"]&&ntl.races["sen-tx"].counties;
         if(sc&&Object.keys(sc).length){ncr={race:"sen-tx",updatedAt:ntl.fetchedAt||ntl.updatedAt,counties:{}};for(const f in sc){ncr.counties[f]={d:sc[f].v[0],r:sc[f].v[1],pct:null}}}
       }
-      const sig=JSON.stringify([nnl&&nnl.fetchedAt,ntl&&ntl.fetchedAt,ncr&&ncr.updatedAt,nm.updatedAt,nk&&nk.updatedAt,nr.length,nr.map(x=>(x.snaps||[]).length+":"+x.called)]);
+      const sig=JSON.stringify([nnl&&nnl.house,nr.map(x=>(x.votes||[]).join(",")),ntl&&ntl.fetchedAt,ncr&&ncr.updatedAt,nm.updatedAt,nk&&nk.updatedAt,nr.length,nr.map(x=>(x.snaps||[]).length+":"+x.called)]);
       if(sig!==load.sig){load.sig=sig;races=nr;meta=nm;MK=nk;CR=ncr;renderAll()}
       lastCheck=Date.now();renderFresh();$("notice").hidden=true;
     }catch(e){const n=$("notice");if(races.length){n.hidden=false;n.textContent="Having trouble reaching the results server. Retrying automatically."}}

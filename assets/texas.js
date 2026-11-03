@@ -355,8 +355,8 @@
   async function load(){
     try{
       if(!GEO)GEO=await getJ("data/tx-counties.json");
-      const [r,m,k,l,nl]=await Promise.all([getJ("data/races.json"),getJ("data/meta.json"),getJ("data/markets.json").catch(()=>MK),getJ("data/tx-live.json").catch(()=>LIVE),getJ("data/national-live.json").catch(()=>null)]);overlayNational(r,m,nl);
-      const sg=JSON.stringify([nl&&nl.fetchedAt,m.updatedAt,k&&k.updatedAt,l&&l.updatedAt,l&&l.fetchedAt,r.map(x=>(x.votes||[]).join(",")+x.called)]);
+      const [r,m,k,l,nl]=await Promise.all([getJ("data/races.json"),getJ("data/meta.json"),getJ("data/markets.json").catch(()=>MK),getJ("data/tx-live.json").catch(()=>LIVE),getJ("data/national-live.json").catch(()=>null)]);let nlx=nl;if(window.HEDap){try{const d=await window.HEDap(r,nl);if(d)nlx=d}catch(e){}}overlayNational(r,m,nlx);
+      const sg=JSON.stringify([nlx&&nlx.house,m.updatedAt,k&&k.updatedAt,l&&l.updatedAt,l&&l.fetchedAt,r.map(x=>(x.votes||[]).join(",")+x.called)]);
       lastCheck=Date.now();$("notice").hidden=true;
       if(sg!==sigPrev){sigPrev=sg;races=r;meta=m;MK=k;LIVE=l;renderAll()}else renderFresh();
     }catch(e){const n=$("notice");n.hidden=false;n.textContent="Having trouble reaching the results server. Retrying automatically."}

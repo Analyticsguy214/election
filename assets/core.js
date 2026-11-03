@@ -46,7 +46,7 @@
       if(any){if(!meta.status||meta.status==="pre")meta.status="live";meta.updatedAt=Math.max(meta.updatedAt||0,NL.fetchedAt||0)}}
     return any;
   }
-  async function loadAll(){const [races,meta,MK,tx,nl]=await Promise.all([getJ("data/races.json"),getJ("data/meta.json"),getJ("data/markets.json").catch(()=>null),getJ("data/tx-live.json").catch(()=>null),getJ("data/national-live.json").catch(()=>null)]);overlayNational(races,meta,nl);return{races,meta,MK,tx,nl}}
+  async function loadAll(){const [races,meta,MK,tx,nl]=await Promise.all([getJ("data/races.json"),getJ("data/meta.json"),getJ("data/markets.json").catch(()=>null),getJ("data/tx-live.json").catch(()=>null),getJ("data/national-live.json").catch(()=>null)]);let NLx=nl;if(window.HEDap){try{const d=await window.HEDap(races,nl);if(d)NLx=d}catch(e){}}overlayNational(races,meta,NLx);return{races,meta,MK,tx,nl}}
   function expTexas(meta,MK){const t=meta&&meta.turnout&&meta.turnout.tx;const xs=[];if(t&&t.ev&&t.ev2022&&t.total2022)xs.push(t.ev/(t.ev2022/t.total2022));const o=MK&&MK.outside&&MK.outside["sen-tx"];if(o&&o.turnout)xs.push(o.turnout);return xs.length?xs.reduce((a,b)=>a+b,0)/xs.length:null}
   const pct=p=>p==null?"—":(p>=0.995?">99%":p<=0.005?"<1%":Math.round(p*100)+"%");
   const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
