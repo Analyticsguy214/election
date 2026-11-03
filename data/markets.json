@@ -1,5 +1,5 @@
 {
- "updatedAt": 1793714759916,
+ "updatedAt": 1793714911688,
  "control": {
   "senate": {
    "kalshi": {
@@ -15,7 +15,7 @@
   },
   "house": {
    "kalshi": {
-    "R": 0.064,
+    "R": 0.0645,
     "D": 0.9384999999999999,
     "src": "CONTROLH-2026"
    },
@@ -29,8 +29,8 @@
  "races": {
   "gov-az": {
    "kalshi": {
+    "R": 0.0795,
     "D": 0.9225000000000001,
-    "R": 0.08,
     "src": "GOVPARTYAZ-26"
    },
    "polymarket": {
@@ -42,19 +42,19 @@
   "gov-fl": {
    "kalshi": {
     "D": 0.315,
-    "R": 0.695,
+    "R": 0.685,
     "src": "GOVPARTYFL-26"
    },
    "polymarket": {
-    "D": 0.31,
-    "R": 0.685,
+    "D": 0.315,
+    "R": 0.68,
     "src": "florida-governor-winner-2026"
    }
   },
   "gov-ga": {
    "kalshi": {
-    "R": 0.325,
     "D": 0.675,
+    "R": 0.325,
     "src": "GOVPARTYGA-26"
    },
    "polymarket": {
@@ -87,12 +87,12 @@
    "kalshi": {
     "R": 0.07100000000000001,
     "I": 0.0005,
-    "D": 0.9315,
+    "D": 0.932,
     "src": "GOVPARTYMI-26"
    },
    "polymarket": {
     "D": 0.9395,
-    "R": 0.0625,
+    "R": 0.063,
     "I": 0.0005,
     "src": "michigan-governor-winner-2026"
    }
@@ -107,8 +107,8 @@
   },
   "gov-nv": {
    "kalshi": {
-    "D": 0.745,
     "R": 0.255,
+    "D": 0.745,
     "src": "GOVPARTYNV-26"
    },
    "polymarket": {
@@ -155,8 +155,8 @@
   },
   "sen-fl": {
    "kalshi": {
-    "D": 0.125,
     "R": 0.875,
+    "D": 0.125,
     "src": "SENATEFLS-26"
    },
    "polymarket": {
@@ -168,7 +168,7 @@
   "sen-ga": {
    "kalshi": {
     "R": 0.035,
-    "D": 0.966,
+    "D": 0.965,
     "src": "SENATEGA-26"
    },
    "polymarket": {
@@ -179,8 +179,8 @@
   },
   "sen-ia": {
    "kalshi": {
-    "D": 0.525,
     "R": 0.485,
+    "D": 0.525,
     "src": "SENATEIA-26"
    },
    "polymarket": {
@@ -245,19 +245,19 @@
    },
    "polymarket": {
     "D": 0.9745,
-    "R": 0.027,
+    "R": 0.0265,
     "src": "north-carolina-senate-election-winner"
    }
   },
   "sen-ne": {
    "kalshi": {
     "R": 0.665,
+    "D": 0.006,
     "I": 0.335,
-    "D": 0.007,
     "src": "SENATENE-26"
    },
    "polymarket": {
-    "D": 0.003,
+    "D": 0.0025,
     "R": 0.675,
     "I": 0.315,
     "src": "nebraska-senate-election-winner"
@@ -289,8 +289,8 @@
   },
   "sen-sc": {
    "kalshi": {
-    "R": 0.695,
     "D": 0.305,
+    "R": 0.695,
     "src": "SENATESC-26"
    },
    "polymarket": {
@@ -301,8 +301,8 @@
   },
   "sen-tx": {
    "kalshi": {
-    "R": 0.28500000000000003,
     "D": 0.725,
+    "R": 0.28500000000000003,
     "src": "SENATETX-26"
    },
    "polymarket": {
@@ -386,8 +386,8 @@
     "src": "GOVPARTYTX-26"
    },
    "polymarket": {
-    "D": 0.365,
-    "R": 0.6425,
+    "D": 0.355,
+    "R": 0.6465,
     "src": "texas-governor-winner-2026"
    }
   },
@@ -406,8 +406,8 @@
   "tx-rrc": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.56,
-    "R": 0.44,
+    "D": 0.545,
+    "R": 0.445,
     "src": "texas-railroad-commissioner-election-winner-2026"
    }
   },
@@ -462,7 +462,7 @@
   "h-ca-48": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.046,
+    "R": 0.047,
     "D": 0.955,
     "src": "ca-48-house-election-winner"
    }
@@ -534,7 +534,7 @@
   "h-ia-01": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.065,
+    "R": 0.075,
     "D": 0.925,
     "src": "ia-01-house-election-winner"
    }
@@ -558,7 +558,7 @@
   "h-ky-06": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.44,
+    "R": 0.435,
     "D": 0.565,
     "src": "ky-06-house-election-winner"
    }
@@ -567,7 +567,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.605,
-    "D": 0.4,
+    "D": 0.375,
     "src": "me-02-house-election-winner-20260720160226434"
    }
   },
@@ -798,7 +798,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.48,
-    "D": 0.51,
+    "D": 0.52,
     "src": "wi-01-house-election-winner"
    }
   },
@@ -812,13 +812,6 @@
   }
  },
  "history": [
-  {
-   "t": 1793441203552,
-   "sk": 0.705,
-   "sp": 0.705,
-   "hk": 0.9375,
-   "hp": 0.945
-  },
   {
    "t": 1793441342466,
    "sk": 0.705,
@@ -14807,6 +14800,13 @@
   },
   {
    "t": 1793714759916,
+   "sk": 0.765,
+   "sp": 0.775,
+   "hk": 0.9384999999999999,
+   "hp": 0.945
+  },
+  {
+   "t": 1793714911688,
    "sk": 0.765,
    "sp": 0.775,
    "hk": 0.9384999999999999,
