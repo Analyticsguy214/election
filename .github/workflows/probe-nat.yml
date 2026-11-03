@@ -6,25 +6,11 @@ jobs:
   p:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: 20 }
       - run: |
-          cat > /tmp/p.mjs <<'JS'
-          const UA={"user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/130"};
-          const J=async u=>{const r=await fetch(u,{headers:UA});if(!r.ok){console.log("HTTP",r.status,u);return null}return r.json()};
-          const B="https://static01.nyt.com/elections-assets/pages/data/";
-          const s24=await J(B+"2024-11-05/results-texas-us-senate.json");
-          const r=s24.races[0];console.log("RACE KEYS",Object.keys(r).join(","));
-          console.log("OUTCOME",JSON.stringify(r.outcome));
-          const ru=r.reporting_units;console.log("RU count",ru.length,"RU0 keys",Object.keys(ru[0]).join(","));
-          const st=ru.find(x=>x.level==="state")||ru[0];console.log("STATE RU",JSON.stringify({...st,candidates:undefined,county_data:undefined}).slice(0,1500));
-          console.log("CAND0",JSON.stringify(st.candidates[0]).slice(0,800));
-          console.log("CANDS meta",JSON.stringify(r.candidate_metadata||{}).slice(0,600));
-          const cty=ru.find(x=>x.level==="county");if(cty)console.log("COUNTY RU",JSON.stringify({...cty,candidates:cty.candidates.slice(0,2)}).slice(0,900));
-          for(const f of ["senate","governor","house"]){const d=await J(B+"2026-11-03/results-"+f+".json");if(!d)continue;console.log("FILE",f,"races",d.races.length,"keys",Object.keys(d).join(","));
-            const x=d.races.find(z=>/TX|NC/.test(z.nyt_id))||d.races[0];console.log(" sample id",x.nyt_id,"office",x.office,"seat",x.seat,"outcome",JSON.stringify(x.outcome));
-            const s=(x.reporting_units||[]).find(u=>u.level==="state")||(x.reporting_units||[])[0];if(s){console.log(" RU keys",Object.keys(s).join(","));console.log(" RU",JSON.stringify({...s,candidates:undefined}).slice(0,700));console.log(" C0",JSON.stringify(s.candidates&&s.candidates[0]).slice(0,500));}
-            console.log(" ids",d.races.slice(0,60).map(z=>z.nyt_id).join(" "));
-            console.log(" candmeta",JSON.stringify(x.candidate_metadata||{}).slice(0,500));}
-          JS
-          node /tmp/p.mjs
+          DATE=2024-11-05 OUT=/tmp/t24.json node scripts/fetch-national.mjs
+          node -e 'const d=require("/tmp/t24.json");console.log("HOUSE",JSON.stringify(d.house));console.log("SENCALLED",JSON.stringify(d.senateCalledStates));for(const k of ["sen-tx","sen-mi","sen-oh","sen-ne","h-pa-07","h-ny-17","tx-24","h-ak-al","gov-nh"])console.log(k,JSON.stringify(d.races[k]&&{v:d.races[k].v,r:d.races[k].r,called:d.races[k].called,by:d.races[k].calledBy,exp:d.races[k].expected}));console.log("CONTROL",JSON.stringify(d.control).slice(0,800))'
+          OUT=/tmp/t26.json node scripts/fetch-national.mjs
+          node -e 'const d=require("/tmp/t26.json");console.log("N26",Object.keys(d.races).length,Object.keys(d.races).filter(k=>k.startsWith("h-")).length,JSON.stringify(d.races["sen-nc"]));const all=require("./data/races.json").filter(r=>/^(sen-|gov-|h-|tx-gov|tx-\d)/.test(r.id)).map(r=>r.id);console.log("MISSING",all.filter(k=>!d.races[k]).join(","))'
