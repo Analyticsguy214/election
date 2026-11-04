@@ -284,7 +284,7 @@
   function renderFresh(){
     const st=(meta&&meta.status)||"pre";$("livePill").className="live"+(st==="live"?"":" off");$("liveText").textContent=st==="live"?"Live":st==="final"?"Results":"Pre-election";
     let h="";const rt=LIVE&&LIVE.updatedAt;
-    if(rt)h+=`<b>County results</b> ${ago(LIVE.fetchedAt||rt)}${LIVE.source?" · "+esc(LIVE.source):""}${LIVE.sosUpdated?" (SOS time "+esc(LIVE.sosUpdated.replace(/^\w+ \d+, \d+ /,""))+")":""}`;else h+=st==="pre"?"<b>Results</b> begin when polls close at 7 p.m.":"";
+    if(rt)h+=`<b>County results</b> ${ago(LIVE.fetchedAt||rt)}${LIVE.source?" · "+esc(LIVE.source):""}${LIVE.updatedAt?" (SOS posted "+ct(LIVE.updatedAt)+")":""}`;else h+=st==="pre"?"<b>Results</b> begin when polls close at 7 p.m.":"";
     if(meta&&meta.updatedAt&&st!=="pre")h+=` · <b>Statewide totals</b> ${ago(meta.updatedAt)}`;
     const ot=Math.max((MK&&MK.updatedAt)||0);if(ot)h+=` · <b>Odds</b> ${ago(ot)}`;
     if(lastCheck)h+=` · <span class="muted">checked ${ago(lastCheck)}</span>`;$("fresh").innerHTML=h;

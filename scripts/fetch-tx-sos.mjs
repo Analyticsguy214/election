@@ -113,7 +113,8 @@ const cr = home.CountiesReporting || {};
 const allIn = (pr.PT && pr.PR >= pr.PT) || (cr.CT && cr.CR >= cr.CT);
 for (const o of Object.values(out.races)) { const s = o.statewide; const two = s.v[0] + s.v[1]; o.final = !!(allIn && two > 0 && Math.abs(s.v[0] - s.v[1]) / two >= 0.01); }
 // Use the SOS clock as updatedAt (Central time); fall back to fetch time.
-let t = Date.parse((home.LastUpdatedTime || "") + " GMT-0600"); if (isNaN(t)) t = Date.now();
+// The SOS clock has shown both UTC and Central time; take whichever reading is closest to now.
+let t = [" GMT", " GMT-0600", " GMT-0500"].map(z => Date.parse((home.LastUpdatedTime || "") + z)).filter(x => !isNaN(x) && x <= Date.now() + 120e3).sort((a, b) => b - a)[0]; if (!t) t = Date.now();
 out.updatedAt = t;
 const prev = fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, "utf8")) : null;
 const changed = !prev || JSON.stringify(prev.races) !== JSON.stringify(out.races) || prev.sosUpdated !== out.sosUpdated;
