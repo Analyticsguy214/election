@@ -1,0 +1,12 @@
+name: probe-leg
+on: workflow_dispatch
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: |
+          rm -f /tmp/t.json; OUT=/tmp/t.json timeout 50 node scripts/fetch-tx-sos.mjs
+          node -e 'const o=require("/tmp/t.json");const L=o.leg||{};for(const ch of ["house","senate"]){const d=L[ch]||{};const k=Object.keys(d);let D=0,R=0,U=0;for(const x of Object.values(d)){const w=x.c[0];if(!w)continue;if(x.c.filter(c=>c.p!=="O").length<2)U++;if(w.p==="D")D++;else if(w.p==="R")R++}console.log("LEG",ch,k.length,"races D",D,"R",R,"unc",U,"sample",JSON.stringify(d[k[0]]))}'

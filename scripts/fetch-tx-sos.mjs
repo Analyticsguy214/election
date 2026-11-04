@@ -59,7 +59,7 @@ async function loadCivix() {
     const f = fipsByName[nameKey(c.N)] || "48" + String(2 * +n - 1).padStart(3, "0");
     county[f] = { Races: Object.fromEntries(Object.entries(c.Races || {}).map(([k, r]) => [k, { ON: r.N, C: r.C }])) };
   }
-  return { el: { ID: id, N: name }, ver: raw.Version, home: d.Home || {}, county, sw: d.StateWide, fed: d.Federal, src: "civix" };
+  return { el: { ID: id, N: name }, ver: raw.Version, home: d.Home || {}, county, sw: d.StateWide, fed: d.Federal, dist: d.Districted, src: "civix" };
 }
 // Old SOS system (results.texas-election.com) — fallback
 async function loadOld() {
@@ -107,6 +107,19 @@ for (const [fips, c] of Object.entries(county)) {
 // fill statewide from counties if the statewide file lacked the race
 for (const o of Object.values(out.races)) if (!o.statewide) { const s = blank(); for (const c of Object.values(o.counties)) for (const k of ["v", "ev", "ed"]) c[k].forEach((x, i) => s[k][i] += x); o.statewide = s; }
 
+// Texas Legislature: every state House and state Senate race on the ballot
+{
+  const leg = { house: {}, senate: {} };
+  for (const r of (L.dist && L.dist.Races) || []) {
+    const n = (r.N || "").toUpperCase().replace(/\s+/g, " ").trim(); if (/UNEXPIRED/.test(n)) continue;
+    let m = n.match(/^STATE REPRESENTATIVE,? DISTRICT (\d+)$/), ch = "house";
+    if (!m) { m = n.match(/^STATE SENATOR,? DISTRICT (\d+)$/); ch = "senate"; }
+    if (!m) continue;
+    const c = (r.Candidates || []).map(x => ({ n: (x.LN || x.N || "").replace(/\(I\)/, "").trim(), i: /\(I\)/.test(x.N || ""), p: partyOf(x.P), v: x.V || 0 })).sort((a, b) => b.v - a.v);
+    leg[ch][+m[1]] = { c, t: r.T || c.reduce((a, x) => a + x.v, 0) };
+  }
+  if (Object.keys(leg.house).length || Object.keys(leg.senate).length) out.leg = leg;
+}
 // "Unofficial final": every precinct in, and a margin of at least 1 point
 const pr = home.PollingReporting && home.PollingReporting.PLT ? { PR: home.PollingReporting.PLR, PT: home.PollingReporting.PLT } : (home.PrecinctsReporting || {});
 const cr = home.CountiesReporting || {};
@@ -117,6 +130,6 @@ for (const o of Object.values(out.races)) { const s = o.statewide; const two = s
 let t = [" GMT", " GMT-0600", " GMT-0500"].map(z => Date.parse((home.LastUpdatedTime || "") + z)).filter(x => !isNaN(x) && x <= Date.now() + 120e3).sort((a, b) => b - a)[0]; if (!t) t = Date.now();
 out.updatedAt = t;
 const prev = fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, "utf8")) : null;
-const changed = !prev || JSON.stringify(prev.races) !== JSON.stringify(out.races) || prev.sosUpdated !== out.sosUpdated;
+const changed = !prev || JSON.stringify(prev.races) !== JSON.stringify(out.races) || JSON.stringify(prev.leg) !== JSON.stringify(out.leg) || prev.sosUpdated !== out.sosUpdated;
 if (changed) { fs.writeFileSync(OUT, JSON.stringify(out)); console.log("wrote", OUT, el.ID, "v" + ver.___versionNo, Object.keys(out.races).join(","), home.LastUpdatedTime); }
 else console.log("no change", home.LastUpdatedTime);
