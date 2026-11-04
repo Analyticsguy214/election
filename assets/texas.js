@@ -133,11 +133,13 @@
   function finish(res){
     const race=res.race;
     if(race.called!=null){res.pD=race.cands[race.called].p==="D"?1:0}
-    // Hilltop projection: 99%+, 80%+ counted, held across two data updates, markets agree
+    // Hilltop projection: tiered (99.5%+ with 30%+ counted if markets 98%+, down to 99%+ with 80%+), held across two data updates
     res.hc=null;
     if(res.mode==="live"&&res.pD!=null){
-      const L=res.pD>=0.5?0:1;const pL=L===0?res.pD:1-res.pD;const ok=pL>=0.99&&(res.frac||0)>=0.8;
-      const [k,pm]=mkP(race);const mOK=[k,pm].every(x=>x==null||(L===0?x:1-x)>=0.9);
+      const L=res.pD>=0.5?0:1;const pL=L===0?res.pD:1-res.pD;const fr=res.frac||0;
+      const [k,pm]=mkP(race);const mks=[k,pm].filter(x=>x!=null).map(x=>L===0?x:1-x);const mkMin=mks.length?Math.min(...mks):0.9;
+      // decision-desk style tiers: more certainty in the model and markets means less of the vote has to be counted
+      const ok=[{p:0.995,r:0.30,mk:0.98},{p:0.995,r:0.50,mk:0.95},{p:0.99,r:0.65,mk:0.90},{p:0.99,r:0.80,mk:0.90}].some(x=>pL>=x.p&&fr>=x.r&&mkMin>=x.mk);const mOK=true;
       const hk=callHist[race.id]||(callHist[race.id]={sig:null,streak:0,L:null});
       const s=LIVE&&LIVE.updatedAt||meta&&meta.updatedAt||0;
       if(hk.sig!==s){hk.sig=s;hk.streak=ok&&mOK&&(hk.L===L||hk.L==null)?hk.streak+1:0;hk.L=ok&&mOK?L:null}

@@ -152,17 +152,19 @@
       host.appendChild(b);
     });
   }
-  // Hilltop's own projection: separate from AP calls, conservative, and must hold across the last two counts.
-  const HC={p:0.99,r:0.8,mk:0.9};
+  // Hilltop's own projection: separate from AP calls and must hold across the last two counts.
+  // Decision-desk style tiers: the more certain the model and markets are, the less of the vote has to be counted.
+  const HC_TIERS=[{p:0.995,r:0.30,mk:0.98},{p:0.995,r:0.50,mk:0.95},{p:0.99,r:0.65,mk:0.90},{p:0.99,r:0.80,mk:0.90}];
+  window.HC_TIERS=HC_TIERS;
   function hcCheck(race,snap){
-    const m=model(race,snap);if(m.mode!=="live")return null;const L=m.est.leader;if(m.probs[L]<HC.p||(snap?snap.r:race.r)<HC.r)return null;return L}
+    const m=model(race,snap);if(m.mode!=="live")return null;const L=m.est.leader;const r=(snap?snap.r:race.r)||0;
+    const [k,pm]=mkP(race);const lp=x=>x==null?null:(L===0?x:1-x);const mks=[lp(k),lp(pm)].filter(x=>x!=null);const mkMin=mks.length?Math.min(...mks):0.9;
+    return HC_TIERS.some(t=>m.probs[L]>=t.p&&r>=t.r&&mkMin>=t.mk)?L:null}
   function hilltopCall(race){
     if(race.called!=null)return null;
     const now=hcCheck(race);if(now==null)return null;
     const sn=(race.snaps||[]).slice().sort((a,b)=>a.t-b.t);
     if(sn.length>=2){const prev=hcCheck(race,sn[sn.length-2]);if(prev!==now)return null}
-    const [k,pm]=mkP(race);const lp=x=>x==null?null:(now===0?x:1-x);
-    for(const x of [lp(k),lp(pm)])if(x!=null&&x<HC.mk)return null;
     return now;
   }
   function raceTable(race,sec){
