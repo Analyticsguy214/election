@@ -291,6 +291,41 @@
     const ot=Math.max((MK&&MK.updatedAt)||0);if(ot)h+=` · <b>Odds</b> ${ago(ot)}`;
     if(lastCheck)h+=` · <span class="muted">checked ${ago(lastCheck)}</span>`;$("fresh").innerHTML=h;
   }
+  // ---------- Texas Legislature control ----------
+  // State Senate seats not on the 2026 ballot (holdovers), by party of the sitting senator
+  const SEN_HOLD={D:[6,14,15,16,20,23,27,29],R:[7,8,10,12,17,25,30]};
+  function renderLeg(){
+    const box=$("legHouse");if(!box)return;const L=LIVE&&LIVE.leg;
+    const pl=LIVE&&LIVE.polling;const done=pl&&pl.PLT?pl.PLR/pl.PLT:0;
+    $("legNote").textContent=L?(pl&&pl.PLT?`${Math.round(done*100)}% of polling places reporting`:""):"Results appear when counties report";
+    const chamber=(key,title,total,need,hold)=>{
+      const races=(L&&L[key])||{};const seats=[];let wD=0,wR=0,lD=0,lR=0,hD=0,hR=0,none=0;
+      for(let d=1;d<=total;d++){
+        const r=races[d];
+        if(!r){const hp=hold&&(hold.D.includes(d)?"D":hold.R.includes(d)?"R":null);if(hp){hp==="D"?hD++:hR++;seats.push({d,p:hp,st:"hold"})}else{none++;seats.push({d,p:null,st:"none"})}continue}
+        const c=r.c||[];const a=c[0],b=c.find((x,i)=>i>0&&x.p!==a.p)||c[1];const t=r.t||c.reduce((s,x)=>s+x.v,0);
+        const opp=c.filter(x=>x.p==="D"||x.p==="R");const unc=opp.length<2&&a&&(a.p==="D"||a.p==="R");
+        if(!a||(!t&&!unc)){none++;seats.push({d,p:null,st:"none",r});continue}
+        const mg=t&&b?(a.v-b.v)/t*100:100;const won=unc||(done>=0.98&&mg>=2);
+        if(a.p==="D")won?wD++:lD++;else if(a.p==="R")won?wR++:lR++;
+        seats.push({d,p:a.p,st:unc?"unc":won?"won":"lead",mg,a,b,t})
+      }
+      const D=wD+lD+hD,R=wR+lR+hR;
+      const w=x=>(x/total*100).toFixed(2)+"%";
+      const ctl=D>=need?`<strong style="color:var(--dem)">Democrats</strong> on track for control`:R>=need?`<strong style="color:var(--rep)">Republicans</strong> on track for control`:"Too early to tell";
+      const tile=s=>{const col=s.p==="D"?"var(--dem)":s.p==="R"?"var(--rep)":"var(--neutral-2,#c9ccd6)";
+        const op=s.st==="lead"?Math.max(.35,Math.min(.85,.35+(s.mg||0)/40)):1;
+        const tt=s.st==="hold"?`District ${s.d}: not on the ballot (${s.p==="D"?"Democrat":"Republican"} holds over)`:s.st==="none"?`District ${s.d}: no results yet`:`District ${s.d}: ${esc(s.a.n)} (${s.a.p}) ${s.st==="unc"?"unopposed":(s.t?(s.a.v/s.t*100).toFixed(1)+"%":"")+(s.b?" vs "+esc(s.b.n)+" ("+s.b.p+") "+(s.b.v/s.t*100).toFixed(1)+"%":"")+(s.st==="won"?" · all in":" · leading")}`;
+        return`<i class="lt lt-${s.st}" style="background:${col};opacity:${op}" title="${tt}"><span>${s.d}</span></i>`};
+      return`<h3>${title}</h3><div class="leg-nums"><div><b style="color:var(--dem)">${D}</b><span>Democrats</span></div><div class="leg-need">${need} for majority<br>${ctl}</div><div><b style="color:var(--rep)">${R}</b><span>Republicans</span></div></div>
+        <div class="leg-bar" role="img" aria-label="${title}: Democrats ${D}, Republicans ${R}, ${none} not yet reporting"><i style="width:${w(wD+hD)};background:var(--dem)"></i><i style="width:${w(lD)};background:var(--dem);opacity:.5"></i><i style="flex:1"></i><i style="width:${w(lR)};background:var(--rep);opacity:.5"></i><i style="width:${w(wR+hR)};background:var(--rep)"></i><span class="mk" style="left:${(need/total*100).toFixed(2)}%"></span></div>
+        <div class="leg-sub">Won or unopposed: D ${wD} · R ${wR}${hold?` · Not up this year: D ${hD} · R ${hR}`:""} · Leading: D ${lD} · R ${lR}${none?` · No results: ${none}`:""}</div>
+        <div class="leg-tiles leg-${key}">${seats.map(tile).join("")}</div>`;
+    };
+    box.innerHTML=chamber("house","Texas House",150,76,null);
+    $("legSenate").innerHTML=chamber("senate","Texas Senate",31,16,SEN_HOLD);
+    $("legFoot").textContent="Each square is a district, numbered. Solid squares are races with every polling place in (and a margin of 2+ points), unopposed candidates, or Senate seats not on this year's ballot; faded squares are current leads and grow darker as the lead widens. Counts are unofficial Texas Secretary of State results. No outlet has called these races; the lieutenant governor breaks ties in the Senate.";
+  }
   // ---------- Election Day turnout tracker ----------
   function renderEDay(){
     const T=$("edayT");if(!T||!GEO)return;
@@ -323,7 +358,7 @@
   function renderAll(){
     if(!races.length)return;A={};STATEWIDE.concat(HOUSE).forEach(id=>{const r=R(id);if(r)A[id]=analyze(r)});
     if(!A[sel])sel="sen-tx";const a=A[sel];
-    renderStrip(A);renderList(A);renderPanel(a);renderMap(a);renderVotesLeft(a);renderFresh();try{renderEDay()}catch(e){console.error(e)}
+    renderStrip(A);renderList(A);renderPanel(a);renderMap(a);renderVotesLeft(a);renderFresh();try{renderEDay()}catch(e){console.error(e)}try{renderLeg()}catch(e){console.error(e)}
     const src=$("sources");if(meta&&meta.sources){src.innerHTML="";[{title:"Texas Secretary of State election night results",url:"https://goelect.txelections.civixapps.com/ivis-enr-ui/races"}].concat(meta.sources).forEach(s=>{const li=document.createElement("li");const x=document.createElement("a");x.href=s.url;x.target="_blank";x.rel="noopener";x.textContent=s.title;li.appendChild(x);src.appendChild(li)})}
   }
   document.addEventListener("click",e=>{if(!e.target.closest("#rpShare")||!window.HEDcard)return;const a=A[sel];if(!a)return;const race={...a.race,votes:a.counted||null,r:a.frac||0};
