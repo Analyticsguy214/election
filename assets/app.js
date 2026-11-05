@@ -521,14 +521,18 @@
     const title=r.id==="sen-tx"?"Texas U.S. Senate":r.id==="tx-gov"?"Texas Governor":r.groups.includes("texas")?"Texas "+r.title:r.groups.includes("senate")?r.title+" Senate":r.groups.includes("governor")?r.title+" Governor":r.title;
     window.HEDcard.openRace(r,{kicker:grp+" · 2026",title,chance:m.probs?m.probs[0]:null,note:m.mode==="pre"?"Pre-election chance to win from the Hilltop forecast (Decision Desk HQ, ratings, Kalshi and Polymarket).":m.mode==="live"?"Win chance from the Hilltop live model: "+last((m.probs[0]>=.5?r.cands[0]:r.cands[1]).n)+" "+pct(Math.max(m.probs[0],1-m.probs[0]))+".":null})});
   // ---------- votes coming in (all AP races) ----------
-  let vinTab="all",vinAll=false;
+  let vinTab="all",vinAll=false,vinSt="open",vinQ="";try{const s=localStorage.getItem("hed-vin");if(s)vinSt=s}catch(e){}
   function renderVotesIn(){
     const g=$("vinGrid");if(!g)return;const NL=window.HED_NL;const all=(NL&&NL.all)||[];
     const C={D:"var(--dem)",R:"var(--rep)",O:"var(--ind)"};
-    const cnt={all:all.length,S:0,G:0,H:0};all.forEach(x=>cnt[x.o]++);
+    const stOK=x=>vinSt==="all"||(vinSt==="open"?!x.won:!!x.won);const q=vinQ.trim().toUpperCase().replace(/[^A-Z0-9-]/g,"");
+    const nOpen=all.filter(x=>!x.won).length,nCalled=all.length-nOpen;
+    $("vinStat").innerHTML=[["open","Still counting",nOpen],["called","Called",nCalled],["all","All",all.length]].map(([k,n,c])=>`<button type="button" data-vinst="${k}" aria-pressed="${vinSt===k}">${n} <span>${c}</span></button>`).join("");
+    const cnt={all:0,S:0,G:0,H:0};all.filter(stOK).forEach(x=>{cnt.all++;cnt[x.o]++});
     $("vinTabs").innerHTML=[["all","All"],["S","Senate"],["G","Governor"],["H","House"]].map(([k,n])=>`<button type="button" role="tab" data-vin="${k}" aria-selected="${vinTab===k}">${n} <span>${cnt[k]}</span></button>`).join("");
-    let xs=all.filter(x=>vinTab==="all"||x.o===vinTab).filter(x=>!x.unc||x.tot>0);
-    const ord={S:0,G:1,H:2};xs.sort((a,b)=>(ord[a.o]-ord[b.o])||((b.r||0)-(a.r||0))||(b.tot-a.tot));
+        let xs=all.filter(x=>vinTab==="all"||x.o===vinTab).filter(x=>!x.unc||x.tot>0).filter(stOK).filter(x=>!q||x.st===q||x.label.toUpperCase().replace(/[^A-Z0-9-]/g,"").startsWith(q));
+    const ord={S:0,G:1,H:2};const gap=x=>{const [p,q]=x.cs;return x.tot&&p&&q?(p.v-q.v)/x.tot:1};xs.sort(vinSt==="open"?(a,b)=>(ord[a.o]-ord[b.o])||(gap(a)-gap(b)):(a,b)=>(ord[a.o]-ord[b.o])||((b.r||0)-(a.r||0))||(b.tot-a.tot));
+    if(all.length&&!xs.length){g.innerHTML=`<p class="vin-empty">${vinSt==="open"?"Every race here has been called.":"No races match."}</p>`;$("vinMore").hidden=true;return}
     if(!all.length){g.innerHTML=`<p class="vin-empty">${NL&&NL.direct?"No votes reported yet. The first polls close at 5 p.m. CT in parts of Indiana and Kentucky; counts appear here within 30 seconds of the AP posting them.":"Waiting for the AP feed…"}</p>`;$("vinMore").hidden=true;return}
     const lim=vinAll?xs.length:24;
     g.innerHTML=xs.slice(0,lim).map(x=>{const [a,b]=x.cs;const tot=x.tot||1;const sa=a?a.v/tot*100:0,sb=b?b.v/tot*100:0;
@@ -536,7 +540,8 @@
       return`<div class="vin-c"><div class="vin-h"><span>${esc(x.label)}</span><span>${st}</span></div>${[a,b].filter(Boolean).map((c,i)=>`<div class="vin-r"><i style="background:${C[c.p]}"></i><span class="nm">${esc(c.ln)}</span><span class="pc">${(i?sb:sa).toFixed(1)}%</span><span class="vv">${c.v.toLocaleString("en-US")}</span></div>`).join("")}<div class="vin-b"><i style="width:${sa}%;background:${a?C[a.p]:"transparent"}"></i><i style="flex:1"></i><i style="width:${sb}%;background:${b?C[b.p]:"transparent"}"></i></div></div>`}).join("");
     const m=$("vinMore");m.hidden=xs.length<=24;m.textContent=vinAll?"Show fewer":`Show all ${xs.length}`;
   }
-  document.addEventListener("click",e=>{const b=e.target.closest("[data-vin]");if(b){vinTab=b.dataset.vin;vinAll=false;renderVotesIn();return}if(e.target.closest("#vinMore")){vinAll=!vinAll;renderVotesIn()}});
+  document.addEventListener("input",e=>{if(e.target.id==="vinQ"){vinQ=e.target.value;vinAll=false;renderVotesIn()}});
+  document.addEventListener("click",e=>{const s=e.target.closest("[data-vinst]");if(s){vinSt=s.dataset.vinst;vinAll=false;try{localStorage.setItem("hed-vin",vinSt)}catch(x){}renderVotesIn();return}const b=e.target.closest("[data-vin]");if(b){vinTab=b.dataset.vin;vinAll=false;renderVotesIn();return}if(e.target.closest("#vinMore")){vinAll=!vinAll;renderVotesIn()}});
   function renderAll(){setTimeout(()=>window.HEDfollowSync&&window.HEDfollowSync(),0);renderStatus();renderRail();try{renderVotesIn()}catch(e){console.error(e)}renderPolls();renderBop();renderOutcomes();renderProj();renderEV();renderCounties();renderMap();renderSections();renderChart()}
   document.querySelectorAll("nav.sections button").forEach(t=>t.addEventListener("click",()=>{group=t.dataset.g;try{localStorage.setItem("hed-tab",group)}catch(e){}renderSections();document.getElementById("sections").scrollIntoView({behavior:"smooth",block:"start"})}));
   setInterval(renderStatus,30000);

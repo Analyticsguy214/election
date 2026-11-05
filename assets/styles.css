@@ -376,3 +376,13 @@ footer.site summary{cursor:pointer;color:#fff;font-weight:600;font-size:13px}
 .vin-b i{display:block;height:100%}
 .vin-empty{color:var(--fg-2);font-size:14px;margin:4px 0 0}
 .vin-more{margin-top:10px;background:none;border:1px solid var(--rule);color:var(--fg);font:700 13px var(--f-sans);padding:7px 14px;cursor:pointer}
+
+.vin-bar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;margin-bottom:8px}
+.vin-stat{display:flex;border:1px solid var(--fg)}
+.vin-stat button{background:var(--bg);color:var(--fg);border:0;border-right:1px solid var(--fg);font:700 13px var(--f-sans);padding:7px 12px;cursor:pointer}
+.vin-stat button:last-child{border-right:0}
+.vin-stat button span{font-weight:600;color:var(--muted);margin-left:4px}
+.vin-stat button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.vin-stat button[aria-pressed="true"] span{color:inherit;opacity:.7}
+.vin-q{flex:1 1 200px;max-width:280px;font:500 14px var(--f-sans);padding:7px 10px;border:1px solid var(--rule);background:var(--bg);color:var(--fg)}
+@media (max-width:520px){.vin-q{max-width:none}}
