@@ -1,5 +1,5 @@
 {
- "updatedAt": 1794916656808,
+ "updatedAt": 1794916811629,
  "control": {
   "senate": {
    "kalshi": {
@@ -256,7 +256,7 @@
     "src": "SENATENE-26"
    },
    "polymarket": {
-    "R": 0.013,
+    "R": 0.0125,
     "I": 0.019,
     "D": 0.5,
     "src": "nebraska-senate-margin-of-victory-2026"
@@ -329,7 +329,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0005,
-    "D": 0.005,
+    "D": 0.0045,
     "src": "tx-24-house-margin-of-victory-2026"
    }
   },
@@ -337,7 +337,7 @@
    "kalshi": null,
    "polymarket": {
     "D": 0.0025,
-    "R": 0.03,
+    "R": 0.031,
     "src": "tx-30-house-margin-of-victory-2026"
    }
   },
@@ -461,14 +461,14 @@
    "kalshi": null,
    "polymarket": {
     "D": 0.061,
-    "R": 0.1305,
+    "R": 0.1285,
     "src": "ca-48-house-margin-of-victory-2026"
    }
   },
   "h-co-04": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.01,
+    "R": 0.0085,
     "D": 0.0045,
     "src": "co-04-house-margin-of-victory-2026"
    }
@@ -517,7 +517,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0135,
-    "D": 0.0155,
+    "D": 0.012,
     "src": "fl-25-house-margin-of-victory-2026"
    }
   },
@@ -605,7 +605,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0005,
-    "D": 0.03,
+    "D": 0.0325,
     "src": "mt-01-house-margin-of-victory-2026"
    }
   },
@@ -628,9 +628,9 @@
   "h-nm-02": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.0055,
-    "R": 0.004,
-    "src": "nm-02-house-margin-of-victory-2026"
+    "R": 0.0075,
+    "D": 0.2215,
+    "src": "new-mexico-governor-margin-of-victory-2026"
    }
   },
   "h-ny-17": {
@@ -773,7 +773,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.011,
-    "D": 0.048,
+    "D": 0.046,
     "src": "va-01-house-margin-of-victory-2026"
    }
   },
@@ -811,13 +811,6 @@
   }
  },
  "history": [
-  {
-   "t": 1794619223735,
-   "sk": 0.999,
-   "sp": 0.015,
-   "hk": 0.999,
-   "hp": 0.775
-  },
   {
    "t": 1794619366859,
    "sk": 0.999,
@@ -14810,6 +14803,13 @@
    "sp": 0.88,
    "hk": 0.999,
    "hp": 0.775
+  },
+  {
+   "t": 1794916811629,
+   "sk": 0.999,
+   "sp": 0.88,
+   "hk": 0.999,
+   "hp": 0.775
   }
  ],
  "outside": {
@@ -14859,6 +14859,12 @@
   "kalshi miss events HOUSETX32-26 404 https://api.elections.kalshi.com/trade-api/v2/events/HOUSETX32-26?with_nested_markets=true",
   "kalshi miss events HOUSETX33-26 404 https://api.elections.kalshi.com/trade-api/v2/events/HOUSETX33-26?with_nested_markets=true",
   "kalshi miss events KXHOUSETX33-26 404 https://api.elections.kalshi.com/trade-api/v2/events/KXHOUSETX33-26?with_nested_markets=true",
-  "poly miss OH-09 House Election Winner 503 https://gamma-api.polymarket.com/public-search?q=OH-09%20House%20Election%20Winner&limit_per_type=8&events_status=active"
+  "poly miss CO-05 House Election Winner 503 https://gamma-api.polymarket.com/public-search?q=CO-05%20House%20Election%20Winner&limit_per_type=8&events_status=active",
+  "poly miss MI-10 House Election Winner 503 https://gamma-api.polymarket.com/public-search?q=MI-10%20House%20Election%20Winner&limit_per_type=8&events_status=active",
+  "poly miss NM-02 House Election Winner 503 https://gamma-api.polymarket.com/public-search?q=NM-02%20House%20Election%20Winner&limit_per_type=8&events_status=active",
+  "poly miss OH-07 House Election Winner 503 https://gamma-api.polymarket.com/public-search?q=OH-07%20House%20Election%20Winner&limit_per_type=8&events_status=active",
+  "poly miss OH-09 House Election Winner 503 https://gamma-api.polymarket.com/public-search?q=OH-09%20House%20Election%20Winner&limit_per_type=8&events_status=active",
+  "poly miss Ohio 9 congressional district 2026 503 https://gamma-api.polymarket.com/public-search?q=Ohio%209%20congressional%20district%202026&limit_per_type=8&events_status=active",
+  "poly miss WI-01 House Election Winner 503 https://gamma-api.polymarket.com/public-search?q=WI-01%20House%20Election%20Winner&limit_per_type=8&events_status=active"
  ]
 }
