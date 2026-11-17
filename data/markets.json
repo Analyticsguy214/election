@@ -1,5 +1,5 @@
 {
- "updatedAt": 1794917432934,
+ "updatedAt": 1794917588618,
  "control": {
   "senate": {
    "kalshi": {
@@ -207,7 +207,7 @@
     "src": "SENATEME-26"
    },
    "polymarket": {
-    "R": 0.107,
+    "R": 0.1065,
     "D": 0.0005,
     "src": "maine-senate-election-margin-of-victory-first-round-20260804181547915"
    }
@@ -219,9 +219,9 @@
     "src": "SENATEMI-26"
    },
    "polymarket": {
-    "R": 0.0015,
-    "D": 0.0035,
-    "src": "michigan-senate-margin-of-victory-2026"
+    "D": 0.0725,
+    "R": 0.98,
+    "src": "michigan-senate-election-macomb-county-winner"
    }
   },
   "sen-mn": {
@@ -256,8 +256,8 @@
     "src": "SENATENE-26"
    },
    "polymarket": {
-    "R": 0.0105,
-    "I": 0.018,
+    "R": 0.0095,
+    "I": 0.0175,
     "D": 0.5,
     "src": "nebraska-senate-margin-of-victory-2026"
    }
@@ -329,7 +329,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0005,
-    "D": 0.0035,
+    "D": 0.0045,
     "src": "tx-24-house-margin-of-victory-2026"
    }
   },
@@ -337,7 +337,7 @@
    "kalshi": null,
    "polymarket": {
     "D": 0.0025,
-    "R": 0.0325,
+    "R": 0.045,
     "src": "tx-30-house-margin-of-victory-2026"
    }
   },
@@ -452,23 +452,23 @@
   "h-ca-22": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.4085,
-    "R": 0.0515,
+    "D": 0.4075,
+    "R": 0.052,
     "src": "ca-22-house-margin-of-victory-2026"
    }
   },
   "h-ca-48": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.06,
-    "R": 0.1245,
+    "D": 0.0595,
+    "R": 0.123,
     "src": "ca-48-house-margin-of-victory-2026"
    }
   },
   "h-co-04": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.0055,
+    "R": 0.0025,
     "D": 0.0045,
     "src": "co-04-house-margin-of-victory-2026"
    }
@@ -516,8 +516,8 @@
   "h-fl-25": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.0135,
-    "D": 0.014,
+    "R": 0.006,
+    "D": 0.012,
     "src": "fl-25-house-margin-of-victory-2026"
    }
   },
@@ -605,7 +605,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0005,
-    "D": 0.0285,
+    "D": 0.03,
     "src": "mt-01-house-margin-of-victory-2026"
    }
   },
@@ -620,7 +620,7 @@
   "h-nj-07": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.0015,
+    "D": 0.001,
     "R": 0.0005,
     "src": "nj-07-house-margin-of-victory-2026"
    }
@@ -628,9 +628,9 @@
   "h-nm-02": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.005,
-    "D": 0.2215,
-    "src": "new-mexico-governor-margin-of-victory-2026"
+    "D": 0.0055,
+    "R": 0.004,
+    "src": "nm-02-house-margin-of-victory-2026"
    }
   },
   "h-ny-17": {
@@ -644,7 +644,7 @@
   "h-ny-21": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.595,
+    "R": 0.605,
     "D": 0.1015,
     "src": "ny-21-house-margin-of-victory-2026"
    }
@@ -652,7 +652,7 @@
   "h-nc-01": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.0085,
+    "R": 0.008,
     "D": 0.0635,
     "src": "nc-01-house-margin-of-victory-2026"
    }
@@ -685,7 +685,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.028,
-    "D": 0.042,
+    "D": 0.0415,
     "src": "oh-10-house-margin-of-victory-2026"
    }
   },
@@ -773,7 +773,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.011,
-    "D": 0.044,
+    "D": 0.039,
     "src": "va-01-house-margin-of-victory-2026"
    }
   },
@@ -797,7 +797,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0075,
-    "D": 0.176,
+    "D": 0.167,
     "src": "wi-01-house-margin-of-victory-2026"
    }
   },
@@ -811,13 +811,6 @@
   }
  },
  "history": [
-  {
-   "t": 1794619939341,
-   "sk": 0.999,
-   "sp": 0.015,
-   "hk": 0.999,
-   "hp": 0.775
-  },
   {
    "t": 1794620082155,
    "sk": 0.999,
@@ -14810,6 +14803,13 @@
    "sp": 0.88,
    "hk": 0.999,
    "hp": 0.775
+  },
+  {
+   "t": 1794917588618,
+   "sk": 0.999,
+   "sp": 0.88,
+   "hk": 0.999,
+   "hp": 0.775
   }
  ],
  "outside": {
@@ -14838,7 +14838,6 @@
   }
  },
  "errors": [
-  "poly miss Which party will win the Senate in 2026 503 https://gamma-api.polymarket.com/public-search?q=Which%20party%20will%20win%20the%20Senate%20in%202026&limit_per_type=8&events_status=active",
   "kalshi miss events GOVPARTYKS-26 404 https://api.elections.kalshi.com/trade-api/v2/events/GOVPARTYKS-26?with_nested_markets=true",
   "kalshi miss events KXGOVPARTYKS-26 404 https://api.elections.kalshi.com/trade-api/v2/events/KXGOVPARTYKS-26?with_nested_markets=true",
   "kalshi miss events KXGOVKS-26 404 https://api.elections.kalshi.com/trade-api/v2/events/KXGOVKS-26?with_nested_markets=true",
@@ -14847,12 +14846,10 @@
   "kalshi miss events KXGOVNH-26 404 https://api.elections.kalshi.com/trade-api/v2/events/KXGOVNH-26?with_nested_markets=true",
   "kalshi miss events SENATEFL-26 404 https://api.elections.kalshi.com/trade-api/v2/events/SENATEFL-26?with_nested_markets=true",
   "kalshi miss events KXSENATEFL-26 404 https://api.elections.kalshi.com/trade-api/v2/events/KXSENATEFL-26?with_nested_markets=true",
-  "poly miss Michigan Senate Election Winner 503 https://gamma-api.polymarket.com/public-search?q=Michigan%20Senate%20Election%20Winner&limit_per_type=8&events_status=active",
   "kalshi miss events SENATEOH-26 404 https://api.elections.kalshi.com/trade-api/v2/events/SENATEOH-26?with_nested_markets=true",
   "kalshi miss events KXSENATEOH-26 404 https://api.elections.kalshi.com/trade-api/v2/events/KXSENATEOH-26?with_nested_markets=true",
   "kalshi miss events HOUSETX5-26 404 https://api.elections.kalshi.com/trade-api/v2/events/HOUSETX5-26?with_nested_markets=true",
   "kalshi miss events KXHOUSETX5-26 404 https://api.elections.kalshi.com/trade-api/v2/events/KXHOUSETX5-26?with_nested_markets=true",
-  "poly miss TX-05 House Election Winner 503 https://gamma-api.polymarket.com/public-search?q=TX-05%20House%20Election%20Winner&limit_per_type=8&events_status=active",
   "kalshi miss events HOUSETX6-26 404 https://api.elections.kalshi.com/trade-api/v2/events/HOUSETX6-26?with_nested_markets=true",
   "kalshi miss events KXHOUSETX6-26 404 https://api.elections.kalshi.com/trade-api/v2/events/KXHOUSETX6-26?with_nested_markets=true",
   "kalshi miss events HOUSETX24-26 404 https://api.elections.kalshi.com/trade-api/v2/events/HOUSETX24-26?with_nested_markets=true",
@@ -14861,19 +14858,6 @@
   "kalshi miss events KXHOUSETX30-26 404 https://api.elections.kalshi.com/trade-api/v2/events/KXHOUSETX30-26?with_nested_markets=true",
   "kalshi miss events HOUSETX32-26 404 https://api.elections.kalshi.com/trade-api/v2/events/HOUSETX32-26?with_nested_markets=true",
   "kalshi miss events HOUSETX33-26 404 https://api.elections.kalshi.com/trade-api/v2/events/HOUSETX33-26?with_nested_markets=true",
-  "kalshi miss events KXHOUSETX33-26 404 https://api.elections.kalshi.com/trade-api/v2/events/KXHOUSETX33-26?with_nested_markets=true",
-  "poly miss Texas Comptroller 2026 503 https://gamma-api.polymarket.com/public-search?q=Texas%20Comptroller%202026&limit_per_type=8&events_status=active",
-  "poly miss Texas Lieutenant Governor 2026 503 https://gamma-api.polymarket.com/public-search?q=Texas%20Lieutenant%20Governor%202026&limit_per_type=8&events_status=active",
-  "poly miss AK-AL House Election Winner 503 https://gamma-api.polymarket.com/public-search?q=AK-AL%20House%20Election%20Winner&limit_per_type=8&events_status=active",
-  "poly miss Alaska at-large House Election Winner 503 https://gamma-api.polymarket.com/public-search?q=Alaska%20at-large%20House%20Election%20Winner&limit_per_type=8&events_status=active",
-  "poly miss CO-04 House Election Winner 503 https://gamma-api.polymarket.com/public-search?q=CO-04%20House%20Election%20Winner&limit_per_type=8&events_status=active",
-  "poly miss MI-04 House Election Winner 503 https://gamma-api.polymarket.com/public-search?q=MI-04%20House%20Election%20Winner&limit_per_type=8&events_status=active",
-  "poly miss MI-10 House Election Winner 503 https://gamma-api.polymarket.com/public-search?q=MI-10%20House%20Election%20Winner&limit_per_type=8&events_status=active",
-  "poly miss MT-01 House Election Winner 503 https://gamma-api.polymarket.com/public-search?q=MT-01%20House%20Election%20Winner&limit_per_type=8&events_status=active",
-  "poly miss Montana 1 congressional district 2026 503 https://gamma-api.polymarket.com/public-search?q=Montana%201%20congressional%20district%202026&limit_per_type=8&events_status=active",
-  "poly miss NM-02 House Election Winner 503 https://gamma-api.polymarket.com/public-search?q=NM-02%20House%20Election%20Winner&limit_per_type=8&events_status=active",
-  "poly miss SC-01 House Election Winner 503 https://gamma-api.polymarket.com/public-search?q=SC-01%20House%20Election%20Winner&limit_per_type=8&events_status=active",
-  "poly miss VA-01 House Election Winner 503 https://gamma-api.polymarket.com/public-search?q=VA-01%20House%20Election%20Winner&limit_per_type=8&events_status=active",
-  "poly miss VA-02 House Election Winner 503 https://gamma-api.polymarket.com/public-search?q=VA-02%20House%20Election%20Winner&limit_per_type=8&events_status=active"
+  "kalshi miss events KXHOUSETX33-26 404 https://api.elections.kalshi.com/trade-api/v2/events/KXHOUSETX33-26?with_nested_markets=true"
  ]
 }
