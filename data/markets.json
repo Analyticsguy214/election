@@ -1,5 +1,5 @@
 {
- "updatedAt": 1795092536519,
+ "updatedAt": 1795092692111,
  "control": {
   "senate": {
    "kalshi": {
@@ -71,7 +71,7 @@
    },
    "polymarket": {
     "R": 0.002,
-    "D": 0.044,
+    "D": 0.022,
     "src": "iowa-governor-margin-of-victory-2026"
    }
   },
@@ -184,7 +184,7 @@
    },
    "polymarket": {
     "R": 0.0005,
-    "D": 0.0475,
+    "D": 0.0395,
     "src": "iowa-senate-margin-of-victory-2026"
    }
   },
@@ -207,7 +207,7 @@
     "src": "SENATEME-26"
    },
    "polymarket": {
-    "R": 0.033,
+    "R": 0.0325,
     "D": 0.0005,
     "src": "maine-senate-election-margin-of-victory-first-round-20260804181547915"
    }
@@ -257,7 +257,7 @@
    },
    "polymarket": {
     "R": 0.0445,
-    "I": 0.002,
+    "I": 0.0015,
     "D": 0.5,
     "src": "nebraska-senate-margin-of-victory-2026"
    }
@@ -320,7 +320,7 @@
   "tx-06": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.714,
+    "R": 0.716,
     "D": 0.002,
     "src": "tx-06-house-margin-of-victory-2026"
    }
@@ -427,7 +427,7 @@
   "h-az-01": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.2725,
+    "D": 0.2695,
     "R": 0.0005,
     "src": "az-01-house-margin-of-victory-2026"
    }
@@ -436,7 +436,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.819,
-    "D": 0.1085,
+    "D": 0.057,
     "src": "az-02-house-margin-of-victory-2026"
    }
   },
@@ -459,7 +459,7 @@
   "h-ca-48": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.0495,
+    "D": 0.049,
     "R": 0.09,
     "src": "ca-48-house-margin-of-victory-2026"
    }
@@ -476,7 +476,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0135,
-    "D": 0.1575,
+    "D": 0.1125,
     "src": "co-05-house-margin-of-victory-2026"
    }
   },
@@ -582,7 +582,7 @@
   "h-mi-10": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.01,
+    "D": 0.0125,
     "R": 0.0165,
     "src": "mi-10-house-margin-of-victory-2026"
    }
@@ -599,7 +599,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0005,
-    "D": 0.16,
+    "D": 0.206,
     "src": "mt-01-house-margin-of-victory-2026"
    }
   },
@@ -622,7 +622,7 @@
   "h-nm-02": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.007,
+    "D": 0.008,
     "R": 0.009,
     "src": "nm-02-house-margin-of-victory-2026"
    }
@@ -647,7 +647,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.041,
-    "D": 0.0525,
+    "D": 0.052,
     "src": "nc-01-house-margin-of-victory-2026"
    }
   },
@@ -655,7 +655,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.002,
-    "D": 0.5615,
+    "D": 0.6225,
     "src": "nc-11-house-margin-of-victory-2026"
    }
   },
@@ -678,7 +678,7 @@
   "h-oh-10": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.0045,
+    "R": 0.0055,
     "D": 0.004,
     "src": "oh-10-house-margin-of-victory-2026"
    }
@@ -687,7 +687,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0235,
-    "D": 0.9765,
+    "D": 0.976,
     "src": "oh-15-house-margin-of-victory-2026"
    }
   },
@@ -695,7 +695,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.004,
-    "D": 0.004,
+    "D": 0.003,
     "src": "pa-01-house-margin-of-victory-2026"
    }
   },
@@ -766,8 +766,8 @@
   "h-va-01": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.1305,
-    "D": 0.2905,
+    "R": 0.13,
+    "D": 0.2775,
     "src": "va-01-house-margin-of-victory-2026"
    }
   },
@@ -799,19 +799,12 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0025,
-    "D": 0.444,
+    "D": 0.442,
     "src": "wi-03-house-margin-of-victory-2026"
    }
   }
  },
  "history": [
-  {
-   "t": 1794793236818,
-   "sk": 0.999,
-   "sp": 0.015,
-   "hk": 0.999,
-   "hp": 0.775
-  },
   {
    "t": 1794793390436,
    "sk": 0.999,
@@ -14800,6 +14793,13 @@
   },
   {
    "t": 1795092536519,
+   "sk": 0.999,
+   "sp": 0.88,
+   "hk": 0.999,
+   "hp": 0.775
+  },
+  {
+   "t": 1795092692111,
    "sk": 0.999,
    "sp": 0.88,
    "hk": 0.999,
