@@ -1,5 +1,5 @@
 {
- "updatedAt": 1795059156826,
+ "updatedAt": 1795059313296,
  "control": {
   "senate": {
    "kalshi": {
@@ -184,7 +184,7 @@
    },
    "polymarket": {
     "R": 0.0005,
-    "D": 0.051,
+    "D": 0.0505,
     "src": "iowa-senate-margin-of-victory-2026"
    }
   },
@@ -207,7 +207,7 @@
     "src": "SENATEME-26"
    },
    "polymarket": {
-    "R": 0.139,
+    "R": 0.1315,
     "D": 0.0005,
     "src": "maine-senate-election-margin-of-victory-first-round-20260804181547915"
    }
@@ -244,7 +244,7 @@
    },
    "polymarket": {
     "R": 0.0005,
-    "D": 0.9765,
+    "D": 0.9865,
     "src": "north-carolina-senate-margin-of-victory-2026"
    }
   },
@@ -256,8 +256,8 @@
     "src": "SENATENE-26"
    },
    "polymarket": {
-    "R": 0.0015,
-    "I": 0.007,
+    "R": 0.001,
+    "I": 0.0065,
     "D": 0.5,
     "src": "nebraska-senate-margin-of-victory-2026"
    }
@@ -420,7 +420,7 @@
   "h-al-02": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.0095,
+    "R": 0.009,
     "D": 0.992,
     "src": "al-02-house-margin-of-victory-2026"
    }
@@ -428,7 +428,7 @@
   "h-az-01": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.3175,
+    "D": 0.444,
     "R": 0.0005,
     "src": "az-01-house-margin-of-victory-2026"
    }
@@ -437,7 +437,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.819,
-    "D": 0.156,
+    "D": 0.0665,
     "src": "az-02-house-margin-of-victory-2026"
    }
   },
@@ -452,15 +452,15 @@
   "h-ca-22": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.416,
-    "R": 0.4175,
+    "D": 0.415,
+    "R": 0.4165,
     "src": "ca-22-house-margin-of-victory-2026"
    }
   },
   "h-ca-48": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.122,
+    "D": 0.1205,
     "R": 0.1035,
     "src": "ca-48-house-margin-of-victory-2026"
    }
@@ -477,7 +477,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0135,
-    "D": 0.2225,
+    "D": 0.2095,
     "src": "co-05-house-margin-of-victory-2026"
    }
   },
@@ -527,7 +527,7 @@
   "h-ia-01": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.3775,
+    "D": 0.327,
     "R": 0.2035,
     "src": "ia-01-house-margin-of-victory-2026"
    }
@@ -615,7 +615,7 @@
   "h-nj-07": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.0015,
+    "D": 0.001,
     "R": 0.0005,
     "src": "nj-07-house-margin-of-victory-2026"
    }
@@ -623,7 +623,7 @@
   "h-nm-02": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.0125,
+    "D": 0.0205,
     "R": 0.009,
     "src": "nm-02-house-margin-of-victory-2026"
    }
@@ -647,7 +647,7 @@
   "h-nc-01": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.043,
+    "R": 0.0425,
     "D": 0.063,
     "src": "nc-01-house-margin-of-victory-2026"
    }
@@ -656,7 +656,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.002,
-    "D": 0.547,
+    "D": 0.583,
     "src": "nc-11-house-margin-of-victory-2026"
    }
   },
@@ -664,7 +664,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0005,
-    "D": 0.0005,
+    "D": 0.001,
     "src": "oh-07-house-margin-of-victory-2026"
    }
   },
@@ -680,14 +680,14 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0045,
-    "D": 0.007,
+    "D": 0.006,
     "src": "oh-10-house-margin-of-victory-2026"
    }
   },
   "h-oh-15": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.0285,
+    "R": 0.029,
     "D": 0.973,
     "src": "oh-15-house-margin-of-victory-2026"
    }
@@ -767,8 +767,8 @@
   "h-va-01": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.126,
-    "D": 0.3515,
+    "R": 0.1255,
+    "D": 0.347,
     "src": "va-01-house-margin-of-victory-2026"
    }
   },
@@ -800,19 +800,12 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0025,
-    "D": 0.452,
+    "D": 0.451,
     "src": "wi-03-house-margin-of-victory-2026"
    }
   }
  },
  "history": [
-  {
-   "t": 1794761360335,
-   "sk": 0.999,
-   "sp": 0.015,
-   "hk": 0.999,
-   "hp": 0.775
-  },
   {
    "t": 1794761502261,
    "sk": 0.999,
@@ -14801,6 +14794,13 @@
   },
   {
    "t": 1795059156826,
+   "sk": 0.999,
+   "sp": 0.88,
+   "hk": 0.999,
+   "hp": 0.775
+  },
+  {
+   "t": 1795059313296,
    "sk": 0.999,
    "sp": 0.88,
    "hk": 0.999,
