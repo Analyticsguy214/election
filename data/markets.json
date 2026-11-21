@@ -1,5 +1,5 @@
 {
- "updatedAt": 1795303397835,
+ "updatedAt": 1795303558648,
  "control": {
   "senate": {
    "kalshi": {
@@ -205,7 +205,7 @@
     "src": "SENATEME-26"
    },
    "polymarket": {
-    "R": 0.311,
+    "R": 0.2705,
     "D": 0.001,
     "src": "maine-senate-election-margin-of-victory-final-round"
    }
@@ -242,7 +242,7 @@
    },
    "polymarket": {
     "R": 0.0005,
-    "D": 0.9785,
+    "D": 0.9845,
     "src": "north-carolina-senate-margin-of-victory-2026"
    }
   },
@@ -254,7 +254,7 @@
     "src": "SENATENE-26"
    },
    "polymarket": {
-    "R": 0.0485,
+    "R": 0.044,
     "I": 0.027,
     "D": 0.5,
     "src": "nebraska-senate-margin-of-victory-2026"
@@ -310,7 +310,7 @@
   "tx-05": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.9435,
+    "R": 0.9455,
     "D": 0.0005,
     "src": "tx-05-house-margin-of-victory-2026"
    }
@@ -335,7 +335,7 @@
    "kalshi": null,
    "polymarket": {
     "D": 0.0025,
-    "R": 0.0395,
+    "R": 0.03,
     "src": "tx-30-house-margin-of-victory-2026"
    }
   },
@@ -383,7 +383,7 @@
    },
    "polymarket": {
     "R": 0.0005,
-    "D": 0.822,
+    "D": 0.827,
     "src": "texas-governor-margin-of-victory-2026"
    }
   },
@@ -433,8 +433,8 @@
   "h-az-02": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.8755,
-    "D": 0.059,
+    "R": 0.9435,
+    "D": 0.027,
     "src": "az-02-house-margin-of-victory-2026"
    }
   },
@@ -474,7 +474,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.2535,
-    "D": 0.248,
+    "D": 0.25,
     "src": "co-05-house-margin-of-victory-2026"
    }
   },
@@ -524,7 +524,7 @@
   "h-ia-01": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.3865,
+    "D": 0.3425,
     "R": 0.204,
     "src": "ia-01-house-margin-of-victory-2026"
    }
@@ -541,7 +541,7 @@
    "kalshi": null,
    "polymarket": {
     "D": 0.005,
-    "R": 0.0075,
+    "R": 0.0095,
     "src": "ia-03-house-margin-of-victory-2026"
    }
   },
@@ -581,15 +581,15 @@
    "kalshi": null,
    "polymarket": {
     "D": 0.0005,
-    "R": 0.003,
+    "R": 0.008,
     "src": "mi-10-house-margin-of-victory-2026"
    }
   },
   "h-mn-01": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.023,
-    "D": 0.979,
+    "R": 0.0235,
+    "D": 0.9795,
     "src": "mn-01-house-election-winner"
    }
   },
@@ -597,7 +597,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0005,
-    "D": 0.385,
+    "D": 0.3795,
     "src": "mt-01-house-margin-of-victory-2026"
    }
   },
@@ -629,7 +629,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0495,
-    "D": 0.023,
+    "D": 0.0145,
     "src": "ny-17-house-margin-of-victory-2026"
    }
   },
@@ -653,7 +653,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.002,
-    "D": 0.551,
+    "D": 0.555,
     "src": "nc-11-house-margin-of-victory-2026"
    }
   },
@@ -676,7 +676,7 @@
   "h-oh-10": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.0075,
+    "R": 0.007,
     "D": 0.005,
     "src": "oh-10-house-margin-of-victory-2026"
    }
@@ -709,7 +709,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0075,
-    "D": 0.4175,
+    "D": 0.4135,
     "src": "pa-08-house-margin-of-victory-2026"
    }
   },
@@ -733,7 +733,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.013,
-    "D": 0.5635,
+    "D": 0.5675,
     "src": "tx-15-house-margin-of-victory-2026"
    }
   },
@@ -757,7 +757,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0005,
-    "D": 0.0635,
+    "D": 0.064,
     "src": "tx-35-house-margin-of-victory-2026"
    }
   },
@@ -765,7 +765,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0275,
-    "D": 0.3945,
+    "D": 0.39,
     "src": "va-01-house-margin-of-victory-2026"
    }
   },
@@ -803,13 +803,6 @@
   }
  },
  "history": [
-  {
-   "t": 1794997484884,
-   "sk": 0.999,
-   "sp": 0.88,
-   "hk": 0.999,
-   "hp": 0.775
-  },
   {
    "t": 1794997636675,
    "sk": 0.999,
@@ -14798,6 +14791,13 @@
   },
   {
    "t": 1795303397835,
+   "sk": 0.999,
+   "sp": 0.88,
+   "hk": 0.999,
+   "hp": 0.775
+  },
+  {
+   "t": 1795303558648,
    "sk": 0.999,
    "sp": 0.88,
    "hk": 0.999,
