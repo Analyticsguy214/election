@@ -1,5 +1,5 @@
 {
- "updatedAt": 1795567134494,
+ "updatedAt": 1795567287069,
  "control": {
   "senate": {
    "kalshi": {
@@ -70,7 +70,7 @@
    },
    "polymarket": {
     "R": 0.002,
-    "D": 0.0215,
+    "D": 0.0105,
     "src": "iowa-governor-margin-of-victory-2026"
    }
   },
@@ -182,7 +182,7 @@
    },
    "polymarket": {
     "R": 0.0005,
-    "D": 0.0245,
+    "D": 0.0005,
     "src": "iowa-senate-margin-of-victory-2026"
    }
   },
@@ -194,7 +194,7 @@
    },
    "polymarket": {
     "D": 0.235,
-    "R": 0.555,
+    "R": 0.565,
     "src": "kansas-senate-election-leavenworth-county-winner"
    }
   },
@@ -252,7 +252,7 @@
     "src": "SENATENE-26"
    },
    "polymarket": {
-    "R": 0.0395,
+    "R": 0.0325,
     "I": 0.031,
     "D": 0.5,
     "src": "nebraska-senate-margin-of-victory-2026"
@@ -308,7 +308,7 @@
   "tx-05": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.941,
+    "R": 0.94,
     "D": 0.0005,
     "src": "tx-05-house-margin-of-victory-2026"
    }
@@ -344,7 +344,7 @@
     "src": "KXHOUSETX32-26"
    },
    "polymarket": {
-    "R": 0.5225,
+    "R": 0.5295,
     "D": 0.002,
     "src": "tx-32-house-margin-of-victory-2026"
    }
@@ -445,7 +445,7 @@
   "h-ca-22": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.0035,
+    "D": 0.002,
     "R": 0.002,
     "src": "ca-22-house-margin-of-victory-2026"
    }
@@ -453,7 +453,7 @@
   "h-ca-48": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.0335,
+    "D": 0.033,
     "R": 0.0025,
     "src": "ca-48-house-margin-of-victory-2026"
    }
@@ -461,7 +461,7 @@
   "h-co-04": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.049,
+    "R": 0.047,
     "D": 0.0045,
     "src": "co-04-house-margin-of-victory-2026"
    }
@@ -470,7 +470,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.026,
-    "D": 0.0235,
+    "D": 0.0215,
     "src": "co-05-house-margin-of-victory-2026"
    }
   },
@@ -520,15 +520,15 @@
   "h-ia-01": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.19,
-    "R": 0.031,
+    "D": 0.0005,
+    "R": 0.0005,
     "src": "ia-01-house-margin-of-victory-2026"
    }
   },
   "h-ia-02": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.0065,
+    "R": 0.0005,
     "D": 0.0005,
     "src": "ia-02-house-margin-of-victory-2026"
    }
@@ -536,8 +536,8 @@
   "h-ia-03": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.0045,
-    "R": 0.011,
+    "D": 0.0005,
+    "R": 0.0005,
     "src": "ia-03-house-margin-of-victory-2026"
    }
   },
@@ -589,7 +589,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0005,
-    "D": 0.3735,
+    "D": 0.3645,
     "src": "mt-01-house-margin-of-victory-2026"
    }
   },
@@ -612,7 +612,7 @@
   "h-nm-02": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.8975,
+    "R": 0.898,
     "D": 0.097,
     "src": "la-06-house-election-winner"
    }
@@ -659,14 +659,14 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0005,
-    "D": 0.0445,
+    "D": 0.0415,
     "src": "oh-09-house-margin-of-victory-2026"
    }
   },
   "h-oh-10": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.01,
+    "R": 0.007,
     "D": 0.004,
     "src": "oh-10-house-margin-of-victory-2026"
    }
@@ -699,7 +699,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.009,
-    "D": 0.0875,
+    "D": 0.081,
     "src": "pa-08-house-margin-of-victory-2026"
    }
   },
@@ -722,8 +722,8 @@
   "h-tx-15": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.3355,
-    "D": 0.608,
+    "R": 0.221,
+    "D": 0.6115,
     "src": "tx-15-house-margin-of-victory-2026"
    }
   },
@@ -787,19 +787,12 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0025,
-    "D": 0.0525,
+    "D": 0.0455,
     "src": "wi-03-house-margin-of-victory-2026"
    }
   }
  },
  "history": [
-  {
-   "t": 1795259184180,
-   "sk": 0.999,
-   "sp": 0.88,
-   "hk": 0.999,
-   "hp": 0.775
-  },
   {
    "t": 1795259339363,
    "sk": 0.999,
@@ -14788,6 +14781,13 @@
   },
   {
    "t": 1795567134494,
+   "sk": 0.999,
+   "sp": 0.88,
+   "hk": 0.999,
+   "hp": 0.775
+  },
+  {
+   "t": 1795567287069,
    "sk": 0.999,
    "sp": 0.88,
    "hk": 0.999,
