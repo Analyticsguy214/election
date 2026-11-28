@@ -1,5 +1,5 @@
 {
- "updatedAt": 1795874513573,
+ "updatedAt": 1795874680153,
  "control": {
   "senate": {
    "kalshi": {
@@ -170,7 +170,7 @@
     "src": "SENATEGA-26"
    },
    "polymarket": {
-    "D": 0.0025,
+    "D": 0.003,
     "src": "jon-ossoff-or-raphael-warnock-out-from-the-senate-in-2026-20260714143604317"
    }
   },
@@ -308,7 +308,7 @@
   "tx-05": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.974,
+    "R": 0.975,
     "D": 0.0005,
     "src": "tx-05-house-margin-of-victory-2026"
    }
@@ -333,7 +333,7 @@
    "kalshi": null,
    "polymarket": {
     "D": 0.0025,
-    "R": 0.0205,
+    "R": 0.0225,
     "src": "tx-30-house-margin-of-victory-2026"
    }
   },
@@ -344,7 +344,7 @@
     "src": "KXHOUSETX32-26"
    },
    "polymarket": {
-    "R": 0.5395,
+    "R": 0.54,
     "D": 0.002,
     "src": "tx-32-house-margin-of-victory-2026"
    }
@@ -445,16 +445,16 @@
   "h-ca-22": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.0315,
-    "R": 0.0365,
+    "D": 0.031,
+    "R": 0.035,
     "src": "ca-22-house-margin-of-victory-2026"
    }
   },
   "h-ca-48": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.04,
-    "R": 0.003,
+    "D": 0.0395,
+    "R": 0.0025,
     "src": "ca-48-house-margin-of-victory-2026"
    }
   },
@@ -610,7 +610,7 @@
   "h-nm-02": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.917,
+    "R": 0.9195,
     "D": 0.08,
     "src": "la-06-house-election-winner"
    }
@@ -657,7 +657,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.0005,
-    "D": 0.4825,
+    "D": 0.462,
     "src": "oh-09-house-margin-of-victory-2026"
    }
   },
@@ -688,7 +688,7 @@
   "h-pa-07": {
    "kalshi": null,
    "polymarket": {
-    "D": 0.0005,
+    "D": 0.0015,
     "R": 0.0005,
     "src": "pa-07-house-margin-of-victory-2026"
    }
@@ -696,8 +696,8 @@
   "h-pa-08": {
    "kalshi": null,
    "polymarket": {
-    "R": 0.089,
-    "D": 0.0025,
+    "R": 0.049,
+    "D": 0.0035,
     "src": "pa-08-house-margin-of-victory-2026"
    }
   },
@@ -753,7 +753,7 @@
    "kalshi": null,
    "polymarket": {
     "R": 0.01,
-    "D": 0.011,
+    "D": 0.01,
     "src": "va-01-house-margin-of-victory-2026"
    }
   },
@@ -791,13 +791,6 @@
   }
  },
  "history": [
-  {
-   "t": 1795564861469,
-   "sk": 0.999,
-   "sp": 0.88,
-   "hk": 0.999,
-   "hp": 0.775
-  },
   {
    "t": 1795565013611,
    "sk": 0.999,
@@ -14786,6 +14779,13 @@
   },
   {
    "t": 1795874513573,
+   "sk": 0.999,
+   "sp": 0.885,
+   "hk": 0.999,
+   "hp": 0.775
+  },
+  {
+   "t": 1795874680153,
    "sk": 0.999,
    "sp": 0.885,
    "hk": 0.999,
